@@ -224,7 +224,7 @@ details[open] summary::after{content:"–"}
 details p{margin-top:10px;color:var(--muted);font-size:15px}
 
 /* footer */
-footer{background:var(--navy);color:#C9C6DC;padding:64px 0 28px;font-size:15px}
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.15);color:#C9C6DC;padding:64px 0 28px;font-size:15px}
 footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
 @media(max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
 footer h4{color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
@@ -458,14 +458,14 @@ footer .logo{color:#fff}
       </div>
     </div>
   </section>
-  <section class="night">
+  <section style="padding-bottom:56px">
     <div class="wrap step">
       <div>
         <div class="over">Résultats</div>
         <h2 style="margin-top:8px">Révélés le 21.01.2027</h2>
         <p class="muted" style="margin-top:12px">Les chiffres clés du Baromètre seront présentés le jour J. Tu pourras ensuite télécharger le PDF complet ici.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
-          <button class="btn" aria-disabled="true" disabled>Télécharger le PDF · dispo le 21/01</button>
+          <button class="btn" style="opacity:.5;cursor:not-allowed" aria-disabled="true" disabled>Télécharger le PDF · dispo le 21/01</button>
         </div>
       </div>
       <div class="card" style="color:var(--navy);text-align:center">
