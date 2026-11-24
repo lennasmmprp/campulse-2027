@@ -150,7 +150,7 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 /* bannière rognée : conteneur réutilisable, réglé page par page via --ratio (rognage), --pied (bande sous l'image) et --fond */
 .banniere{aspect-ratio:var(--ratio,auto);overflow:hidden;box-sizing:content-box;padding-bottom:var(--pied,0px);background:var(--fond,transparent)}
 #v-evenement .banniere{--ratio:2.6/1;--pied:20px;--fond:var(--banniere)}
-#v-bien-manger .banniere{--ratio:20/9}
+#v-bien-manger .banniere{--ratio:5334/2167}
 #v-bien-manger .banniere .banner{height:100%;object-fit:cover;object-position:bottom}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
@@ -214,8 +214,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);bo
 /* newsletter */
 .benef{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:28px 0}
 @media(max-width:560px){.benef{grid-template-columns:1fr}}
-.benef div{background:#fff;border-radius:var(--r-card);padding:18px;box-shadow:var(--shadow)}
-.benef .ic{font-size:26px;margin-bottom:6px}
+.benef>div{background:#fff;border-radius:var(--r-card);padding:20px;box-shadow:var(--shadow)}
+.benef .ic{font-size:28px;line-height:1;margin-bottom:10px}
 .mail{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);overflow:hidden;max-width:420px}
 .mail .top{background:var(--navy);color:#fff;padding:14px 18px;font-size:13px;display:flex;justify-content:space-between}
 .mail .body{padding:22px}
