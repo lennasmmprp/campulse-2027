@@ -10,7 +10,7 @@
   --blue:#2563EB;--blue-h:#1F54C8;--blue-a:#1A45A4;--blue-l:#E5ECFD;
   --lime:#A3E635;--lime-h:#B8EC66;--lime-t:#4D7C0F;--lime-l:#F4FCE7;
   --orange:#FF6B35;--orange-h:#FF8558;--orange-t:#B24B25;--orange-l:#FFEDE7;
-  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--beige:#F3ECE0;--banniere:#6038E8;--white:#fff;
+  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--beige:#F3ECE0;--banniere:#6038E8;--banniere-ratio:2.6/1;--white:#fff;
   --muted:#5B5880;--border:#E4E1F2;--input:#C9C6DC;--dis-bg:#ECEAF5;--dis-t:#8A87A8;--err:#DC2626;
   --ft:"Inter",system-ui,sans-serif;--fb:"Poppins",system-ui,sans-serif;
   --r-in:10px;--r-card:16px;--r-pill:999px;--shadow:0 4px 16px rgba(37,31,99,.10);
@@ -146,7 +146,7 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 /* bannières pleine largeur */
 .banner{display:block;width:100%;height:auto;object-fit:cover;margin-bottom:40px}
 .banner:last-child{margin-bottom:0}
-.banner-wrap{background:var(--banniere);padding-bottom:150px}
+.banner-wrap{background:var(--banniere);aspect-ratio:var(--banniere-ratio);overflow:hidden;box-sizing:content-box;padding-bottom:20px}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
