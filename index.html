@@ -137,6 +137,19 @@ header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid 
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
+.ip{display:grid;grid-template-columns:auto 1fr;gap:72px;align-items:start}
+.ip-date{font:900 clamp(64px,9vw,104px)/.9 var(--ft);letter-spacing:-.04em;margin-top:16px}
+.ip-date span{display:block;font-size:.45em;letter-spacing:-.02em;margin-top:8px;color:#C9C6DC}
+.ip-day{font:700 14px var(--fb);text-transform:uppercase;letter-spacing:.2em;color:var(--lime);margin-top:20px}
+.ip-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 48px;margin-top:6px}
+.ip-grid dt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:#C9C6DC}
+.ip-grid dd{margin-top:10px;font-weight:700;font-size:18px;line-height:1.4}
+.pill{display:inline-block;font:600 13px/1 var(--fb);padding:7px 12px;border-radius:var(--r-pill);background:rgba(255,255,255,.12);color:#fff}
+.pill--lime{background:var(--lime);color:var(--navy)}
+.ip-foot{margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,.18);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.ip-foot p{max-width:640px}
+@media(max-width:860px){.ip{grid-template-columns:1fr;gap:40px}}
+@media(max-width:520px){.ip-grid{grid-template-columns:1fr}}
 
 /* animations */
 .univ{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
@@ -316,18 +329,25 @@ footer .logo{color:#fff}
       </div>
     </div>
   </section>
-  <section class="lav">
-    <div class="wrap grid g2" style="align-items:start">
-      <div><div class="over">Infos pratiques</div><h2 style="margin-top:8px">Le 21 janvier, on t'attend</h2><p class="muted" style="margin-top:12px">Tu viens sur place&nbsp;? Toutes les infos pour venir sont ici. Tu suis à distance&nbsp;? Les résultats du Baromètre seront en ligne sur cette page le jour même. Les infos seront complétées dès que le programme est validé.</p></div>
-      <div class="card">
-        <div class="info-row"><span>Date</span><b>Jeudi 21 janvier 2027</b></div>
-        <div class="info-row"><span>Lieu</span><b>À confirmer</b></div>
-        <div class="info-row"><span>Horaires</span><b>À confirmer</b></div>
-        <div class="info-row"><span>Programme</span><b>À venir</b></div>
-        <div class="info-row"><span>Accessibilité PMR</span><b>Oui</b></div>
-        <div class="info-row"><span>Baromètre</span><b>Téléchargeable ici le 21.01</b></div>
-        <p class="small" style="margin-top:16px;padding:14px 16px;background:var(--lav);border-left:4px solid var(--blue);border-radius:8px;color:var(--navy)">Tu es à Pontoise, Enghien-les-Bains, Rambouillet ou Saint-Germain-en-Laye et tu ne peux pas te déplacer le 21 janvier&nbsp;? Les résultats complets du Baromètre seront téléchargeables sur cette page le jour même.</p>
-        <a class="btn btn--primary" style="margin-top:16px" href="#" onclick="note('Ajout à l\'agenda : à brancher');return false">Ajouter à mon agenda</a>
+  <section class="night" style="border-bottom:1px solid var(--navy-h)">
+    <div class="wrap">
+      <div class="ip">
+        <div>
+          <div class="over">Infos pratiques</div>
+          <div class="ip-date">21.01<span>2027</span></div>
+          <div class="ip-day">Jeudi</div>
+        </div>
+        <dl class="ip-grid">
+          <div><dt>Lieu</dt><dd><span class="pill">À confirmer</span></dd></div>
+          <div><dt>Horaires</dt><dd><span class="pill">À confirmer</span></dd></div>
+          <div><dt>Programme</dt><dd><span class="pill">À venir</span></dd></div>
+          <div><dt>Accessibilité PMR</dt><dd><span class="pill pill--lime">Oui</span></dd></div>
+          <div><dt>Baromètre</dt><dd>Téléchargeable ici le 21.01</dd></div>
+        </dl>
+      </div>
+      <div class="ip-foot">
+        <p class="muted small">Étudiants de Pontoise, Enghien-les-Bains, Rambouillet et Saint-Germain-en-Laye&nbsp;: si vous ne pouvez pas vous déplacer, les résultats complets du Baromètre seront téléchargeables sur cette page le 21 janvier.</p>
+        <a class="btn btn--white" href="#" onclick="note('Ajout à l\'agenda : à brancher');return false">Ajouter à mon agenda</a>
       </div>
     </div>
   </section>
