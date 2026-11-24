@@ -258,7 +258,6 @@ footer .logo{color:#fff}
           <div style="display:flex;justify-content:space-between;font-size:14px"><b><span class="cnt" data-to="0">0</span> réponses</b><span class="muted">objectif 2 387</span></div>
           <div class="prog"><i data-w="0"></i></div>
         </div>
-        <span class="todo">En attente de la bonne data concernant le nombre de réponses souhaitées et la date de fin du formulaire</span>
       </div>
       <div>
         <img class="masc" src="assets/foot.png" alt="Milo et Kilo qui courent après un ballon de foot">
@@ -658,7 +657,6 @@ footer .logo{color:#fff}
   </div>
 </footer>
 
-<div class="badge-v">V2 · MAQUETTE</div>
 <div id="toast" style="position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--navy);color:#fff;padding:14px 22px;border-radius:999px;font-weight:600;font-size:14px;transition:.3s;z-index:99;opacity:0;pointer-events:none"></div>
 
 <script>
@@ -730,6 +728,18 @@ renderS('Paris');
 /* forms */
 function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}document.getElementById(ok).style.display='block';f.reset()})}
 bindForm('nlForm','nlOk');bindForm('ctForm','ctOk');
+
+/* jauge réponses */
+const JAUGE_URL='https://script.google.com/macros/s/AKfycbydFbEGARescpT190GBxDdiLn_A3KnngSLNg_CbiEWoK0E43a4BgRAwAJHA6dIFduye/exec';
+function jauge(){
+  if(!JAUGE_URL) return;
+  fetch(JAUGE_URL,{cache:'no-store'}).then(r=>r.json()).then(d=>{
+    const n=+d.reponses||0, o=+d.objectif||0, w=o?Math.min(100,n/o*100):0;
+    document.querySelectorAll('.cnt').forEach(c=>c.textContent=n.toLocaleString('fr-FR'));
+    document.querySelectorAll('.prog i').forEach(i=>{i.dataset.w=w;i.style.width=w+'%'});
+  }).catch(()=>{});
+}
+jauge();setInterval(jauge,60000);
 
 route();
 </script>
