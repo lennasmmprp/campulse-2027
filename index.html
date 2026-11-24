@@ -137,6 +137,8 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 /* bannières pleine largeur */
 .banner{display:block;width:100%;height:auto;object-fit:cover;margin-bottom:40px}
 .banner:last-child{margin-bottom:0}
+.banner--full{height:calc(100vh - 72px);min-height:500px;object-position:center;margin:0}
+@media(max-width:900px){.banner--full{height:60vh;min-height:0;object-position:80% center}}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
@@ -320,7 +322,7 @@ footer .logo{color:#fff}
 <!-- ================= EVENEMENT ================= -->
 <div class="view" id="v-evenement">
   <section class="lav" style="padding:0">
-    <img class="banner" src="assets/CAMPULSE_banniere_evenement.png" alt="Bannière L'événement CAMPULSE">
+    <img class="banner banner--full" src="assets/CAMPULSE_banniere_evenement.png" alt="Bannière L'événement CAMPULSE">
   </section>
   <section>
     <div class="wrap">
