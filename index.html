@@ -10,7 +10,7 @@
   --blue:#2563EB;--blue-h:#1F54C8;--blue-a:#1A45A4;--blue-l:#E5ECFD;
   --lime:#A3E635;--lime-h:#B8EC66;--lime-t:#4D7C0F;--lime-l:#F4FCE7;
   --orange:#FF6B35;--orange-h:#FF8558;--orange-t:#B24B25;--orange-l:#FFEDE7;
-  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--beige:#F3ECE0;--white:#fff;
+  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--beige:#F3ECE0;--banniere:#6038E8;--white:#fff;
   --muted:#5B5880;--border:#E4E1F2;--input:#C9C6DC;--dis-bg:#ECEAF5;--dis-t:#8A87A8;--err:#DC2626;
   --ft:"Inter",system-ui,sans-serif;--fb:"Poppins",system-ui,sans-serif;
   --r-in:10px;--r-card:16px;--r-pill:999px;--shadow:0 4px 16px rgba(37,31,99,.10);
@@ -87,7 +87,7 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .links{display:flex;align-items:center;gap:4px;list-style:none}
 .links a{font-weight:500;font-size:15px;text-decoration:none;color:var(--navy);padding:10px 12px;border-radius:8px;white-space:nowrap}
 .links a:hover{background:var(--lav)}
-.links a.on{color:var(--blue);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
+.links a.on{color:var(--blue);}
 .links .btn{margin-left:8px;padding:0 20px;color:var(--navy)}
 .burger{display:none;width:44px;height:44px;border:0;background:var(--lav);border-radius:10px;cursor:pointer;color:var(--navy)}
 @media(max-width:1100px){
@@ -104,10 +104,19 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* hero index */
-.hero{background:var(--lav);padding:56px 0 72px;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero{background:var(--lav);padding:26px 0 56px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}
 @media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:32px}}
-.hero .masc{max-width:420px;margin:0 auto;filter:drop-shadow(0 12px 24px rgba(37,31,99,.12))}
+@media(max-width:900px){.hero{padding-top:24px}}
+.hero .masc{max-width:295px;margin:0 auto;filter:drop-shadow(0 12px 24px rgba(37,31,99,.12))}
+.hero .stats{display:flex;gap:0;margin:24px 0 20px}
+.hero .stat{background:none;box-shadow:none;border-radius:0;padding:0 28px;border-left:1px solid var(--border)}
+.hero .stat:first-child{padding-left:0;border-left:0}
+.hero .stat span{display:block;margin-top:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em}
+.hero-gauge{border-top:1px solid var(--border);padding-top:18px}
+.hero-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.hero .form-card{background:var(--lav);box-shadow:none;padding:24px}
+.hero .kk span{background:var(--white)}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
 .stat{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);padding:18px 20px}
 .stat b{display:block;font-family:var(--ft);font-weight:900;font-size:36px;line-height:1;letter-spacing:-.02em}
@@ -137,8 +146,7 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 /* bannières pleine largeur */
 .banner{display:block;width:100%;height:auto;object-fit:cover;margin-bottom:40px}
 .banner:last-child{margin-bottom:0}
-.banner--full{height:calc(100vh - 72px);min-height:500px;object-position:center;margin:0}
-@media(max-width:900px){.banner--full{height:60vh;min-height:0;object-position:80% center}}
+.banner-wrap{background:var(--banniere);padding-bottom:150px}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
@@ -226,6 +234,31 @@ footer .logo{color:#fff}
 .legal{border-top:1px solid var(--navy-h);margin-top:40px;padding-top:20px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .badge-v{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--navy);color:#fff;font:700 11px var(--fb);letter-spacing:.1em;padding:8px 12px;border-radius:var(--r-pill)}
 @media(max-width:700px){.badge-v{display:none}}
+/* ===== micro-interactions ===== */
+.btn{transition:background-color .15s,color .15s,transform .15s,box-shadow .15s}
+.btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.u,.tl .card,.grid>.card:not(form){transition:transform .2s,box-shadow .2s}
+.u{overflow:hidden}
+.u.bouger{--uc:var(--u-bouger)}.u.detendre{--uc:var(--u-detendre)}.u.challenge{--uc:var(--u-challenge)}.u.habitudes{--uc:var(--u-habitudes)}
+.u:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(37,31,99,.16),inset 4px 0 0 var(--uc)}
+.tl .card:hover,.grid>.card:not(form):hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(37,31,99,.16)}
+.u img{transition:transform .2s}
+.u:hover img{transform:scale(1.04)}
+.links a:not(.btn){position:relative}
+.links a:not(.btn)::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.links a.on::after,.links a:not(.btn):hover::after{transform:scaleX(1)}
+.stat b{transition:color .2s}
+.stat:hover b{color:var(--blue)}
+/* apparition au scroll : classes posées par JS uniquement, contenu visible sans JS */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;transition-delay:var(--d,0ms)}
+.rv.rv-fade{transform:none}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .btn:hover,.u:hover,.u:hover img,.tl .card:hover,.grid>.card:hover{transform:none!important}
+  .rv{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -272,9 +305,13 @@ footer .logo{color:#fff}
           <div class="stat"><b>2 387</b><span>réponses souhaitées</span></div>
           <div class="stat"><b>18.12</b><span>fin du formulaire</span></div>
         </div>
-        <div class="card" style="padding:18px 20px">
+        <div class="hero-gauge">
           <div style="display:flex;justify-content:space-between;font-size:14px"><b><span class="cnt" data-to="0">0</span> réponses</b><span class="muted">objectif 2 387</span></div>
           <div class="prog"><i data-w="0"></i></div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn--primary btn--lg" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener">Je réponds au questionnaire</a>
+          <span class="muted small">Anonyme · 5 minutes</span>
         </div>
       </div>
       <div>
@@ -283,7 +320,7 @@ footer .logo{color:#fff}
           <div class="over">Le formulaire</div>
           <h3 style="margin-top:6px">Tu es plutôt Kilo ou Milo&nbsp;?</h3>
           <p class="muted small" style="margin-top:6px">Réponds au questionnaire : anonyme, 5 minutes, et à la fin tu reçois un mail qui te dit quelle mascotte tu es.</p>
-          <a class="btn btn--primary btn--lg btn-full" style="margin-top:18px;width:100%" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener">Je réponds au questionnaire</a>
+          <a class="btn btn--secondary btn-full" style="margin-top:18px;width:100%" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener">Je réponds au questionnaire</a>
           <div class="kk"><span>1</span>Tu réponds <span>2</span>Tu reçois ton profil <span>3</span>Résultats le 21/01</div>
         </div>
       </div>
@@ -306,15 +343,6 @@ footer .logo{color:#fff}
         <a href="#animations" class="u habitudes" style="text-decoration:none" onclick="setFilter('habitudes')"><img src="assets/repos.png" alt=""><h4>Bonnes habitudes</h4><p class="muted small">Tips santé, recettes healthy</p></a>
       </div>
       <p style="margin-top:20px"><a class="link" href="#animations">Voir toutes les animations</a></p>
-      <span class="todo">À voir avec Animation : quelle animation sera mise en place via le site, s'il y en a</span>
-    </div>
-  </section>
-
-  <section class="lav">
-    <div class="wrap">
-      <div class="head"><div class="over">Ils nous soutiennent</div><h2 style="margin-top:8px">Nos partenaires</h2></div>
-      <div class="logos"><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div></div>
-      <span class="todo">À voir avec Animation : partenaires sélectionnés à ce jour</span>
     </div>
   </section>
 </div>
@@ -322,7 +350,7 @@ footer .logo{color:#fff}
 <!-- ================= EVENEMENT ================= -->
 <div class="view" id="v-evenement">
   <section class="lav" style="padding:0">
-    <img class="banner banner--full" src="assets/CAMPULSE_banniere_evenement.png" alt="Bannière L'événement CAMPULSE">
+    <div class="banner-wrap"><img class="banner" src="assets/CAMPULSE_banniere_evenement.png" alt="Bannière L'événement CAMPULSE"></div>
   </section>
   <section>
     <div class="wrap">
@@ -716,13 +744,10 @@ function route(){
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+h));
   document.querySelectorAll('.links a:not(.btn)').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));
   document.querySelector('.links').classList.remove('open');
-  window.scrollTo(0,0); anim();
+  window.scrollTo(0,0);
 }
 addEventListener('hashchange',route);
 function goForm(){setTimeout(()=>{const f=document.getElementById('formulaire');if(f)f.scrollIntoView({behavior:'smooth',block:'center'})},80)}
-function anim(){
-  document.querySelectorAll('.view.on .prog i').forEach(i=>{i.style.width='0';setTimeout(()=>i.style.width=i.dataset.w+'%',60)});
-}
 let tt;function note(m){const t=document.getElementById('toast');t.textContent=m;t.style.transform='translate(-50%,0)';t.style.opacity=1;clearTimeout(tt);tt=setTimeout(()=>{t.style.transform='translate(-50%,140%)';t.style.opacity=0},2400)}
 
 function days(){const d=Math.max(0,Math.ceil((new Date('2027-01-21T09:00:00+01:00')-new Date())/864e5));const el=document.getElementById('dDays');if(el)el.textContent=d}
@@ -786,12 +811,37 @@ function jauge(){
   fetch(JAUGE_URL,{cache:'no-store'}).then(r=>r.json()).then(d=>{
     const n=+d.reponses||0, o=+d.objectif||0, w=o?Math.min(100,n/o*100):0;
     document.querySelectorAll('.cnt').forEach(c=>c.textContent=n.toLocaleString('fr-FR'));
-    document.querySelectorAll('.prog i').forEach(i=>{i.dataset.w=w;i.style.width=w+'%'});
+    document.querySelectorAll('.prog i').forEach(i=>{i.dataset.w=w;if(i.parentNode.dataset.seen)i.style.width=w+'%'});
   }).catch(()=>{});
 }
 jauge();setInterval(jauge,60000);
 
 route();
+</script>
+<script>
+/* apparition au scroll : une seule fois par élément, rien si prefers-reduced-motion */
+(()=>{
+  const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+  const count=b=>{const end=+b.dataset.end,t0=performance.now();
+    const step=t=>{const p=Math.min(1,(t-t0)/1200);b.textContent=fmt(Math.round(end*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(step);else b.textContent=b.dataset.txt};
+    requestAnimationFrame(step)};
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target; io.unobserve(el);
+    if(el.classList.contains('prog')){el.dataset.seen=1;const i=el.firstElementChild;i.style.width=i.dataset.w+'%';return}
+    if(el.dataset.end){count(el);return}
+    el.classList.add('in');
+    const done=ev=>{if(ev.target!==el||ev.propertyName!=='opacity')return;el.removeEventListener('transitionend',done);el.classList.remove('rv','rv-fade','in');el.style.removeProperty('--d')};
+    el.addEventListener('transitionend',done);
+  }),{threshold:.15});
+  document.querySelectorAll('.prog').forEach(p=>io.observe(p));
+  if(calm) return;
+  document.querySelectorAll('section h2, section .head').forEach(el=>{if(!el.closest('.head')||el.matches('.head')){el.classList.add('rv');io.observe(el)}});
+  document.querySelectorAll('.banner').forEach(el=>{el.classList.add('rv','rv-fade');io.observe(el)});
+  document.querySelectorAll('.grid,.univ,.tl').forEach(g=>[...g.children].filter(c=>c.matches('.card:not(form),.u,.win')).forEach((c,k)=>{c.classList.add('rv');c.style.setProperty('--d',k*80+'ms');io.observe(c)}));
+  document.querySelectorAll('.stat b').forEach(b=>{const t=b.textContent.trim();if(!/^\d[\d\s]*$/.test(t))return;b.dataset.txt=t;b.dataset.end=t.replace(/\s/g,'');b.textContent='0';io.observe(b)});
+})();
 </script>
 </body>
 </html>
