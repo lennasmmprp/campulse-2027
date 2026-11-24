@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAMPULSE 2027 – Site V1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,800..900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563EB;--blue-h:#1F54C8;--blue-a:#1A45A4;--blue-l:#E5ECFD;
+  --lime:#A3E635;--lime-h:#B8EC66;--lime-t:#4D7C0F;--lime-l:#F4FCE7;
+  --orange:#FF6B35;--orange-h:#FF8558;--orange-t:#B24B25;--orange-l:#FFEDE7;
+  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--white:#fff;
+  --muted:#5B5880;--border:#E4E1F2;--input:#C9C6DC;--dis-bg:#ECEAF5;--dis-t:#8A87A8;--err:#DC2626;
+  --ft:"Inter",system-ui,sans-serif;--fb:"Poppins",system-ui,sans-serif;
+  --r-in:10px;--r-card:16px;--r-pill:999px;--shadow:0 4px 16px rgba(37,31,99,.10);
+  /* univers */
+  --u-bouger:#FF6B35;--u-detendre:#2563EB;--u-challenge:#A3E635;--u-habitudes:#8B5CF6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);font-size:16px;line-height:1.6;color:var(--navy);background:#fff;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+@media(max-width:700px){.wrap{padding:0 16px}}
+h1,h2,.display{font-family:var(--ft);font-weight:800;font-optical-sizing:auto;letter-spacing:-.015em;line-height:1.1}
+.display{font-weight:900;font-size:clamp(40px,6vw,64px);line-height:1;letter-spacing:-.02em}
+h1{font-size:clamp(32px,4.5vw,48px)}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.15}
+h3{font-family:var(--fb);font-weight:600;font-size:clamp(20px,2vw,24px);line-height:1.3}
+h4{font-family:var(--fb);font-weight:500;font-size:18px;line-height:1.4}
+.over{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--blue)}
+.muted{color:var(--muted)}
+.small{font-size:14px;line-height:1.5}
+section{padding:96px 0}
+@media(max-width:700px){section{padding:64px 0}}
+.lav{background:var(--lav)}
+.night{background:var(--navy);color:#fff}
+.night .muted{color:#C9C6DC}
+.night .over{color:var(--lime)}
+.head{max-width:680px;margin-bottom:40px}
+.head p{margin-top:12px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 16px/1 var(--fb);height:48px;padding:0 24px;border-radius:var(--r-pill);border:2px solid transparent;cursor:pointer;text-decoration:none;transition:background-color .15s,color .15s;white-space:nowrap}
+.btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.night .btn:focus-visible{outline-color:var(--lime)}
+.btn--primary{background:var(--blue);color:#fff}.btn--primary:hover{background:var(--blue-h)}.btn--primary:active{background:var(--blue-a)}
+.btn--action{background:var(--orange);color:var(--navy)}.btn--action:hover{background:var(--orange-h)}.btn--action:active{transform:translateY(1px)}
+.btn--reward{background:var(--lime);color:var(--navy)}.btn--reward:hover{background:var(--lime-h)}
+.btn--secondary{background:#fff;color:var(--blue);border-color:var(--blue)}.btn--secondary:hover{background:var(--blue-l)}
+.btn--white{background:#fff;color:var(--navy)}.btn--white:hover{background:var(--lav)}
+.btn--ghost-w{background:transparent;color:#fff;border-color:#fff}.btn--ghost-w:hover{background:rgba(255,255,255,.1)}
+.btn--lg{height:56px;padding:0 32px;font-size:18px}
+.btn--sm{height:36px;padding:0 16px;font-size:14px}
+.btn:disabled,.btn[aria-disabled=true]{background:var(--dis-bg);color:var(--dis-t);border-color:transparent;cursor:not-allowed}
+.link{color:var(--blue);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:700px){.btn--sm{height:44px}.btn-full{width:100%}}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;font:700 12px/1 var(--fb);text-transform:uppercase;letter-spacing:.06em;padding:6px 10px;border-radius:var(--r-pill)}
+.t-bouger{background:var(--orange-l);color:var(--orange-t)}
+.t-detendre{background:var(--blue-l);color:var(--blue)}
+.t-challenge{background:var(--lime-l);color:var(--lime-t)}
+.t-habitudes{background:#F1ECFE;color:#5B3BBF}
+.t-neutral{background:var(--lav);color:var(--navy)}
+.night .t-neutral{background:var(--navy-h);color:#fff}
+
+/* cards */
+.card{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);padding:24px}
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:960px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.ph{border:2px dashed var(--input);border-radius:var(--r-card);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--dis-t);font-size:14px;font-weight:500;padding:16px;min-height:96px;background:#fff}
+.todo{display:inline-block;font-size:12.5px;font-weight:500;color:var(--orange-t);background:var(--orange-l);border-radius:8px;padding:4px 10px;margin-top:10px}
+.night .todo{background:rgba(255,107,53,.18);color:#FFB79C}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.logo{display:inline-flex;align-items:center;font-family:var(--ft);font-weight:900;font-size:28px;letter-spacing:-.01em;color:var(--navy);text-decoration:none;line-height:1}
+.logo svg{width:36px;height:32px;margin:0 1px}
+.links{display:flex;align-items:center;gap:4px;list-style:none}
+.links a{font-weight:500;font-size:15px;text-decoration:none;color:var(--navy);padding:10px 12px;border-radius:8px;white-space:nowrap}
+.links a:hover{background:var(--lav)}
+.links a.on{color:var(--blue);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
+.links .btn{margin-left:8px;padding:0 20px;color:var(--navy)}
+.burger{display:none;width:44px;height:44px;border:0;background:var(--lav);border-radius:10px;cursor:pointer;color:var(--navy)}
+@media(max-width:1100px){
+  .burger{display:inline-flex;align-items:center;justify-content:center}
+  .links{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;padding:12px 16px 20px;border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+  .links.open{display:flex}
+  .links a{padding:14px 12px}
+  .links .btn{margin:8px 0 0}
+}
+
+/* views */
+.view{display:none}
+.view.on{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* hero index */
+.hero{background:var(--lav);padding:56px 0 72px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+@media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+.hero .masc{max-width:420px;margin:0 auto;filter:drop-shadow(0 12px 24px rgba(37,31,99,.12))}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.stat{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);padding:18px 20px}
+.stat b{display:block;font-family:var(--ft);font-weight:900;font-size:36px;line-height:1;letter-spacing:-.02em}
+.stat span{font-size:14px;color:var(--muted)}
+.prog{height:12px;background:var(--border);border-radius:var(--r-pill);overflow:hidden;margin-top:12px}
+.prog i{display:block;height:100%;width:0;background:var(--blue);border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.form-card{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);padding:28px;border-top:6px solid var(--blue)}
+.kk{display:flex;gap:10px;align-items:center;margin-top:16px;font-size:14px;color:var(--muted)}
+.kk span{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--lav);font-weight:700;color:var(--navy);font-size:13px}
+
+/* campus band */
+.campus{background:var(--navy);color:#fff;padding:28px 0}
+.campus .row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;align-items:center}
+.campus .row b{font-family:var(--ft);font-weight:800;font-size:clamp(18px,2.2vw,24px);letter-spacing:-.01em}
+.campus .row i{width:8px;height:8px;border-radius:50%;background:var(--lime);display:inline-block}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media(max-width:820px){.tl{grid-template-columns:1fr}}
+.tl .card{border-top:6px solid var(--blue)}
+.tl .card.hl{border-top-color:var(--orange)}
+.tl ul{list-style:none;margin-top:12px}
+.tl li{padding:8px 0;border-top:1px solid var(--border);font-size:15px}
+.date{font-weight:700;font-size:14px;color:var(--muted)}
+
+/* infos */
+.info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);font-size:15px}
+.info-row:last-child{border-bottom:0}
+.info-row span:first-child{color:var(--muted)}
+
+/* animations */
+.univ{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media(max-width:900px){.univ{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.u{border-radius:var(--r-card);padding:20px;background:#fff;box-shadow:var(--shadow);border-left:6px solid}
+.u.bouger{border-color:var(--u-bouger)}.u.detendre{border-color:var(--u-detendre)}.u.challenge{border-color:var(--u-challenge)}.u.habitudes{border-color:var(--u-habitudes)}
+.u img{height:110px;width:auto;margin:-4px 0 8px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 28px}
+.chip{height:44px;padding:0 18px;border-radius:var(--r-pill);border:2px solid var(--border);background:#fff;font:600 14px var(--fb);color:var(--navy);cursor:pointer}
+.chip:hover{border-color:var(--blue)}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.anim{display:flex;flex-direction:column;gap:10px}
+.anim .tags{display:flex;gap:6px;flex-wrap:wrap}
+.anim .meta{margin-top:auto;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted)}
+.anim .meta b{color:var(--navy);font-weight:600}
+.step{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media(max-width:860px){.step{grid-template-columns:1fr}}
+.steps{list-style:none;counter-reset:s;margin:24px 0}
+.steps li{position:relative;padding:0 0 18px 52px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--lime);color:var(--navy);font-weight:700;display:flex;align-items:center;justify-content:center}
+.win{background:var(--lime-l);border:2px solid var(--lime);border-radius:var(--r-card);padding:20px;color:var(--navy)}
+.night .win{background:rgba(163,230,53,.12);color:#fff}
+
+/* partners */
+.logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.logos .ph{min-height:96px}
+
+/* recipes / spots */
+.recipe .thumb{height:150px;border-radius:12px;background:var(--lav);display:flex;align-items:center;justify-content:center;font-size:52px;margin-bottom:16px}
+.recipe .meta{display:flex;gap:14px;font-size:14px;color:var(--muted);margin:6px 0 16px}
+.spot{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.price{font-weight:700;color:var(--blue);white-space:nowrap}
+
+/* forms */
+label{display:block;font-weight:500;font-size:14px;margin:16px 0 6px}
+input,select,textarea{width:100%;height:48px;padding:0 14px;border-radius:var(--r-in);border:1.5px solid var(--input);font:400 16px var(--fb);color:var(--navy);background:#fff}
+textarea{height:auto;padding:12px 14px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l)}
+.cb{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14px;color:var(--muted)}
+.cb input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--blue)}
+.alert{display:none;margin-top:16px;padding:14px 16px;border-radius:var(--r-in);font-size:14px;font-weight:500}
+.alert.ok{display:block;background:var(--lime-l);color:var(--lime-t);border:1.5px solid var(--lime)}
+
+/* newsletter */
+.benef{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:28px 0}
+@media(max-width:560px){.benef{grid-template-columns:1fr}}
+.benef div{background:#fff;border-radius:var(--r-card);padding:18px;box-shadow:var(--shadow)}
+.benef .ic{font-size:26px;margin-bottom:6px}
+.mail{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);overflow:hidden;max-width:420px}
+.mail .top{background:var(--navy);color:#fff;padding:14px 18px;font-size:13px;display:flex;justify-content:space-between}
+.mail .body{padding:22px}
+.mail .line{height:10px;border-radius:6px;background:var(--border);margin:10px 0}
+
+/* faq */
+details{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);padding:18px 22px;margin-bottom:12px}
+summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";font-weight:700;color:var(--blue)}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--muted);font-size:15px}
+
+/* footer */
+footer{background:var(--navy);color:#C9C6DC;padding:64px 0 28px;font-size:15px}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+@media(max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
+footer h4{color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+footer a{display:block;text-decoration:none;padding:4px 0}
+footer a:hover{color:var(--lime)}
+footer .logo{color:#fff}
+.legal{border-top:1px solid var(--navy-h);margin-top:40px;padding-top:20px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.badge-v{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--navy);color:#fff;font:700 11px var(--fb);letter-spacing:.1em;padding:8px 12px;border-radius:var(--r-pill)}
+@media(max-width:700px){.badge-v{display:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="heart" viewBox="0 0 48 42">
+      <path d="M24 41 4.5 22.4C-1.6 16.4-.6 6.6 6.4 2.4 11.7-.8 18.6.6 22.4 5.4L24 7.4l1.6-2C29.4.6 36.3-.8 41.6 2.4c7 4.2 8 14 1.9 20Z" fill="#2563EB"/>
+      <path d="M2 21h11l3.5-7 5 15 4.5-19 4 11h16" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#index" aria-label="CAMPULSE, retour à l'accueil">CAMP<svg><use href="#heart"/></svg>LSE</a>
+    <button class="burger" aria-label="Ouvrir le menu" onclick="document.querySelector('.links').classList.toggle('open')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="links">
+      <li><a href="#evenement">L'événement</a></li>
+      <li><a href="#barometre">Baromètre</a></li>
+      <li><a href="#animations">Animations</a></li>
+      <li><a href="#partenaires">Partenaires</a></li>
+      <li><a href="#bien-manger">Bien manger</a></li>
+      <li><a href="#pulse">12h PULSE</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="btn btn--action" href="#index" onclick="goForm()">Je participe →</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= INDEX ================= -->
+<div class="view" id="v-index">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="over">Baromètre du sport · CAMPULSE 2027</div>
+        <h1 class="display" style="margin-top:12px">La forme, la flemme et toi&nbsp;?</h1>
+        <p class="muted" style="font-size:18px;margin-top:16px;max-width:520px">5 minutes pour dire comment tu bouges vraiment. Tes réponses seront dévoilées le 21 janvier 2027.</p>
+        <div class="stats">
+          <div class="stat"><b>2 387</b><span>réponses souhaitées</span></div>
+          <div class="stat"><b>18.12</b><span>fin du formulaire</span></div>
+        </div>
+        <div class="card" style="padding:18px 20px">
+          <div style="display:flex;justify-content:space-between;font-size:14px"><b><span class="cnt" data-to="0">0</span> réponses</b><span class="muted">objectif 2 387</span></div>
+          <div class="prog"><i data-w="0"></i></div>
+        </div>
+        <span class="todo">En attente de la bonne data concernant le nombre de réponses souhaitées et la date de fin du formulaire</span>
+      </div>
+      <div>
+        <img class="masc" src="assets/foot.png" alt="Milo et Kilo qui courent après un ballon de foot">
+        <div class="form-card" id="formulaire" style="margin-top:-12px;position:relative">
+          <div class="over">Le formulaire</div>
+          <h3 style="margin-top:6px">Tu es plutôt Kilo ou Milo&nbsp;?</h3>
+          <p class="muted small" style="margin-top:6px">Réponds au questionnaire : anonyme, 5 minutes, et à la fin tu reçois un mail qui te dit quelle mascotte tu es.</p>
+          <a class="btn btn--primary btn--lg btn-full" style="margin-top:18px;width:100%" href="#" onclick="note('Lien du Google Form à ajouter');return false">Je réponds au questionnaire</a>
+          <div class="kk"><span>1</span>Tu réponds <span>2</span>Tu reçois ton profil <span>3</span>Résultats le 21/01</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="campus" aria-label="Campus participants">
+    <div class="wrap row">
+      <b>Paris</b><i></i><b>Pontoise</b><i></i><b>Enghien-les-Bains</b><i></i><b>Rambouillet</b><i></i><b>Saint-Germain-en-Laye</b>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><div class="over">Avant, pendant, après</div><h2 style="margin-top:8px">CAMPULSE, c'est aussi des animations</h2></div>
+      <div class="univ">
+        <a href="#animations" class="u bouger" style="text-decoration:none" onclick="setFilter('bouger')"><img src="assets/muscu.png" alt=""><h4>Bouger</h4><p class="muted small">Marelle géante, échauffement collectif</p></a>
+        <a href="#animations" class="u detendre" style="text-decoration:none" onclick="setFilter('detendre')"><img src="assets/etirements.png" alt=""><h4>Se détendre</h4><p class="muted small">Atelier respiration, étirements guidés</p></a>
+        <a href="#animations" class="u challenge" style="text-decoration:none" onclick="setFilter('challenge')"><img src="assets/boxe.png" alt=""><h4>Se challenger</h4><p class="muted small">Challenge StepUp entre campus</p></a>
+        <a href="#animations" class="u habitudes" style="text-decoration:none" onclick="setFilter('habitudes')"><img src="assets/repos.png" alt=""><h4>Bonnes habitudes</h4><p class="muted small">Tips santé, recettes healthy</p></a>
+      </div>
+      <p style="margin-top:20px"><a class="link" href="#animations">Voir toutes les animations</a></p>
+      <span class="todo">À voir avec Animation : quelle animation sera mise en place via le site, s'il y en a</span>
+    </div>
+  </section>
+
+  <section class="lav">
+    <div class="wrap">
+      <div class="head"><div class="over">Ils nous soutiennent</div><h2 style="margin-top:8px">Nos partenaires</h2></div>
+      <div class="logos"><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div><div class="ph">Logo partenaire</div></div>
+      <span class="todo">À voir avec Animation : partenaires sélectionnés à ce jour</span>
+    </div>
+  </section>
+</div>
+
+<!-- ================= EVENEMENT ================= -->
+<div class="view" id="v-evenement">
+  <section class="lav" style="padding-bottom:64px">
+    <div class="wrap step">
+      <div>
+        <div class="over">Jeudi 21 janvier 2027</div>
+        <h1 style="margin-top:10px">L'événement</h1>
+        <p class="muted" style="font-size:18px;margin-top:14px;max-width:560px">Un projet porté par les étudiants de M2 de Sup de V pour comprendre comment notre génération bouge, et lui donner envie de bouger plus. Comprendre la jeunesse, c'est écouter son rythme.</p>
+      </div>
+      <img src="assets/basket.png" alt="Milo et Kilo au basket" style="max-width:340px;margin:0 auto">
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="head"><h2>Avant, Jour J, après</h2></div>
+      <div class="tl">
+        <div class="card"><div class="over">Avant</div><h3 style="margin:6px 0 2px">On donne envie</h3><div class="date">23/11 → 20/01</div><ul><li>Questions et tips santé</li><li>Atelier respiration en classe</li><li>Inscriptions StepUp</li><li>Playlists dans le 12h PULSE</li></ul></div>
+        <div class="card hl"><div class="over" style="color:var(--orange-t)">Jour J</div><h3 style="margin:6px 0 2px">On fait participer</h3><div class="date">Jeudi 21/01</div><ul><li>Résultats du Baromètre</li><li>Échauffement en amphi</li><li>Marelle géante, étirements guidés</li><li>Classement StepUp en direct</li></ul></div>
+        <div class="card"><div class="over">Après</div><h3 style="margin:6px 0 2px">On prolonge</h3><div class="date">22/01 → 04/02</div><ul><li>Résultats StepUp le 04/02</li><li>Recettes et tips</li><li>Best-of photos et vidéos</li></ul></div>
+      </div>
+    </div>
+  </section>
+  <section class="lav">
+    <div class="wrap grid g2" style="align-items:start">
+      <div><div class="over">Infos pratiques</div><h2 style="margin-top:8px">Le 21 janvier, on t'attend</h2><p class="muted" style="margin-top:12px">Toutes les infos pour venir. Elles seront complétées dès que le programme est validé.</p></div>
+      <div class="card">
+        <div class="info-row"><span>Date</span><b>Jeudi 21 janvier 2027</b></div>
+        <div class="info-row"><span>Lieu</span><b>À confirmer</b></div>
+        <div class="info-row"><span>Horaires</span><b>À confirmer</b></div>
+        <div class="info-row"><span>Programme</span><b>À venir</b></div>
+        <div class="info-row"><span>Accessibilité PMR</span><b>Oui</b></div>
+        <a class="btn btn--primary" style="margin-top:16px" href="#" onclick="note('Ajout à l\'agenda : à brancher');return false">Ajouter à mon agenda</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= BAROMETRE ================= -->
+<div class="view" id="v-barometre">
+  <section class="lav">
+    <div class="wrap step">
+      <div>
+        <div class="over">Le Baromètre du sport</div>
+        <h1 style="margin-top:10px">5 minutes pour faire parler ta génération</h1>
+        <p class="muted" style="font-size:18px;margin-top:14px">Un questionnaire anonyme sur ta pratique du sport : ce que tu fais, ce qui te freine, ce que tu attends.</p>
+        <div class="stats" style="max-width:460px"><div class="stat"><b>2 387</b><span>réponses souhaitées</span></div><div class="stat"><b>18.12</b><span>fin du formulaire</span></div></div>
+        <a class="btn btn--primary btn--lg" href="#" onclick="note('Lien du Google Form à ajouter');return false">Je réponds au questionnaire</a>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>Tu es plutôt Kilo ou Milo&nbsp;?</h3>
+        <p class="muted small" style="margin:6px 0 10px">Après ta réponse, un mail te révèle ta mascotte.</p>
+        <img src="assets/repos.png" alt="Milo et Kilo font un check" style="max-width:320px;margin:0 auto">
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="head"><h2>Ce qu'on veut comprendre</h2></div>
+      <div class="grid g4">
+        <div class="card"><h4>L'accès</h4><p class="muted small" style="margin-top:6px">Est-ce facile de faire du sport quand on est étudiant ?</p></div>
+        <div class="card"><h4>Les attentes</h4><p class="muted small" style="margin-top:6px">Ce qui te donnerait envie de bouger plus.</p></div>
+        <div class="card"><h4>L'inclusion</h4><p class="muted small" style="margin-top:6px">La place des personnes à mobilité réduite.</p></div>
+        <div class="card"><h4>Le décrochage</h4><p class="muted small" style="margin-top:6px">Pourquoi les jeunes licenciés arrêtent.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="night">
+    <div class="wrap step">
+      <div>
+        <div class="over">Résultats</div>
+        <h2 style="margin-top:8px">Révélés le 21.01.2027</h2>
+        <p class="muted" style="margin-top:12px">Les chiffres clés du Baromètre seront présentés le jour J. Tu pourras ensuite télécharger le PDF complet ici.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+          <button class="btn" aria-disabled="true" disabled>Télécharger le PDF · dispo le 21/01</button>
+        </div>
+      </div>
+      <div class="card" style="color:var(--navy);text-align:center">
+        <div class="over">Dévoilement dans</div>
+        <div class="display" style="margin-top:8px"><span id="dDays">--</span> jours</div>
+        <p class="muted small" style="margin-top:6px">Jeudi 21 janvier 2027</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ANIMATIONS ================= -->
+<div class="view" id="v-animations">
+  <section class="lav" style="padding-bottom:64px">
+    <div class="wrap">
+      <div class="head" style="max-width:760px">
+        <div class="over">Les animations</div>
+        <h1 style="margin-top:10px">Un événement santé… qui ne se prend pas trop au sérieux</h1>
+        <p class="muted" style="font-size:18px">4 univers, pour tous les profils, sportifs ou non. On alterne effort, détente, jeu et conseils du quotidien.</p>
+      </div>
+      <div class="univ">
+        <button class="u bouger" style="text-align:left;cursor:pointer;font:inherit;color:inherit;border-top:0;border-right:0;border-bottom:0" onclick="setFilter('bouger')"><img src="assets/muscu.png" alt=""><h4>Bouger</h4><p class="muted small">Activité physique accessible à tous</p></button>
+        <button class="u detendre" style="text-align:left;cursor:pointer;font:inherit;color:inherit;border-top:0;border-right:0;border-bottom:0" onclick="setFilter('detendre')"><img src="assets/etirements.png" alt=""><h4>Se détendre</h4><p class="muted small">Stress, respiration, récupération</p></button>
+        <button class="u challenge" style="text-align:left;cursor:pointer;font:inherit;color:inherit;border-top:0;border-right:0;border-bottom:0" onclick="setFilter('challenge')"><img src="assets/boxe.png" alt=""><h4>Se challenger</h4><p class="muted small">Défis, compétition légère entre campus</p></button>
+        <button class="u habitudes" style="text-align:left;cursor:pointer;font:inherit;color:inherit;border-top:0;border-right:0;border-bottom:0" onclick="setFilter('habitudes')"><img src="assets/repos.png" alt=""><h4>Bonnes habitudes</h4><p class="muted small">Sommeil, alimentation, équilibre</p></button>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:64px">
+    <div class="wrap">
+      <h2>Toutes les animations</h2>
+      <div class="filters" id="filters">
+        <button class="chip on" data-f="all">Toutes</button>
+        <button class="chip" data-f="bouger">Bouger</button>
+        <button class="chip" data-f="detendre">Se détendre</button>
+        <button class="chip" data-f="challenge">Se challenger</button>
+        <button class="chip" data-f="habitudes">Bonnes habitudes</button>
+      </div>
+      <div class="grid g3" id="anims"></div>
+    </div>
+  </section>
+
+  <section class="night" id="stepup">
+    <div class="wrap step">
+      <div>
+        <div class="over">Le challenge à ne pas rater</div>
+        <h2 style="margin-top:8px">Challenge StepUp : quel campus fera le plus de pas&nbsp;?</h2>
+        <p class="muted" style="margin-top:12px">Une appli gratuite qui compte tes pas. Tu rejoins l'équipe de ton campus et tu marches à ton rythme. Aucun niveau requis.</p>
+        <ol class="steps">
+          <li><b>Télécharge l'appli StepUp</b><br><span class="muted small">Gratuite, sur iPhone et Android</span></li>
+          <li><b>Rejoins l'équipe de ton campus</b><br><span class="muted small">Inscriptions ouvertes dès le 14/12 via QR code</span></li>
+          <li><b>Marche et fais gagner ton campus</b><br><span class="muted small">Du 11/01 au 04/02</span></li>
+        </ol>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn--reward" href="#" onclick="note('Lien d\'inscription StepUp à ajouter');return false">Rejoindre le challenge</a>
+          <a class="btn btn--ghost-w" href="#" onclick="note('Tuto StepUp à ajouter');return false">Voir le tuto</a>
+        </div>
+      </div>
+      <div class="grid" style="gap:16px">
+        <div class="win">
+          <div class="over" style="color:inherit">🏆 À gagner</div>
+          <h3 style="margin:6px 0">Des lots pour les gagnants</h3>
+          <p class="small" style="opacity:.85">Le seul challenge avec quelque chose à gagner. Lots offerts par nos partenaires.</p>
+          <span class="todo">Lots à définir avec Animation et Prospection</span>
+        </div>
+        <div class="card" style="color:var(--navy)">
+          <div class="info-row"><span>Top départ</span><b>Lun. 11/01</b></div>
+          <div class="info-row"><span>Classement live</span><b>Jeu. 21/01</b></div>
+          <div class="info-row"><span>Résultats inter-campus</span><b>Jeu. 04/02</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><h2>Avant, Jour J, après</h2></div>
+      <div class="tl">
+        <div class="card"><div class="over">Avant</div><div class="date">23/11 → 20/01</div><ul><li>Questions + tips santé (dès le 25/11)</li><li>Atelier respiration en classe (16/12)</li><li>Inscriptions StepUp (dès le 14/12)</li><li>Playlists dans le 12h PULSE (11/01)</li></ul></div>
+        <div class="card hl"><div class="over" style="color:var(--orange-t)">Jour J</div><div class="date">Jeudi 21/01</div><ul><li>Échauffement en amphi</li><li>Marelle géante</li><li>Étirements guidés</li><li>Classement StepUp en direct</li></ul></div>
+        <div class="card"><div class="over">Après</div><div class="date">22/01 → 04/02</div><ul><li>Résultats StepUp (04/02)</li><li>Recettes et tips</li><li>Best-of photos et vidéos</li></ul></div>
+      </div>
+      <div class="card" style="margin-top:32px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <div><h3>Playlists, recettes, tips : tout arrive dans ta boîte mail</h3><p class="muted small">Chaque mercredi à 12h, avec le 12h PULSE.</p></div>
+        <a class="btn btn--primary" href="#pulse">M'inscrire au 12h PULSE</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PARTENAIRES ================= -->
+<div class="view" id="v-partenaires">
+  <section class="lav" style="padding-bottom:64px">
+    <div class="wrap head" style="margin-bottom:0">
+      <div class="over">Partenaires</div>
+      <h1 style="margin-top:10px">Ils bougent avec nous</h1>
+      <p class="muted" style="font-size:18px">Les marques et structures qui soutiennent CAMPULSE et les étudiants des 5 campus Sup de V.</p>
+    </div>
+  </section>
+  <section style="padding-top:64px">
+    <div class="wrap">
+      <div class="grid g3" id="partners"></div>
+      <span class="todo">Partenaires fictifs : liste et logos à récupérer auprès d'Animation et Prospection</span>
+    </div>
+  </section>
+  <section class="lav">
+    <div class="wrap grid g2" style="align-items:center">
+      <div class="win" style="background:#fff">
+        <div class="over" style="color:var(--lime-t)">🏆 Challenge StepUp</div>
+        <h3 style="margin:6px 0">Les lots à gagner</h3>
+        <p class="muted small">Offerts par nos partenaires au campus qui fera le plus de pas.</p>
+        <span class="todo">Lots à définir</span>
+        <p style="margin-top:14px"><a class="link" href="#animations" onclick="setTimeout(()=>document.getElementById('stepup').scrollIntoView(),60)">Découvrir le challenge</a></p>
+      </div>
+      <div class="card">
+        <h3>Devenir partenaire</h3>
+        <p class="muted" style="margin:8px 0 18px">Gagnez en visibilité auprès des étudiants de Paris, Pontoise, Enghien-les-Bains, Rambouillet et Saint-Germain-en-Laye.</p>
+        <a class="btn btn--primary" href="#contact">Nous contacter</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= BIEN MANGER ================= -->
+<div class="view" id="v-bien-manger">
+  <section class="lav" style="padding-bottom:64px">
+    <div class="wrap head" style="margin-bottom:0">
+      <div class="over">Bien manger</div>
+      <h1 style="margin-top:10px">Bien manger sans se ruiner</h1>
+      <p class="muted" style="font-size:18px">Des recettes simples à télécharger, et les bonnes adresses autour de ton campus.</p>
+    </div>
+  </section>
+  <section style="padding-top:64px">
+    <div class="wrap">
+      <div class="head"><div class="over">Recettes healthy</div><h2 style="margin-top:8px">Rapides, équilibrées, petit budget</h2></div>
+      <div class="grid g3" id="recipes"></div>
+      <span class="todo">Recettes fictives : fiches PDF fournies par Animation</span>
+    </div>
+  </section>
+  <section class="lav">
+    <div class="wrap">
+      <div class="head"><div class="over">Près de ton campus</div><h2 style="margin-top:8px">Où manger entre deux cours&nbsp;?</h2></div>
+      <div class="filters" id="campusTabs"></div>
+      <div class="grid g2" style="align-items:start">
+        <div class="grid" id="spots" style="gap:12px"></div>
+        <div class="ph" style="min-height:340px">Carte Google Maps du campus</div>
+      </div>
+      <span class="todo">Adresses fictives : à remplir par l'équipe Com</span>
+    </div>
+  </section>
+</div>
+
+<!-- ================= 12h PULSE ================= -->
+<div class="view" id="v-pulse">
+  <section class="lav">
+    <div class="wrap step" style="align-items:start">
+      <div>
+        <div class="over">Chaque mercredi à 12h</div>
+        <h1 style="margin-top:10px">12h PULSE : ta pause qui fait du bien</h1>
+        <p class="muted" style="font-size:18px;margin-top:14px">Un mail court, chaque mercredi midi, avec des conseils concrets pour bouger, respirer et t'organiser avec un emploi du temps d'étudiant. Jusqu'en juin.</p>
+        <div class="benef">
+          <div><div class="ic">💡</div><h4>Tips santé & sommeil</h4><p class="muted small">Une question, une astuce, tout de suite applicable.</p></div>
+          <div><div class="ic">🥗</div><h4>Recettes healthy</h4><p class="muted small">Rapides et petit budget.</p></div>
+          <div><div class="ic">🎧</div><h4>Playlists Move & Chill</h4><p class="muted small">Pour te bouger ou souffler.</p></div>
+          <div><div class="ic">👟</div><h4>Infos StepUp & 21/01</h4><p class="muted small">Rien de CAMPULSE ne t'échappe.</p></div>
+        </div>
+      </div>
+      <div>
+        <form class="card" id="nlForm" style="border-top:6px solid var(--blue)" novalidate>
+          <h3>Je m'inscris au 12h PULSE</h3>
+          <p class="muted small" style="margin-top:4px">Gratuit · 1 mail par semaine · désinscription en un clic</p>
+          <label for="p">Prénom</label><input id="p" required placeholder="Ex. Lenna">
+          <label for="m">E-mail</label><input id="m" type="email" required placeholder="prenom.nom@mail.com">
+          <label for="c">Campus</label><select id="c"><option>Paris</option><option>Pontoise</option><option>Enghien-les-Bains</option><option>Rambouillet</option><option>Saint-Germain-en-Laye</option></select>
+          <label class="cb"><input type="checkbox" required> J'accepte de recevoir le 12h PULSE. Je peux me désinscrire à tout moment.</label>
+          <button class="btn btn--primary btn--lg" style="margin-top:20px;width:100%">M'inscrire</button>
+          <div class="alert ok" id="nlOk">C'est fait ! Rendez-vous mercredi à 12h. (démo : rien n'est envoyé)</div>
+        </form>
+        <img src="assets/repos.png" alt="Milo et Kilo font un check" style="max-width:280px;margin:20px auto 0">
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap step">
+      <div class="mail">
+        <div class="top"><b>12h PULSE · #04</b><span>mer. 12:00</span></div>
+        <div class="body">
+          <div class="over">Version Kilo</div>
+          <h3 style="margin:6px 0 8px">Tu dors combien d'heures ?</h3>
+          <div class="line" style="width:92%"></div><div class="line" style="width:80%"></div><div class="line" style="width:86%"></div>
+          <div class="win" style="margin-top:16px;padding:14px"><b>Le tip de la semaine</b><div class="line" style="width:70%;background:#d9f2b0"></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="over">Aperçu</div>
+        <h2 style="margin-top:8px">À quoi ça ressemble</h2>
+        <p class="muted" style="margin-top:12px">Deux versions selon ton profil Kilo ou Milo, lisibles en 2 minutes. Les anciens numéros restent dispo ici.</p>
+        <div class="card" style="margin-top:20px;padding:8px 24px">
+          <div class="info-row"><span>#01 · Tu es Kilo ou Milo ?</span><a class="link" href="#" onclick="note('Archive à brancher');return false">Lire</a></div>
+          <div class="info-row"><span>#02 · À venir</span><span class="muted">mercredi 12h</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<div class="view" id="v-contact">
+  <section class="lav" style="padding-bottom:64px">
+    <div class="wrap head" style="margin-bottom:0">
+      <div class="over">Contact</div>
+      <h1 style="margin-top:10px">Une question ? Écris-nous</h1>
+      <p class="muted" style="font-size:18px">Étudiant, partenaire ou média : on te répond vite.</p>
+    </div>
+  </section>
+  <section style="padding-top:64px">
+    <div class="wrap grid g2" style="align-items:start">
+      <form class="card" id="ctForm" novalidate>
+        <label for="n">Nom</label><input id="n" required>
+        <label for="e">E-mail</label><input id="e" type="email" required>
+        <label for="t">Tu es</label><select id="t"><option>Étudiant</option><option>Partenaire</option><option>Média</option><option>Autre</option></select>
+        <label for="msg">Message</label><textarea id="msg" rows="5" required></textarea>
+        <label class="cb"><input type="checkbox" required> J'accepte que mes données soient utilisées pour répondre à ma demande.</label>
+        <button class="btn btn--primary" style="margin-top:20px">Envoyer</button>
+        <div class="alert ok" id="ctOk">Message envoyé (démo : rien n'est envoyé).</div>
+      </form>
+      <div class="grid" style="gap:24px">
+        <div class="card">
+          <h3>Retrouve-nous</h3>
+          <div class="info-row"><span>Instagram</span><a class="link" href="https://www.instagram.com/">Sup2Vie</a></div>
+          <div class="info-row"><span>LinkedIn</span><a class="link" href="https://www.linkedin.com/">Sup de V</a></div>
+          <div class="info-row"><span>Mail du projet</span><b>à définir</b></div>
+          <div class="info-row"><span>Fédération</span><b>lien à ajouter</b></div>
+        </div>
+        <div>
+          <h3 style="margin-bottom:14px">Questions fréquentes</h3>
+          <details><summary>Comment répondre au Baromètre ?</summary><p>Clique sur « Je participe » : c'est un questionnaire anonyme de 5 minutes, ouvert jusqu'au 18 décembre.</p></details>
+          <details><summary>Kilo ou Milo, c'est quoi ?</summary><p>Nos deux mascottes. Après le questionnaire, un mail te dit laquelle te ressemble.</p></details>
+          <details><summary>Comment participer au Challenge StepUp ?</summary><p>Télécharge l'appli gratuite, rejoins l'équipe de ton campus et marche du 11/01 au 04/02.</p></details>
+          <details><summary>Comment recevoir le 12h PULSE ?</summary><p>Inscris-toi sur la page 12h PULSE : un mail chaque mercredi à 12h.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= MENTIONS ================= -->
+<div class="view" id="v-mentions">
+  <section>
+    <div class="wrap" style="max-width:800px">
+      <div class="over">Mentions légales & confidentialité</div>
+      <h1 style="margin:10px 0 24px">Mentions légales</h1>
+      <div class="card">
+        <div class="info-row"><span>Éditeur</span><b>à remplir</b></div>
+        <div class="info-row"><span>Responsable de publication</span><b>à remplir</b></div>
+        <div class="info-row"><span>Hébergeur</span><b>Vercel (à confirmer)</b></div>
+        <div class="info-row"><span>Données collectées</span><b>formulaires (12h PULSE, contact)</b></div>
+        <div class="info-row"><span>Tes droits</span><b>accès, rectification, suppression</b></div>
+      </div>
+      <span class="todo">À remplir plus tard : politique de confidentialité, cookies</span>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><a class="logo" href="#index" style="font-size:26px">CAMP<svg><use href="#heart"/></svg>LSE</a><p style="margin-top:12px;max-width:300px">Comprendre la jeunesse, c'est écouter son rythme.</p></div>
+      <div><h4>Le projet</h4><a href="#evenement">L'événement</a><a href="#barometre">Baromètre</a><a href="#animations">Animations</a></div>
+      <div><h4>Au quotidien</h4><a href="#bien-manger">Bien manger</a><a href="#pulse">12h PULSE</a><a href="#partenaires">Partenaires</a></div>
+      <div><h4>Suivre</h4><a href="https://www.instagram.com/">Instagram</a><a href="https://www.linkedin.com/">LinkedIn</a><a href="#contact">Contact</a></div>
+    </div>
+    <div class="legal"><span>© 2027 CAMPULSE · Étudiants M2 Sup de V</span><a href="#mentions" style="display:inline">Mentions légales</a></div>
+  </div>
+</footer>
+
+<div class="badge-v">V2 · MAQUETTE</div>
+<div id="toast" style="position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--navy);color:#fff;padding:14px 22px;border-radius:999px;font-weight:600;font-size:14px;transition:.3s;z-index:99;opacity:0;pointer-events:none"></div>
+
+<script>
+const views=['index','evenement','barometre','animations','partenaires','bien-manger','pulse','contact','mentions'];
+function route(){
+  let h=(location.hash||'#index').slice(1); if(!views.includes(h)) h='index';
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+h));
+  document.querySelectorAll('.links a:not(.btn)').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));
+  document.querySelector('.links').classList.remove('open');
+  window.scrollTo(0,0); anim();
+}
+addEventListener('hashchange',route);
+function goForm(){setTimeout(()=>{const f=document.getElementById('formulaire');if(f)f.scrollIntoView({behavior:'smooth',block:'center'})},80)}
+function anim(){
+  document.querySelectorAll('.view.on .prog i').forEach(i=>{i.style.width='0';setTimeout(()=>i.style.width=i.dataset.w+'%',60)});
+}
+let tt;function note(m){const t=document.getElementById('toast');t.textContent=m;t.style.transform='translate(-50%,0)';t.style.opacity=1;clearTimeout(tt);tt=setTimeout(()=>{t.style.transform='translate(-50%,140%)';t.style.opacity=0},2400)}
+
+function days(){const d=Math.max(0,Math.ceil((new Date('2027-01-21T09:00:00+01:00')-new Date())/864e5));const el=document.getElementById('dDays');if(el)el.textContent=d}
+days();
+
+/* animations (PDF Pôle Animation 04/11) */
+const U={bouger:['Bouger','t-bouger'],detendre:['Se détendre','t-detendre'],challenge:['Se challenger','t-challenge'],habitudes:['Bonnes habitudes','t-habitudes']};
+const A=[
+ {n:'Marelle géante',u:['bouger'],f:'Sur place',q:'Jour J · 21/01',d:'Une marelle grand format dans un lieu de passage : on saute seul ou entre amis, entre deux activités.'},
+ {n:'Échauffement collectif',u:['bouger'],f:'Sur place, en amphi',q:'21/01 · ouverture',d:'5 à 10 minutes de mouvements simples, tous ensemble, pour lancer CAMPULSE en énergie.'},
+ {n:'Playlists « Move » & « Chill »',u:['bouger','detendre'],f:'Dans le 12h PULSE',q:'Dès le 11/01',d:'Deux playlists faites par l\'équipe : une pour se bouger, une pour souffler.'},
+ {n:'Atelier respiration',u:['detendre'],f:'En classe',q:'16/12 (proposé)',d:'Un intervenant qualifié et des techniques simples, à réutiliser avant un examen.'},
+ {n:'Étirements guidés',u:['detendre'],f:'Sur place',q:'Jour J · 21/01',d:'10 à 15 minutes d\'étirements et de récup, adaptés au niveau de chacun.'},
+ {n:'Challenge StepUp',u:['challenge','habitudes'],f:'En ligne',q:'11/01 → 04/02',d:'Une appli qui compte tes pas : rejoins l\'équipe de ton campus et fais-le gagner.',win:1},
+ {n:'Questions + tips santé & sommeil',u:['habitudes'],f:'Réseaux + 12h PULSE',q:'Dès le 25/11',d:'Une question simple chaque semaine, puis le tip santé ou sommeil qui y répond.'},
+ {n:'Recettes healthy',u:['habitudes'],f:'Fiches + QR codes',q:'16/12 → février',d:'Des recettes simples, rapides et pensées pour le budget étudiant.',link:'#bien-manger'},
+];
+let cur='all';
+function renderA(){
+  document.getElementById('anims').innerHTML=A.filter(a=>cur==='all'||a.u.includes(cur)).map(a=>`
+   <div class="card anim">
+     <div class="tags">${a.u.map(k=>`<span class="tag ${U[k][1]}">${U[k][0]}</span>`).join('')}${a.win?'<span class="tag t-challenge">🏆 À gagner</span>':''}</div>
+     <h3>${a.n}</h3><p class="muted small">${a.d}</p>
+     <div class="meta"><span>${a.f}</span><b>${a.q}</b></div>
+     ${a.win?'<a class="link" href="#stepup" onclick="event.preventDefault();document.getElementById(\'stepup\').scrollIntoView({behavior:\'smooth\'})">Rejoindre le challenge</a>':''}
+     ${a.link?`<a class="link" href="${a.link}">Voir les recettes</a>`:''}
+   </div>`).join('');
+  document.querySelectorAll('#filters .chip').forEach(c=>c.classList.toggle('on',c.dataset.f===cur));
+}
+function setFilter(f){cur=f;renderA();setTimeout(()=>{const el=document.getElementById('filters');if(el&&location.hash==='#animations')el.scrollIntoView({behavior:'smooth',block:'start'})},120)}
+document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){cur=b.dataset.f;renderA()}});
+renderA();
+
+/* partenaires */
+document.getElementById('partners').innerHTML=Array.from({length:6},(_,i)=>`
+  <div class="card"><div class="ph" style="min-height:110px">Logo partenaire ${i+1}</div>
+  <h3 style="margin-top:16px">Nom du partenaire</h3><p class="muted small" style="margin:6px 0 12px">Présentation courte · campus le plus proche</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag t-neutral">Sport</span>${i<2?'<span class="tag t-challenge">Lot StepUp</span>':''}</div>
+  <p style="margin-top:14px"><a class="link" href="#" onclick="note('Lien partenaire à ajouter');return false">Voir le site</a></p></div>`).join('');
+
+/* recettes */
+const R=[['🥗','Bowl quinoa pois chiches','15 min','~3 €'],['🌯','Wrap poulet crudités','10 min','~2,50 €'],['🍝','Pâtes complètes thon-tomate','20 min','~2 €'],['🥣','Overnight oats fruits rouges','5 min','~1,50 €'],['🍳','Omelette légumes du frigo','10 min','~2 €'],['🍌','Smoothie banane-avoine','5 min','~1 €']];
+document.getElementById('recipes').innerHTML=R.map(r=>`<div class="card recipe"><div class="thumb">${r[0]}</div><h3>${r[1]}</h3><div class="meta"><span>⏱ ${r[2]}</span><span>💶 ${r[3]}</span></div><button class="btn btn--secondary btn-full" style="width:100%" onclick="note('PDF de la recette à ajouter')">Télécharger la recette (PDF)</button></div>`).join('');
+
+/* lieux par campus */
+const S={'Paris':[['Le Comptoir Healthy','Healthy · bowls','4 min','8–11 €'],['Marché de quartier','Marché','6 min','3–7 €'],['Boulangerie du coin','Sandwich','2 min','4–6 €']],'Pontoise':[['Adresse à ajouter','Type','– min','– €']],'Enghien-les-Bains':[['Adresse à ajouter','Type','– min','– €']],'Rambouillet':[['Adresse à ajouter','Type','– min','– €']],'Saint-Germain-en-Laye':[['Adresse à ajouter','Type','– min','– €']]};
+const ct=document.getElementById('campusTabs');
+ct.innerHTML=Object.keys(S).map(k=>`<button class="chip">${k}</button>`).join('');
+function renderS(k){ct.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.textContent===k));document.getElementById('spots').innerHTML=S[k].map(s=>`<div class="card spot"><div><h4>${s[0]}</h4><p class="muted small">${s[1]} · à ${s[2]} à pied</p></div><span class="price">${s[3]}</span></div>`).join('')}
+ct.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)renderS(b.textContent)});
+renderS('Paris');
+
+/* forms */
+function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}document.getElementById(ok).style.display='block';f.reset()})}
+bindForm('nlForm','nlOk');bindForm('ctForm','ctOk');
+
+route();
+</script>
+</body>
+</html>
