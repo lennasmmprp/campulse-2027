@@ -10,7 +10,7 @@
   --blue:#2563EB;--blue-h:#1F54C8;--blue-a:#1A45A4;--blue-l:#E5ECFD;
   --lime:#A3E635;--lime-h:#B8EC66;--lime-t:#4D7C0F;--lime-l:#F4FCE7;
   --orange:#FF6B35;--orange-h:#FF8558;--orange-t:#B24B25;--orange-l:#FFEDE7;
-  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--beige:#F3ECE0;--banniere:#6038E8;--banniere-ratio:2.6/1;--white:#fff;
+  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--beige:#F3ECE0;--banniere:#6038E8;--white:#fff;
   --muted:#5B5880;--border:#E4E1F2;--input:#C9C6DC;--dis-bg:#ECEAF5;--dis-t:#8A87A8;--err:#DC2626;
   --ft:"Inter",system-ui,sans-serif;--fb:"Poppins",system-ui,sans-serif;
   --r-in:10px;--r-card:16px;--r-pill:999px;--shadow:0 4px 16px rgba(37,31,99,.10);
@@ -146,7 +146,11 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 /* bannières pleine largeur */
 .banner{display:block;width:100%;height:auto;object-fit:cover;margin-bottom:40px}
 .banner:last-child{margin-bottom:0}
-.banner-wrap{background:var(--banniere);aspect-ratio:var(--banniere-ratio);overflow:hidden;box-sizing:content-box;padding-bottom:20px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* bannière rognée : conteneur réutilisable, réglé page par page via --ratio (rognage), --pied (bande sous l'image) et --fond */
+.banniere{aspect-ratio:var(--ratio,auto);overflow:hidden;box-sizing:content-box;padding-bottom:var(--pied,0px);background:var(--fond,transparent)}
+#v-evenement .banniere{--ratio:2.6/1;--pied:20px;--fond:var(--banniere)}
+#v-bien-manger .banniere{--ratio:10/3}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
@@ -262,6 +266,92 @@ footer .logo{color:#fff}
   .baro-cols>div:first-child{padding-top:0;border-top:0}
 }
 @media(max-width:560px){.baro-mascot{flex-direction:column;text-align:center}}
+/* recettes & adresses (bloc 12h PULSE), uniquement les variables du site */
+#cp-cuisine{background:var(--lav);padding-bottom:50px}
+#cp-cuisine label{margin:0;font-weight:inherit;font-size:inherit}
+#cp-cuisine .cp-bar{background:#fff}
+#cp-cuisine .cp-intro{font-size:18px;padding-top:32px}
+#cp-cuisine .cp-tabs{display:flex;gap:6px;padding-top:24px}
+#cp-cuisine .cp-tab{border:0;background:transparent;padding:14px 20px;font:600 15px var(--fb);color:var(--muted);border-radius:12px 12px 0 0;position:relative;cursor:pointer}
+#cp-cuisine .cp-tab[aria-selected="true"]{background:var(--lav);color:var(--navy)}
+#cp-cuisine .cp-tab[aria-selected="true"]::after{content:"";position:absolute;left:20px;right:20px;top:0;height:4px;border-radius:0 0 4px 4px;background:var(--blue)}
+#cp-cuisine .cp-panel{padding:32px 0 24px}
+#cp-cuisine .cp-tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px}
+#cp-cuisine .cp-search{flex:1 1 260px;position:relative;display:block}
+#cp-cuisine .cp-search input{padding-left:44px;border-color:var(--border)}
+#cp-cuisine .cp-search input:focus{border-color:var(--blue);outline:none}
+#cp-cuisine .cp-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--muted)}
+#cp-cuisine .cp-chips{display:flex;flex-wrap:wrap;gap:8px}
+#cp-cuisine .chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+#cp-cuisine .chip small{font-weight:500;opacity:.6;margin-left:4px;font-size:12px}
+#cp-cuisine .cp-campus{margin-bottom:20px}
+#cp-cuisine .cp-campus .chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue)}
+#cp-cuisine .cp-row2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}
+#cp-cuisine .cp-count,#cp-cuisine .cp-legend{font-size:13px;color:var(--muted)}
+#cp-cuisine .cp-count{margin-bottom:16px}
+/* cartes recettes */
+#cp-cuisine .cp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+#cp-cuisine .cp-card{background:#fff;border:0;border-radius:var(--r-card);overflow:hidden;text-align:left;padding:0;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;color:var(--navy);font:inherit;cursor:pointer}
+#cp-cuisine .cp-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(37,31,99,.16)}
+#cp-cuisine .cp-card:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+#cp-cuisine .cp-card-top{padding:18px 18px 16px;background:var(--bg);border-bottom:3px solid var(--c);min-height:118px;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
+#cp-cuisine .cp-tag{align-self:flex-start;background:var(--navy);color:#fff;font:700 11px/1 var(--fb);letter-spacing:.08em;padding:5px 9px;border-radius:var(--r-pill);text-transform:uppercase}
+#cp-cuisine .cp-card h3{font-size:18px;line-height:1.25}
+#cp-cuisine .cp-card-bot{padding:14px 18px 16px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:auto}
+#cp-cuisine .cp-card-bot b{font-weight:600;color:var(--fg)}
+#cp-cuisine .cp-empty{grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)}
+/* fenêtre recette */
+#cp-cuisine dialog{border:0;padding:0;border-radius:var(--r-card);width:min(640px,calc(100vw - 24px));max-height:calc(100vh - 40px);overflow:auto;color:var(--navy);margin:auto}
+#cp-cuisine dialog::backdrop{background:rgba(37,31,99,.55)}
+#cp-cuisine .cp-d-head{background:var(--bg);border-bottom:4px solid var(--c);padding:26px 28px 22px;position:relative}
+#cp-cuisine .cp-close{position:absolute;right:16px;top:16px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;font-size:22px;line-height:40px;color:var(--navy);cursor:pointer}
+#cp-cuisine .cp-d-head h2{font-size:26px;margin:12px 48px 12px 0}
+#cp-cuisine .cp-pills{display:flex;flex-wrap:wrap;gap:8px}
+#cp-cuisine .cp-pill{background:#fff;font-size:13px;font-weight:600;padding:6px 12px;border-radius:var(--r-pill)}
+#cp-cuisine .cp-d-body{padding:24px 28px 28px}
+#cp-cuisine .cp-d-body h4{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--fg);margin:0 0 12px;text-transform:uppercase}
+#cp-cuisine .cp-ing{list-style:none;margin:0 0 24px;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+#cp-cuisine .cp-ing label{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+#cp-cuisine .cp-ing input{appearance:none;-webkit-appearance:none;flex:0 0 18px;width:18px;height:18px;padding:0;margin:2px 0 0;border:2px solid var(--c);border-radius:5px;cursor:pointer;background:#fff}
+#cp-cuisine .cp-ing input:checked{background:var(--c)}
+#cp-cuisine .cp-ing input:checked+span{text-decoration:line-through;color:var(--muted)}
+#cp-cuisine .cp-extra{font-size:13px;color:var(--muted);margin:-12px 0 24px}
+#cp-cuisine .cp-steps{list-style:none;margin:0 0 24px;counter-reset:s}
+#cp-cuisine .cp-steps li{counter-increment:s;display:flex;gap:14px;font-size:15px;color:var(--muted);margin-bottom:14px}
+#cp-cuisine .cp-steps li::before{content:counter(s);flex:0 0 30px;height:30px;line-height:30px;border-radius:50%;background:var(--bg);color:var(--fg);font-weight:700;font-size:13px;text-align:center}
+#cp-cuisine .cp-quote{display:flex;align-items:center;gap:14px;background:var(--lav);border-radius:14px;padding:12px 16px}
+#cp-cuisine .cp-quote img{width:58px;height:auto}
+#cp-cuisine .cp-quote p{font-style:italic;color:var(--fg);font-size:14px;font-weight:500}
+#cp-cuisine .cp-actions{margin-top:22px}
+#cp-cuisine .cp-d-foot{font-size:12px;color:var(--muted);margin-top:16px}
+/* adresses */
+#cp-cuisine .cp-cinfo{background:#fff;border-radius:var(--r-card);padding:20px 22px;display:flex;gap:18px;align-items:center;margin-bottom:20px}
+#cp-cuisine .cp-cinfo img{width:74px;height:auto;flex-shrink:0}
+#cp-cuisine .cp-cinfo h2{font-size:22px;margin-bottom:2px}
+#cp-cuisine .cp-cinfo p{font-size:14px;color:var(--muted)}
+#cp-cuisine .cp-places{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+#cp-cuisine .cp-place{background:#fff;border-radius:var(--r-card);padding:16px 18px;display:flex;flex-direction:column;gap:8px;border-left:4px solid transparent}
+#cp-cuisine .cp-place.is-sain{border-left-color:var(--lime)}
+#cp-cuisine .cp-ptop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+#cp-cuisine .cp-place h3{font-size:16px;line-height:1.3}
+#cp-cuisine .cp-walk{flex-shrink:0;background:var(--blue-l);color:var(--blue);font-size:12px;font-weight:700;padding:4px 9px;border-radius:var(--r-pill);white-space:nowrap}
+#cp-cuisine .cp-walk.is-lim{background:var(--orange-l);color:var(--orange-t)}
+#cp-cuisine .cp-meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#cp-cuisine .cp-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:var(--r-pill);background:var(--lav);color:var(--navy)}
+#cp-cuisine .cp-badge.sain{background:var(--lime-l);color:var(--lime-t)}
+#cp-cuisine .cp-addr{font-size:13px;color:var(--muted)}
+#cp-cuisine .cp-tip{font-size:14px}
+#cp-cuisine .cp-go{margin-top:auto;align-self:flex-start;font-size:14px;font-weight:600;color:var(--blue);text-decoration:none;padding-top:4px}
+#cp-cuisine .cp-go:hover{text-decoration:underline}
+#cp-cuisine .cp-note{background:#fff;border-left:4px solid var(--orange);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--muted);margin-top:16px}
+#cp-cuisine .cp-note strong{color:var(--navy)}
+#cp-cuisine .cp-disclaimer{font-size:12px;color:var(--muted);margin-top:28px;line-height:1.6}
+#cp-cuisine .cp-duo{display:block;margin:24px auto 0}
+@media (max-width:700px){
+  #cp-cuisine .cp-tab{padding:12px 14px;font-size:14px}
+  #cp-cuisine .cp-ing{grid-template-columns:1fr}
+  #cp-cuisine .cp-d-head,#cp-cuisine .cp-d-body{padding-left:20px;padding-right:20px}
+}
 /* ===== micro-interactions ===== */
 .btn{transition:background-color .15s,color .15s,transform .15s,box-shadow .15s}
 .btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:var(--shadow)}
@@ -376,7 +466,7 @@ footer .logo{color:#fff}
 <!-- ================= EVENEMENT ================= -->
 <div class="view" id="v-evenement">
   <section class="lav" style="padding:0">
-    <div class="banner-wrap"><img class="banner" src="assets/banniere-evenement.webp" alt="Bannière L'événement CAMPULSE"></div>
+    <div class="banniere"><img class="banner" src="assets/banniere-evenement.webp" alt="Bannière L'événement CAMPULSE"></div>
   </section>
   <section>
     <div class="wrap">
@@ -623,33 +713,58 @@ footer .logo{color:#fff}
 
 <!-- ================= BIEN MANGER ================= -->
 <div class="view" id="v-bien-manger">
-  <section class="lav" style="padding-top:0;padding-bottom:64px">
-    <img class="banner" src="assets/CAMPULSE_banniere_bien-manger.png" alt="Bannière Bien manger avec CAMPULSE">
-    <div class="wrap head" style="margin-bottom:0">
-      <div class="over">Bien manger</div>
-      <h1 style="margin-top:10px">Bien manger sans se ruiner</h1>
-      <p class="muted" style="font-size:18px">Les 36 recettes de Kilo parues dans le 12h PULSE, et les bonnes adresses à moins de 15 minutes à pied de ton campus.</p>
-    </div>
+  <section class="lav" style="padding:0">
+    <h1 class="sr-only">Bien manger sans se ruiner</h1>
+    <div class="banniere"><img class="banner" src="assets/CAMPULSE_banniere_bien-manger.png" alt="Bannière Bien manger avec CAMPULSE"></div>
   </section>
-  <section style="padding-top:64px">
-    <div class="wrap">
-      <div class="head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
-        <div><div class="over">12h PULSE</div><h2 style="margin-top:8px">Les recettes de Kilo</h2><p class="muted" style="margin-top:8px">Rapides, équilibrées, petit budget. Une fiche PDF par recette.</p></div>
-        <a class="btn btn--primary" href="assets/recettes/livret-recettes-de-kilo.pdf" download>Télécharger le livret complet (PDF, 1,6 Mo)</a>
+  <!-- Recettes de Kilo & où manger le midi : repris de 12h-PULSE-recettes-et-adresses/page-web, au style du site -->
+  <div id="cp-cuisine">
+    <div class="cp-bar">
+      <p class="wrap muted cp-intro">Les 36 recettes de Kilo parues dans le 12h PULSE, et les bonnes adresses à moins de 15 minutes à pied de ton campus.</p>
+      <div class="wrap cp-tabs" role="tablist">
+        <button class="cp-tab" role="tab" id="cp-t-rec" aria-controls="cp-p-rec" aria-selected="true">🥣 Les recettes de Kilo</button>
+        <button class="cp-tab" role="tab" id="cp-t-adr" aria-controls="cp-p-adr" aria-selected="false">📍 Où manger le midi</button>
       </div>
-      <div class="grid g3" id="recipes"></div>
     </div>
-  </section>
-  <section class="lav" style="padding-bottom:50px">
-    <div class="wrap">
-      <div class="head"><div class="over">Près de ton campus</div><h2 style="margin-top:8px">Où manger le midi&nbsp;?</h2></div>
-      <div class="filters" id="campusTabs"></div>
-      <p class="muted small" id="campusInfo" style="margin-bottom:20px"></p>
-      <div class="grid g2" id="spots" style="gap:12px"></div>
-      <p class="muted small" style="margin-top:20px">€ très bon marché · €€ prix moyen · temps à pied estimés. Horaires relevés sur Google Maps en novembre 2026 : vérifie avant d'y aller.</p>
-      <img src="assets/milo-kilo.png" alt="Milo et Kilo partagent leur déjeuner" width="200" height="231" loading="lazy" style="margin:40px auto 0">
+
+    <div class="cp-panel" id="cp-p-rec" role="tabpanel" aria-labelledby="cp-t-rec">
+      <div class="wrap">
+        <div class="cp-tools">
+          <label class="cp-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="cp-q" placeholder="Une recette, un ingrédient (avoine, pois chiches...)" aria-label="Rechercher une recette">
+          </label>
+          <a class="btn btn--secondary" href="assets/recettes/livret-recettes-de-kilo.pdf" download>Le livret complet (PDF, 1,6 Mo)</a>
+        </div>
+        <div class="cp-row2">
+          <div class="cp-chips" id="cp-cats" aria-label="Catégories"></div>
+          <div class="cp-chips" id="cp-time" aria-label="Temps de préparation"></div>
+        </div>
+        <p class="cp-count" id="cp-count"></p>
+        <div class="cp-grid" id="cp-grid"></div>
+      </div>
     </div>
-  </section>
+
+    <div class="cp-panel" id="cp-p-adr" role="tabpanel" aria-labelledby="cp-t-adr" hidden>
+      <div class="wrap">
+        <div class="cp-chips cp-campus" id="cp-campus" aria-label="Choisis ton campus"></div>
+        <div class="cp-cinfo">
+          <img src="assets/kilo-campus.webp" alt="" width="74" height="76">
+          <div><h2 id="cp-cname"></h2><p id="cp-caddr"></p></div>
+        </div>
+        <div class="cp-row2">
+          <div class="cp-chips" id="cp-pf" aria-label="Filtrer les adresses"></div>
+          <span class="cp-legend">€ très bon marché · €€ prix moyen · temps à pied estimés</span>
+        </div>
+        <div class="cp-places" id="cp-places"></div>
+        <div id="cp-notes"></div>
+        <p class="cp-disclaimer">Temps à pied estimés à partir de la distance à vol d'oiseau : compte 1 à 3 minutes de plus. Indicateur de prix Google (€ très bon marché, €€ prix moyen). Les prix cités viennent d'avis clients et les horaires de Google Maps (novembre 2026) : ils peuvent changer, vérifie avant d'y aller.</p>
+      </div>
+    </div>
+
+    <img class="cp-duo" src="assets/milo-kilo.png" alt="Milo et Kilo partagent leur déjeuner" width="200" height="231" loading="lazy">
+    <dialog id="cp-dlg" aria-labelledby="cp-dtitle"></dialog>
+  </div>
 </div>
 
 <!-- ================= 12h PULSE ================= -->
@@ -832,24 +947,107 @@ document.getElementById('partners').innerHTML=Array.from({length:6},(_,i)=>`
   <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag t-neutral">Sport</span>${i<2?'<span class="tag t-challenge">Lot StepUp</span>':''}</div>
   <p style="margin-top:14px"><a class="link" href="#" onclick="note('Lien partenaire à ajouter');return false">Voir le site</a></p></div>`).join('');
 
-/* recettes de Kilo (source : 12h-PULSE-recettes-et-adresses/donnees) */
-const CAT={petitdej:"Petit-déj",emporter:"À emporter",bowl:"Bowl",plat:"Plat",soupe:"Soupe",snack:"Snack"};
-const R=[["02","Le sandwich de rando","10 min","1 pers.","emporter","recette-02-le-sandwich-de-rando.pdf"],["03","Wrap houmous & crudités","10 min","1 pers.","emporter","recette-03-wrap-houmous-crudites.pdf"],["04","Frittata anti-gaspi","20 min","2 pers.","plat","recette-04-frittata-anti-gaspi.pdf"],["05","Curry de pois chiches à partager","25 min","4 pers.","plat","recette-05-curry-de-pois-chiches-a-partager.pdf"],["06","Overnight oats spécial révisions","5 min la veille","1 pers.","petitdej","recette-06-overnight-oats-special-revisions.pdf"],["07","Salade d'hiver orange, carotte & pois chiches","10 min","2 pers.","emporter","recette-07-salade-d-hiver-orange-carotte-pois-chiches.pdf"],["08","Velouté de châtaignes & champignons","25 min","3 bols","soupe","recette-08-veloute-de-chataignes-champignons.pdf"],["09","Toasts de fête légers","15 min","4 pers.","snack","recette-09-toasts-de-fete-legers.pdf"],["10","Bowl énergie du matin","5 min","1 pers.","petitdej","recette-10-bowl-energie-du-matin.pdf"],["11","Shakshuka express","20 min","1 à 2 pers.","plat","recette-11-shakshuka-express.pdf"],["12","Energy balls maison","15 min","12 boules","snack","recette-12-energy-balls-maison.pdf"],["13","Pasta box de la veille","15 min","1 pers.","emporter","recette-13-pasta-box-de-la-veille.pdf"],["14","Smoothie récup banane & cacao","5 min","1 pers.","petitdej","recette-14-smoothie-recup-banane-cacao.pdf"],["15","Salade de pâtes complètes à emporter","15 min","3 boîtes","emporter","recette-15-salade-de-pates-completes-a-emporter.pdf"],["16","Crêpes complètes à l'avoine","25 min","8 crêpes","petitdej","recette-16-crepes-completes-a-l-avoine.pdf"],["17","Pizza maison sur pain pita","15 min","2 pers.","plat","recette-17-pizza-maison-sur-pain-pita.pdf"],["18","Poêlée savoyarde légère","25 min","2 pers.","plat","recette-18-poelee-savoyarde-legere.pdf"],["19","Buddha bowl en camembert","20 min","1 pers.","bowl","recette-19-buddha-bowl-en-camembert.pdf"],["20","Poke bowl maison au thon","20 min","1 pers.","bowl","recette-20-poke-bowl-maison-au-thon.pdf"],["21","Velouté de patate douce & coco","25 min","3 bols","soupe","recette-21-veloute-de-patate-douce-coco.pdf"],["22","Taboulé de printemps","15 min","3 portions","emporter","recette-22-taboule-de-printemps.pdf"],["23","Œufs cocotte aux épinards","15 min","1 pers.","plat","recette-23-ufs-cocotte-aux-epinards.pdf"],["24","Pancakes banane, vrai ou faux ?","10 min","1 pers.","petitdej","recette-24-pancakes-banane-vrai-ou-faux.pdf"],["25","Papillote de poisson & légumes","25 min","1 pers.","plat","recette-25-papillote-de-poisson-legumes.pdf"],["26","Bowl mexicain express","15 min","2 pers.","bowl","recette-26-bowl-mexicain-express.pdf"],["27","Cake salé courgette & feta","50 min","6 parts","emporter","recette-27-cake-sale-courgette-feta.pdf"],["28","Pâtes au pesto d'épinards","15 min","2 pers.","plat","recette-28-pates-au-pesto-d-epinards.pdf"],["29","Salade de riz du pique-nique","20 min","3 portions","emporter","recette-29-salade-de-riz-du-pique-nique.pdf"],["30","Omelette roulée aux légumes","10 min","1 pers.","plat","recette-30-omelette-roulee-aux-legumes.pdf"],["31","Barres de céréales maison","30 min","8 barres","snack","recette-31-barres-de-cereales-maison.pdf"],["32","Porridge cacao & banane","10 min","1 pers.","petitdej","recette-32-porridge-cacao-banane.pdf"],["33","Poulet citron & légumes au four","35 min","2 pers.","plat","recette-33-poulet-citron-legumes-au-four.pdf"],["34","Gaspacho express","10 min","3 bols","soupe","recette-34-gaspacho-express.pdf"],["35","Bowl réconfort riz, œuf & épinards","15 min","1 pers.","bowl","recette-35-bowl-reconfort-riz-uf-epinards.pdf"],["36","Dahl de lentilles corail","25 min","4 portions","plat","recette-36-dahl-de-lentilles-corail.pdf"],["37","Soupe de potimarron & pois chiches grillés","30 min","3 bols","soupe","recette-37-soupe-de-potimarron-pois-chiches-grilles.pdf"]];
-document.getElementById("recipes").innerHTML=R.map(r=>`<div class="card recipe"><span class="tag t-neutral">${CAT[r[4]]}</span><h3 style="margin-top:12px">${r[1]}</h3><div class="meta"><span>⏱ ${r[2]}</span><span>🍽 ${r[3]}</span></div><a class="btn btn--secondary btn-full" style="width:100%" href="assets/recettes/${r[5]}" download>Télécharger la fiche PDF</a></div>`).join("");
+/* recettes de Kilo & où manger le midi (repris de la page 12h PULSE, couleurs du site) */
+(function(){
+  var PDF_BASE_URL="assets/recettes/";
+  var R=[{"n":"02","titre":"Le sandwich de rando","temps":"10 min","min":10,"portions":"1 pers.","cat":"emporter","ingr":["Pain complet","1 boîte de thon ou 1 œuf dur","Fromage frais","Concombre","Tomate"],"extra":"Pour la route : 1 fruit et une poignée de fruits secs.","etapes":["Tartine le pain de fromage frais, ajoute le thon ou l'œuf en tranches, puis les légumes.","Emballe-le bien serré dans du papier : il tient toute la balade."],"citation":"« La meilleure pause, c'est celle au bout du chemin. »","moment":"JOUR FÉRIÉ"},{"n":"03","titre":"Wrap houmous & crudités","temps":"10 min","min":10,"portions":"1 pers.","cat":"emporter","ingr":["1 galette de blé","2 cuillères à soupe de houmous","Carotte râpée","Concombre","Salade","1 œuf dur ou du thon"],"extra":null,"etapes":["Étale le houmous sur la galette, ajoute les crudités et la protéine, puis roule bien serré.","Il se prépare la veille et se glisse dans le sac."],"citation":"« Croquant, frais, et prêt en 10 minutes. »","moment":"MOIS SANS TABAC · MOVEMBER"},{"n":"04","titre":"Frittata anti-gaspi","temps":"20 min","min":20,"portions":"2 pers.","cat":"plat","ingr":["3 œufs","Les restes du frigo (légumes","Pâtes","Fromage)","Sel","Poivre"],"extra":null,"etapes":["Bats les œufs et mélange-les avec les restes coupés en morceaux.","Verse dans une poêle huilée, couvre et laisse cuire 10 minutes à feu doux."],"citation":"« Rien ne se perd, tout se mange. »","moment":"BLACK FRIDAY"},{"n":"05","titre":"Curry de pois chiches à partager","temps":"25 min","min":25,"portions":"4 pers.","cat":"plat","ingr":["2 boîtes de pois chiches","1 boîte de lait de coco","1 boîte de tomates concassées","1 oignon","Des épinards surgelés","Curry","Riz"],"extra":null,"etapes":["Fais revenir l'oignon avec le curry, ajoute les tomates, le lait de coco, les pois chiches rincés et les épinards.","Laisse mijoter 15 minutes et sers avec du riz."],"citation":"« Assez pour 4 : invite tes potes. »","moment":"INCLUSION"},{"n":"06","titre":"Overnight oats spécial révisions","temps":"5 min la veille","min":5,"portions":"1 pers.","cat":"petitdej","ingr":["40 g de flocons d'avoine","1 yaourt nature ou 100 ml de lait","1 banane","1 cuillère de beurre de cacahuète","Quelques noix"],"extra":null,"etapes":["Le soir, mélange les flocons avec le yaourt ou le lait dans un bocal et place-le au frais.","Au réveil, ajoute la banane coupée, le beurre de cacahuète et les noix."],"citation":"« Le petit-déj qui se prépare pendant que tu dors. »","moment":"PÉRIODE DE PARTIELS"},{"n":"07","titre":"Salade d'hiver orange, carotte & pois chiches","temps":"10 min","min":10,"portions":"2 pers.","cat":"emporter","ingr":["2 carottes","1 orange","1 boîte de pois chiches","Quelques noix","Huile d'olive","Citron","Cumin"],"extra":null,"etapes":["Râpe les carottes, coupe l'orange en morceaux, ajoute les pois chiches rincés et les noix.","Assaisonne avec l'huile, le citron et une pincée de cumin."],"citation":"« Fraîche et légère, entre deux repas de fête. »","moment":"NOËL"},{"n":"08","titre":"Velouté de châtaignes & champignons","temps":"25 min","min":25,"portions":"3 bols","cat":"soupe","ingr":["200 g de châtaignes cuites (sous vide)","250 g de champignons","1 oignon","1 cube de bouillon","Un peu de crème (facultatif)"],"extra":null,"etapes":["Fais revenir l'oignon et les champignons, ajoute les châtaignes, couvre d'eau avec le bouillon et laisse cuire 15 minutes.","Mixe et ajoute un peu de crème."],"citation":"« Le goût des fêtes, sans des heures en cuisine. »","moment":"VACANCES DE NOËL"},{"n":"09","titre":"Toasts de fête légers","temps":"15 min","min":15,"portions":"4 pers.","cat":"snack","ingr":["Pain complet","Fromage frais ou houmous","Saumon fumé ou concombre","Aneth ou ciboulette"],"extra":null,"etapes":["Tartine le pain de fromage frais ou de houmous, ajoute une lamelle de saumon ou de concombre et quelques herbes, puis coupe en petits carrés."],"citation":"« Des toasts qui ne t'empêchent pas de danser. »","moment":"NOUVEL AN"},{"n":"10","titre":"Bowl énergie du matin","temps":"5 min","min":5,"portions":"1 pers.","cat":"petitdej","ingr":["1 yaourt nature ou skyr","3 cuillères de flocons d'avoine","1 fruit de saison","1 poignée de noix ou de graines","Un filet de miel (facultatif)"],"extra":null,"etapes":["Verse le yaourt dans un bol, ajoute les flocons, le fruit coupé et les noix.","C'est prêt."],"citation":"« Une résolution facile à tenir : bien démarrer la journée. »","moment":"NOUVEL AN · RENTRÉE"},{"n":"11","titre":"Shakshuka express","temps":"20 min","min":20,"portions":"1 à 2 pers.","cat":"plat","ingr":["2 œufs","1 boîte de tomates concassées","1 poivron","1 oignon","Cumin","Paprika","Pain complet"],"extra":null,"etapes":["Fais revenir l'oignon et le poivron, ajoute les tomates et les épices, laisse mijoter 10 minutes.","Creuse deux puits, casse les œufs dedans, couvre et laisse cuire 5 minutes.","Sers avec du pain."],"citation":"« Rouge, chaud et réconfortant : l'anti-grisaille. »","moment":"BLUES DE JANVIER"},{"n":"12","titre":"Energy balls maison","temps":"15 min","min":15,"portions":"12 boules","cat":"snack","ingr":["100 g de flocons d'avoine","8 dattes dénoyautées","2 cuillères de beurre de cacahuète","1 cuillère de cacao non sucré"],"extra":null,"etapes":["Mixe les dattes avec le beurre de cacahuète, ajoute les flocons et le cacao, puis forme des petites boules avec les mains.","Garde-les au frais : parfaites pour le jour J."],"citation":"« Le carburant officiel de CAMPULSE. »","moment":"J-5 · CAMPULSE"},{"n":"13","titre":"Pasta box de la veille","temps":"15 min","min":15,"portions":"1 pers.","cat":"emporter","ingr":["Pâtes complètes","Thon ou pois chiches","Tomates cerises","Maïs","Un filet d'huile d'olive"],"extra":null,"etapes":["Prépare ta box ce soir : pâtes cuites et refroidies, garniture, assaisonnement.","Demain midi, tu n'auras plus qu'à l'ouvrir."],"citation":"« Prépare ce soir, profite demain. »","moment":"J-1 · CAMPULSE"},{"n":"14","titre":"Smoothie récup banane & cacao","temps":"5 min","min":5,"portions":"1 pers.","cat":"petitdej","ingr":["1 banane","250 ml de lait ou de boisson végétale","1 cuillère de cacao non sucré","2 cuillères de flocons d'avoine"],"extra":null,"etapes":["Mets tout dans un blender et mixe 30 secondes.","À boire bien frais."],"citation":"« Après l'effort, le réconfort. »","moment":"RETOUR SUR CAMPULSE"},{"n":"15","titre":"Salade de pâtes complètes à emporter","temps":"15 min","min":15,"portions":"3 boîtes","cat":"emporter","ingr":["250 g de pâtes complètes","1 boîte de pois chiches ou de thon","Tomates cerises","Feta","Huile d'olive","Citron"],"extra":null,"etapes":["Fais cuire les pâtes et laisse-les refroidir.","Mélange-les avec les pois chiches ou le thon, les tomates coupées et la feta.","Assaisonne d'huile d'olive et de citron, puis répartis en 3 boîtes."],"citation":"« Trois déjeuners prêts, zéro excuse. »","moment":"RUSH DES RENDUS"},{"n":"16","titre":"Crêpes complètes à l'avoine","temps":"25 min","min":25,"portions":"8 crêpes","cat":"petitdej","ingr":["100 g de farine complète","50 g de flocons d'avoine mixés","2 œufs","400 ml de lait","1 pincée de sel"],"extra":null,"etapes":["Mélange la farine et l'avoine, ajoute les œufs, puis le lait petit à petit en fouettant.","Laisse reposer 15 minutes si tu peux, puis fais cuire dans une poêle chaude légèrement huilée."],"citation":"« Kilo a goûté. Kilo en redemande. »","moment":"CHANDELEUR"},{"n":"17","titre":"Pizza maison sur pain pita","temps":"15 min","min":15,"portions":"2 pers.","cat":"plat","ingr":["2 pains pita","Sauce tomate","Mozzarella","Légumes au choix (poivron","Champignons","Olives)","Origan"],"extra":null,"etapes":["Étale la sauce sur les pains pita, ajoute la mozzarella et les légumes.","Enfourne 10 minutes à 200 °C.","Une chacun, ou à partager."],"citation":"« Une pizza pour deux, c'est encore meilleur. »","moment":"SAINT-VALENTIN · MARDI GRAS"},{"n":"18","titre":"Poêlée savoyarde légère","temps":"25 min","min":25,"portions":"2 pers.","cat":"plat","ingr":["4 pommes de terre","1 oignon","Des lardons ou des champignons","Un peu de reblochon ou de fromage râpé","Salade verte"],"extra":null,"etapes":["Fais dorer les pommes de terre en dés à la poêle avec l'oignon et les lardons ou les champignons.","Ajoute un peu de fromage en fin de cuisson et sers avec une grande salade verte."],"citation":"« Le goût de la montagne, même depuis ta cuisine. »","moment":"VACANCES D'HIVER"},{"n":"19","titre":"Buddha bowl en camembert","temps":"20 min","min":20,"portions":"1 pers.","cat":"bowl","ingr":["Riz ou quinoa","½ boîte de pois chiches","1 carotte râpée","Du chou rouge","1 œuf dur","Sauce yaourt-citron"],"extra":null,"etapes":["Dispose chaque ingrédient en part sur le riz, comme les parts d'un graphique en camembert.","Arrose de sauce yaourt-citron."],"citation":"« Le seul camembert du Baromètre qui se mange. »","moment":"RÉSULTATS DU BAROMÈTRE"},{"n":"20","titre":"Poke bowl maison au thon","temps":"20 min","min":20,"portions":"1 pers.","cat":"bowl","ingr":["Riz","1 petite boîte de thon","Concombre","Carotte","Avocat ou edamame","Sauce soja","Graines de sésame"],"extra":null,"etapes":["Fais cuire le riz et laisse-le tiédir.","Dispose dessus le thon, les légumes coupés et l'avocat.","Ajoute un filet de sauce soja et les graines."],"citation":"« Coloré et plein d'énergie, comme toi. »","moment":"DROITS DES FEMMES"},{"n":"21","titre":"Velouté de patate douce & coco","temps":"25 min","min":25,"portions":"3 bols","cat":"soupe","ingr":["1 grosse patate douce","1 carotte","1 oignon","1 cube de bouillon","Un peu de lait de coco","Gingembre (facultatif)"],"extra":null,"etapes":["Coupe les légumes en morceaux et fais-les cuire 20 minutes dans de l'eau avec le bouillon.","Mixe, puis ajoute le lait de coco et un peu de gingembre."],"citation":"« Un dîner doux pour une nuit bien douce. »","moment":"JOURNÉE DU SOMMEIL"},{"n":"22","titre":"Taboulé de printemps","temps":"15 min","min":15,"portions":"3 portions","cat":"emporter","ingr":["150 g de boulgour ou de semoule","1 concombre","2 tomates","1 boîte de pois chiches","Menthe et persil","1 citron","Huile d'olive"],"extra":null,"etapes":["Fais gonfler le boulgour dans l'eau bouillante.","Pendant ce temps, coupe les légumes en petits dés et cisèle les herbes.","Mélange le tout avec les pois chiches, le jus de citron et l'huile."],"citation":"« Frais comme un premier jour de printemps. »","moment":"PRINTEMPS · JOURNÉE MONDIALE DE L'EAU"},{"n":"23","titre":"Œufs cocotte aux épinards","temps":"15 min","min":15,"portions":"1 pers.","cat":"plat","ingr":["2 œufs","1 poignée d'épinards frais ou surgelés","1 cuillère de crème ou de fromage frais","Pain complet"],"extra":null,"etapes":["Fais tomber les épinards à la poêle, répartis-les dans deux ramequins avec la crème, casse un œuf dans chacun.","Enfourne 10 minutes à 180 °C et sers avec des mouillettes de pain complet."],"citation":"« Les œufs de Pâques, version salée. »","moment":"PÂQUES · HEURE D'ÉTÉ"},{"n":"24","titre":"Pancakes banane, vrai ou faux ?","temps":"10 min","min":10,"portions":"1 pers.","cat":"petitdej","ingr":["1 banane bien mûre","2 œufs","2 cuillères de flocons d'avoine (facultatif)","Un peu de cannelle"],"extra":null,"etapes":["Écrase la banane à la fourchette, mélange avec les œufs, les flocons et la cannelle.","Verse de petites louches dans une poêle chaude légèrement huilée et retourne après 1 à 2 minutes."],"citation":"« Vrai : deux ingrédients suffisent. »","moment":"SPÉCIAL POISSON D'AVRIL"},{"n":"25","titre":"Papillote de poisson & légumes","temps":"25 min","min":25,"portions":"1 pers.","cat":"plat","ingr":["1 filet de poisson blanc (frais ou surgelé)","1 courgette","1 carotte","½ citron","Herbes de Provence","Huile d'olive","Riz"],"extra":null,"etapes":["Coupe les légumes en fines rondelles et pose-les sur une feuille de papier cuisson avec le poisson, le citron, les herbes et un filet d'huile.","Ferme la papillote et enfourne 20 minutes à 200 °C.","Sers avec du riz."],"citation":"« Une ordonnance que Kilo suit avec plaisir. »","moment":"JOURNÉE MONDIALE DE LA SANTÉ"},{"n":"26","titre":"Bowl mexicain express","temps":"15 min","min":15,"portions":"2 pers.","cat":"bowl","ingr":["Riz","1 boîte de haricots rouges","1 petite boîte de maïs","1 avocat","1 tomate","1 citron vert","Cumin"],"extra":null,"etapes":["Réchauffe les haricots rincés avec le cumin.","Dispose sur le riz les haricots, le maïs, l'avocat et la tomate coupés.","Arrose de jus de citron vert."],"citation":"« Le carburant officiel du grand défi. »","moment":"GRAND DÉFI CAMPULSE"},{"n":"27","titre":"Cake salé courgette & feta","temps":"50 min","min":50,"portions":"6 parts","cat":"emporter","ingr":["3 œufs","150 g de farine","1 sachet de levure","10 cl de lait","5 cl d'huile d'olive","1 courgette râpée","100 g de feta","Herbes"],"extra":null,"etapes":["Mélange les œufs, la farine, la levure, le lait et l'huile.","Ajoute la courgette râpée et essorée, la feta émiettée et les herbes.","Verse dans un moule et enfourne 40 minutes à 180 °C."],"citation":"« Le roi du pique-nique, qui voyage partout. »","moment":"VACANCES DE PRINTEMPS"},{"n":"28","titre":"Pâtes au pesto d'épinards","temps":"15 min","min":15,"portions":"2 pers.","cat":"plat","ingr":["200 g de pâtes","2 poignées d'épinards frais","30 g de parmesan","1 poignée de noix ou de pignons","1 gousse d'ail","Huile d'olive"],"extra":null,"etapes":["Fais cuire les pâtes.","Pendant ce temps, mixe les épinards avec le parmesan, les noix, l'ail et l'huile.","Mélange le pesto aux pâtes égouttées."],"citation":"« Manger, c'est aussi pour le plaisir. »","moment":"BIEN-ÊTRE"},{"n":"29","titre":"Salade de riz du pique-nique","temps":"20 min","min":20,"portions":"3 portions","cat":"emporter","ingr":["200 g de riz","1 boîte de thon","2 tomates","½ poivron","1 petite boîte de maïs","Olives","2 œufs durs","Huile d'olive","Vinaigre"],"extra":null,"etapes":["Fais cuire le riz et laisse-le refroidir.","Ajoute le thon, les légumes coupés, le maïs, les olives et les œufs durs en quartiers.","Assaisonne et garde au frais jusqu'au départ."],"citation":"« Le pique-nique, c'est le meilleur moment de la rando. »","moment":"PONTS DE MAI"},{"n":"30","titre":"Omelette roulée aux légumes","temps":"10 min","min":10,"portions":"1 pers.","cat":"plat","ingr":["2 œufs","1 poignée d'épinards ou de poivron","Un peu de fromage râpé","Pain complet"],"extra":null,"etapes":["Bats les œufs, verse-les dans une poêle chaude, ajoute les légumes et le fromage, puis roule l'omelette quand elle est prise.","Sers avec une tranche de pain complet."],"citation":"« Simple, rapide, et ça donne de la force. »","moment":"PORTRAITS"},{"n":"31","titre":"Barres de céréales maison","temps":"30 min","min":30,"portions":"8 barres","cat":"snack","ingr":["2 bananes bien mûres","150 g de flocons d'avoine","1 poignée de fruits secs (raisins","Abricots)","1 poignée de graines ou de noix"],"extra":null,"etapes":["Écrase les bananes à la fourchette et mélange-les avec les flocons, les fruits secs et les graines.","Étale la pâte dans un plat recouvert de papier cuisson et enfourne 20 minutes à 180 °C.","Coupe en barres une fois refroidi."],"citation":"« Le snack de poche des marcheurs. »","moment":"CHALLENGE STEP UP"},{"n":"32","titre":"Porridge cacao & banane","temps":"10 min","min":10,"portions":"1 pers.","cat":"petitdej","ingr":["40 g de flocons d'avoine","250 ml de lait ou de boisson végétale","1 cuillère de cacao non sucré","1 banane","Quelques amandes"],"extra":null,"etapes":["Fais chauffer les flocons dans le lait 5 minutes en remuant.","Ajoute le cacao, puis la banane en rondelles et les amandes."],"citation":"« Le petit-déj du jour J. »","moment":"EXAMENS DE FIN D'ANNÉE"},{"n":"33","titre":"Poulet citron & légumes au four","temps":"35 min","min":35,"portions":"2 pers.","cat":"plat","ingr":["2 cuisses ou blancs de poulet","1 courgette","1 poivron","1 oignon rouge","1 citron","Herbes de Provence","Huile d'olive"],"extra":null,"etapes":["Coupe les légumes en morceaux et dispose-les dans un plat avec le poulet.","Arrose de jus de citron et d'huile, ajoute les herbes.","Enfourne 30 minutes à 200 °C."],"citation":"« Simple, coloré, prêt pour la saison. »","moment":"ROLAND-GARROS · SAISON OUTDOOR"},{"n":"34","titre":"Gaspacho express","temps":"10 min","min":10,"portions":"3 bols","cat":"soupe","ingr":["6 tomates bien mûres","½ concombre","½ poivron rouge","1 petite gousse d'ail","1 tranche de pain rassis","Huile d'olive","Vinaigre","Sel"],"extra":null,"etapes":["Coupe les légumes en morceaux et mixe-les avec le pain, l'ail, un filet d'huile et de vinaigre.","Sale, puis garde au frais au moins 1 heure.","À boire bien froid."],"citation":"« Kilo part en vacances. À la rentrée ! »","moment":"DERNIÈRE NEWSLETTER DE L'ANNÉE"},{"n":"35","titre":"Bowl réconfort riz, œuf & épinards","temps":"15 min","min":15,"portions":"1 pers.","cat":"bowl","ingr":["Du riz (un reste","C'est parfait)","1 œuf","1 poignée d'épinards frais ou surgelés","Sauce soja","Graines de sésame"],"extra":null,"etapes":["Fais cuire l'œuf 6 minutes dans l'eau bouillante.","Pendant ce temps, réchauffe le riz et fais tomber les épinards à la poêle.","Assemble, ajoute un filet de sauce soja et les graines."],"citation":"« Un bon repas chaud, c'est déjà une pause. »","moment":"SANTÉ MENTALE"},{"n":"36","titre":"Dahl de lentilles corail","temps":"25 min","min":25,"portions":"4 portions","cat":"plat","ingr":["250 g de lentilles corail","1 oignon","1 boîte de tomates concassées","Un peu de lait de coco (facultatif)","Curry","Riz"],"extra":null,"etapes":["Fais revenir l'oignon émincé avec le curry.","Ajoute les lentilles rincées, les tomates et deux fois leur volume d'eau.","Laisse mijoter 15 à 20 minutes, ajoute le lait de coco et sers avec du riz."],"citation":"« Une casserole, quatre repas. Kilo approuve. »","moment":"ALIMENTATION"},{"n":"37","titre":"Soupe de potimarron & pois chiches grillés","temps":"30 min","min":30,"portions":"3 bols","cat":"soupe","ingr":["½ potimarron (pas besoin de l'éplucher)","1 oignon","1 cube de bouillon","1 boîte de pois chiches","Paprika"],"extra":null,"etapes":["Coupe le potimarron en cubes et fais-le cuire 20 minutes avec l'oignon dans de l'eau et le bouillon, puis mixe.","Pendant ce temps, fais griller les pois chiches à la poêle avec le paprika et parsème-les sur la soupe."],"citation":"« Orange comme le soleil qu'on ne voit plus. »","moment":"HEURE D'HIVER"}];
+  var C=[{"id":"paris","nom":"Paris Montparnasse","adresse":"3 rue Armand Moisant, 75015 Paris","ville":"Paris","note":"","sain_note":"Aussi dans la liste principale : Armand Bar & Cantine (bowls, jus frais) et Le Pasteur (poke bowls).","lieux":[["Boulangerie Monnier","169 rue de Vaugirard","Boulangerie","€","4","Formule étudiant sandwich + dessert + boisson citée autour de 5,60 € dans les avis. Fermée le week-end",0],["Le 46","46 rue Falguière","Cuisine maison","€€","4","Plats du jour, petite salle, réservation conseillée. Fermé le dimanche",0],["Gogi Burger","3 av. du Maine","Burgers","€€","5","Noté 4,9/5, portions généreuses",0],["Le Pasteur","35 bd Pasteur","Brasserie","€€","5","Poke, croque, tacos. Ouvert de 6h30 à 2h",1],["Mont Frenchy","56 bd du Montparnasse","Français","€€","6","Bon rapport qualité-prix selon les avis",0],["Aux Artistes","63 rue Falguière","Bistrot","€€","7","Menu entrée-plat-dessert cité à environ 18 €. Bondé le midi",0],["Starving Club","11 bd Pasteur","Burgers","€€","8","Fermé le lundi soir",0],["Crêperies de la rue du Montparnasse","n° 56 à 67 rue du Montparnasse : Crêperie Bretonne, Le Petit Josselin, Les Cormorans, Crêperie de Josselin","Crêperies","€ à €€","9","Une rue entière de crêperies, une galette suffit pour un repas",0],["Armand Bar & Cantine","33 rue de la Gaîté (14e)","Bowls, jus frais","€€","9","Options végétariennes et vegan. Fermé samedi midi et dimanche",1],["Black Pinky","30 rue de la Gaîté (14e)","Asiatique","€€","9","Fermé le lundi",0],["Burger King","84 bd du Montparnasse","Fast-food","€€","10","Réductions dans l'application",0],["Bistrot 15","99 rue Falguière","Bistrot","€€","12","Prix bas pour Paris selon les avis",0],["Avec amour","63 rue de l'Ouest (14e)","Smash burgers","€€","12","Grosses portions de frites",0],["BIBO Smash Burgers","10 rue Miollis","Burgers","€€","15","Offre étudiant citée dans les avis",0],["Cantine Viet Nam","133 rue de Vaugirard","Vietnamien","€€","3","Pho, vermicelles, pho végétarien. Ouvert tous les jours",1],["La Belle Étincelle","59 bd Pasteur","Cuisine de saison","€€","4","Produits frais, emploie des jeunes en situation de handicap. Midi en semaine uniquement",1],["Gustus - Asian Urban Food","215 rue de Vaugirard","Poke bowls, bowls","€€","10","Bowls préparés à la minute, pas cher selon les avis. Midi uniquement, fermé le dimanche",1],["Kapunka Cantine thaï","32 rue Delambre (14e)","Thaï","€€","10","Carte 100 % sans gluten, nombreux plats vegan. Ouvert tous les jours",1]]},{"id":"enghien","nom":"Enghien-les-Bains","adresse":"14 place du Cardinal Mercier, 95880 Enghien-les-Bains","ville":"Enghien-les-Bains","note":"Non retenu : Le Cardinal, juste à côté du campus, est un restaurant gastronomique (€€€).","sain_note":"Aussi dans la liste principale : DS Café (jus, brunch). L'offre saine reste limitée autour de ce campus.","lieux":[["Le Comptoir d'Enghien","7 rue Robert Schuman","Brasserie","€€","3","Ouvert tous les jours",0],["Le Moulin du Lac","44 rue du Général de Gaulle","Boulangerie","€","4","Bonne formule déjeuner selon les avis. Fermée le lundi",0],["Le Fournil d'Enghien","21 rue du Général de Gaulle","Boulangerie","€","4","Espèces uniquement selon les avis. Fermée le dimanche",0],["DS Café","79 rue du Général de Gaulle","Café, brunch","€€","4","Noté 4,8/5",1],["Boulangerie Savarino","8 rue du Général de Gaulle","Boulangerie","€","6","Fermée le lundi",0],["G-Soul","18 bis rue du Départ","Soul food, brunch","€€","8","Ambiance hip-hop, près de la gare",0],["La Sandwicherie de la Gare","28 rue du Départ","Kebab, sandwichs","€€","9","Pain et viande faits maison. Très connue, souvent de la queue",0],["Resto' La Barre","73 rue de la Barre","Turc","€","10","Pas cher, avis mitigés",0],["Poke Rolls","14 rue de Puisaye","Poke bowls","€€","3","Le plus proche du campus, mais avis négatifs sur le service",1],["Aux Plaisirs d'Enghien","5 rue Gaston Israël","Vietnamien, thaï","€€","9","Bon rapport qualité-prix selon les avis. Fermé le dimanche soir",1]]},{"id":"sgl","nom":"Saint-Germain-en-Laye","adresse":"51 boulevard de la Paix, ZA Bel Air, 78100 Saint-Germain-en-Laye","ville":"Saint-Germain-en-Laye","note":"Campus le moins bien desservi. Le centre-ville (rue de Poissy : Bugün, Belujika, Seven Days...) est à environ 20 minutes à pied, hors du périmètre de 15 minutes.","sain_note":"Peu d'options saines à moins de 15 minutes. Le centre-ville, à environ 20 minutes à pied, en a plusieurs : Poke Up (4 rue de Paris), Pokawa (20 rue du Vieux Marché), Acai and You (8 rue des Coches), Mamezo, bentos japonais (5 rue Wauthier).","lieux":[["King Food","6 av. Saint-Fiacre","Kebab, fast-food","€","2","Juste à côté du campus. Fermé le dimanche",0],["Boulangerie du Lycée International","29 rue de la Croix de Fer","Boulangerie, sandwichs","€","10","Fermée le week-end",0],["Kasta Tacos & Burger","3 place Christiane Frahier","Tacos, burgers","€€","13","Menu cité à environ 11 €",0],["Boulangerie du Roi","place Michel Péricard","Boulangerie","€","13","Fermée le jeudi. Carte bancaire à partir de 5 € selon les avis",0],["Le Paradis des Gourmands","50 av. Carnot","Boulangerie","€","13","En face du RER. Fermée lundi et mardi",0],["Café de la Croix Rouge","34 rue de Saint-Germain (Fourqueux)","Café-restaurant","€€","15","Fermé le dimanche",0],["Le Fournil des 4 Chemins","40 rue des Closeaux (Mareil-Marly)","Boulangerie, sandwichs","€","15","Fermé le lundi",0],["Sushiwan","2 rue Turgot","Japonais","€€","13","Avis mitigés sur la qualité",1]]},{"id":"rambouillet","nom":"Rambouillet","adresse":"44 rue Raymond Patenôtre, 78120 Rambouillet","ville":"Rambouillet","note":"","sain_note":"Aussi dans la liste principale : Sakura (japonais) et Tacos Kebab, qui fait aussi des pokés.","lieux":[["Le Punjab","36 rue Raymond Patenôtre","Indien","€€","3","Ouvert tous les midis",0],["Sakura","19 rue Raymond Patenôtre","Japonais","€€","4","Portions généreuses. Fermé le lundi",1],["Boulangerie du Pont Hardy","30 rue Chasles","Boulangerie","€","6","Quiches et pizzas réchauffées sur place. Fermée le jeudi",0],["Phuket Thaï","17 rue Chasles","Thaï","€€","6","Riz payé à part selon les avis. Fermé le dimanche",0],["Tacos Kebab","1 bis rue du Général Humbert","Kebab, tacos, pokés","€€","8","Le meilleur kebab de la ville selon plusieurs avis. Fermé le dimanche",1],["Au Duc de Rambouillet","19 place Félix Faure","Boulangerie","€","8","Fermée le mercredi",0],["Les Traditions du Roi","7 rue du Général de Gaulle","Boulangerie","€","15","Fermée le lundi. Certains avis se plaignent des prix",0],["Poke One","117 rue du Général de Gaulle","Poke bowls","€€","10","Bowls personnalisables, « le meilleur poke » selon plusieurs avis. Fermé le dimanche",1],["Hokkaido","22 rue Raymond Poincaré","Japonais, sushis","€€","15","Restaurant familial. Midi tous les jours sauf le dimanche",1]]},{"id":"cergy","nom":"Cergy-Pontoise","adresse":"8 rue Pierre de Coubertin, 95300 Pontoise","ville":"Pontoise","note":"Un peu trop loin : Chez Memo et Ozkan, deux kebabs très bien notés du centre de Pontoise, à 17-20 minutes.","sain_note":"Aussi dans la liste principale : Poké Bar (midi en semaine). Un peu plus loin (environ 17 min) : Le café [si], brunch sain, 40 rue Pierre Butin.","lieux":[["Restaurant universitaire Saint-Martin","2 av. Adolphe Chauvin","Resto U","€","4","Le moins cher : tarif étudiant cité autour de 3,30 €. Midi en semaine. Accès avec la carte Sup de V à vérifier",0],["Poké Bar","29 chaussée Jules César","Poké bowls","€€","8","Option saine. Midi du lundi au vendredi",1],["Le Comptoir Italien","29 chaussée Jules César","Italien","€€","8","Restaurant assis, plutôt pour une occasion",0],["Shake Shake Burger","2 rue des Galeries (Cergy)","Kebab, burgers","€","13","Menu kebab cité à moins de 7 €",0],["Boulangerie","32 place Notre-Dame","Boulangerie","€","14","Ouverte jusqu'à 22h. Fermée le mercredi",0],["Le Constantinople","2 rue Thiers","Turc","€€","15","Ouvert tous les jours",0],["La Marquise des Délices","3 place du Général de Gaulle","Boulangerie","€","15","Fermée le lundi",0],["Miss Kebab","75 rue Pierre Butin","Kebab","€","15","Ouvert tous les jours",0],["Pokawa Cergy","Centre commercial 3 Fontaines, Cergy","Poke bowls","€€","10","Options vegan et végétariennes. Ouvert tous les jours",1],["Hilo Bowls","26 rue des Galeries, Cergy","Bowls, poke, falafel","€€","12","Options vegan. Ouvert tous les jours",1]]}];
+  /* couleurs par catégorie, prises dans la palette du site : [liseré, fond, texte] */
+  var PAL={petitdej:["var(--lime)","var(--lime-l)","var(--lime-t)"],snack:["var(--lime)","var(--lime-l)","var(--lime-t)"],
+    emporter:["var(--orange)","var(--orange-l)","var(--orange-t)"],soupe:["var(--orange)","var(--orange-l)","var(--orange-t)"],
+    bowl:["var(--blue)","var(--blue-l)","var(--blue)"],plat:["var(--u-habitudes)","var(--lav)","var(--navy-h)"]};
+  var vars=function(r){var p=PAL[r.cat];return "--c:"+p[0]+";--bg:"+p[1]+";--fg:"+p[2]};
+  var norm=function(s){return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")};
+  function slug(s){return norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+  function pdfName(r){return "recette-"+r.n+"-"+slug(r.titre)+".pdf"}
+  var CATS=[["all","Toutes"],["petitdej","Petit-déj"],["emporter","À emporter"],["bowl","Bowls"],["plat","Plats"],["soupe","Soupes"],["snack","Snacks"]];
+  var CATLBL={petitdej:"Petit-déj",emporter:"À emporter",bowl:"Bowl",plat:"Plat",soupe:"Soupe",snack:"Snack"};
+  var TIMES=[[0,"Tous les temps"],[10,"≤ 10 min"],[20,"≤ 20 min"]];
+  var $=function(id){return document.getElementById(id)};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+  var st={cat:"all",t:0,q:"",campus:C[0].id,pf:"all"};
 
-/* où manger le midi : [nom, adresse, type, prix, minutes à pied, conseil, plus sain] */
-const C=[{"nom":"Paris Montparnasse","adresse":"3 rue Armand Moisant, 75015 Paris","ville":"Paris","note":"","sain":"Aussi dans la liste principale : Armand Bar & Cantine (bowls, jus frais) et Le Pasteur (poke bowls).","lieux":[["Boulangerie Monnier","169 rue de Vaugirard","Boulangerie","€","4","Formule étudiant sandwich + dessert + boisson citée autour de 5,60 € dans les avis. Fermée le week-end",0],["Le 46","46 rue Falguière","Cuisine maison","€€","4","Plats du jour, petite salle, réservation conseillée. Fermé le dimanche",0],["Gogi Burger","3 av. du Maine","Burgers","€€","5","Noté 4,9/5, portions généreuses",0],["Le Pasteur","35 bd Pasteur","Brasserie","€€","5","Poke, croque, tacos. Ouvert de 6h30 à 2h",1],["Mont Frenchy","56 bd du Montparnasse","Français","€€","6","Bon rapport qualité-prix selon les avis",0],["Aux Artistes","63 rue Falguière","Bistrot","€€","7","Menu entrée-plat-dessert cité à environ 18 €. Bondé le midi",0],["Starving Club","11 bd Pasteur","Burgers","€€","8","Fermé le lundi soir",0],["Crêperies de la rue du Montparnasse","n° 56 à 67 rue du Montparnasse : Crêperie Bretonne, Le Petit Josselin, Les Cormorans, Crêperie de Josselin","Crêperies","€ à €€","9","Une rue entière de crêperies, une galette suffit pour un repas",0],["Armand Bar & Cantine","33 rue de la Gaîté (14e)","Bowls, jus frais","€€","9","Options végétariennes et vegan. Fermé samedi midi et dimanche",1],["Black Pinky","30 rue de la Gaîté (14e)","Asiatique","€€","9","Fermé le lundi",0],["Burger King","84 bd du Montparnasse","Fast-food","€€","10","Réductions dans l'application",0],["Bistrot 15","99 rue Falguière","Bistrot","€€","12","Prix bas pour Paris selon les avis",0],["Avec amour","63 rue de l'Ouest (14e)","Smash burgers","€€","12","Grosses portions de frites",0],["BIBO Smash Burgers","10 rue Miollis","Burgers","€€","15","Offre étudiant citée dans les avis",0],["Cantine Viet Nam","133 rue de Vaugirard","Vietnamien","€€","3","Pho, vermicelles, pho végétarien. Ouvert tous les jours",1],["La Belle Étincelle","59 bd Pasteur","Cuisine de saison","€€","4","Produits frais, emploie des jeunes en situation de handicap. Midi en semaine uniquement",1],["Gustus - Asian Urban Food","215 rue de Vaugirard","Poke bowls, bowls","€€","10","Bowls préparés à la minute, pas cher selon les avis. Midi uniquement, fermé le dimanche",1],["Kapunka Cantine thaï","32 rue Delambre (14e)","Thaï","€€","10","Carte 100 % sans gluten, nombreux plats vegan. Ouvert tous les jours",1]]},{"nom":"Enghien-les-Bains","adresse":"14 place du Cardinal Mercier, 95880 Enghien-les-Bains","ville":"Enghien-les-Bains","note":"Non retenu : Le Cardinal, juste à côté du campus, est un restaurant gastronomique (€€€).","sain":"Aussi dans la liste principale : DS Café (jus, brunch). L'offre saine reste limitée autour de ce campus.","lieux":[["Le Comptoir d'Enghien","7 rue Robert Schuman","Brasserie","€€","3","Ouvert tous les jours",0],["Le Moulin du Lac","44 rue du Général de Gaulle","Boulangerie","€","4","Bonne formule déjeuner selon les avis. Fermée le lundi",0],["Le Fournil d'Enghien","21 rue du Général de Gaulle","Boulangerie","€","4","Espèces uniquement selon les avis. Fermée le dimanche",0],["DS Café","79 rue du Général de Gaulle","Café, brunch","€€","4","Noté 4,8/5",1],["Boulangerie Savarino","8 rue du Général de Gaulle","Boulangerie","€","6","Fermée le lundi",0],["G-Soul","18 bis rue du Départ","Soul food, brunch","€€","8","Ambiance hip-hop, près de la gare",0],["La Sandwicherie de la Gare","28 rue du Départ","Kebab, sandwichs","€€","9","Pain et viande faits maison. Très connue, souvent de la queue",0],["Resto' La Barre","73 rue de la Barre","Turc","€","10","Pas cher, avis mitigés",0],["Poke Rolls","14 rue de Puisaye","Poke bowls","€€","3","Le plus proche du campus, mais avis négatifs sur le service",1],["Aux Plaisirs d'Enghien","5 rue Gaston Israël","Vietnamien, thaï","€€","9","Bon rapport qualité-prix selon les avis. Fermé le dimanche soir",1]]},{"nom":"Saint-Germain-en-Laye","adresse":"51 boulevard de la Paix, ZA Bel Air, 78100 Saint-Germain-en-Laye","ville":"Saint-Germain-en-Laye","note":"Campus le moins bien desservi. Le centre-ville (rue de Poissy : Bugün, Belujika, Seven Days...) est à environ 20 minutes à pied, hors du périmètre de 15 minutes.","sain":"Peu d'options saines à moins de 15 minutes. Le centre-ville, à environ 20 minutes à pied, en a plusieurs : Poke Up (4 rue de Paris), Pokawa (20 rue du Vieux Marché), Acai and You (8 rue des Coches), Mamezo, bentos japonais (5 rue Wauthier).","lieux":[["King Food","6 av. Saint-Fiacre","Kebab, fast-food","€","2","Juste à côté du campus. Fermé le dimanche",0],["Boulangerie du Lycée International","29 rue de la Croix de Fer","Boulangerie, sandwichs","€","10","Fermée le week-end",0],["Kasta Tacos & Burger","3 place Christiane Frahier","Tacos, burgers","€€","13","Menu cité à environ 11 €",0],["Boulangerie du Roi","place Michel Péricard","Boulangerie","€","13","Fermée le jeudi. Carte bancaire à partir de 5 € selon les avis",0],["Le Paradis des Gourmands","50 av. Carnot","Boulangerie","€","13","En face du RER. Fermée lundi et mardi",0],["Café de la Croix Rouge","34 rue de Saint-Germain (Fourqueux)","Café-restaurant","€€","15","Fermé le dimanche",0],["Le Fournil des 4 Chemins","40 rue des Closeaux (Mareil-Marly)","Boulangerie, sandwichs","€","15","Fermé le lundi",0],["Sushiwan","2 rue Turgot","Japonais","€€","13","Avis mitigés sur la qualité",1]]},{"nom":"Rambouillet","adresse":"44 rue Raymond Patenôtre, 78120 Rambouillet","ville":"Rambouillet","note":"","sain":"Aussi dans la liste principale : Sakura (japonais) et Tacos Kebab, qui fait aussi des pokés.","lieux":[["Le Punjab","36 rue Raymond Patenôtre","Indien","€€","3","Ouvert tous les midis",0],["Sakura","19 rue Raymond Patenôtre","Japonais","€€","4","Portions généreuses. Fermé le lundi",1],["Boulangerie du Pont Hardy","30 rue Chasles","Boulangerie","€","6","Quiches et pizzas réchauffées sur place. Fermée le jeudi",0],["Phuket Thaï","17 rue Chasles","Thaï","€€","6","Riz payé à part selon les avis. Fermé le dimanche",0],["Tacos Kebab","1 bis rue du Général Humbert","Kebab, tacos, pokés","€€","8","Le meilleur kebab de la ville selon plusieurs avis. Fermé le dimanche",1],["Au Duc de Rambouillet","19 place Félix Faure","Boulangerie","€","8","Fermée le mercredi",0],["Les Traditions du Roi","7 rue du Général de Gaulle","Boulangerie","€","15","Fermée le lundi. Certains avis se plaignent des prix",0],["Poke One","117 rue du Général de Gaulle","Poke bowls","€€","10","Bowls personnalisables, « le meilleur poke » selon plusieurs avis. Fermé le dimanche",1],["Hokkaido","22 rue Raymond Poincaré","Japonais, sushis","€€","15","Restaurant familial. Midi tous les jours sauf le dimanche",1]]},{"nom":"Cergy-Pontoise","adresse":"8 rue Pierre de Coubertin, 95300 Pontoise","ville":"Pontoise","note":"Un peu trop loin : Chez Memo et Ozkan, deux kebabs très bien notés du centre de Pontoise, à 17-20 minutes.","sain":"Aussi dans la liste principale : Poké Bar (midi en semaine). Un peu plus loin (environ 17 min) : Le café [si], brunch sain, 40 rue Pierre Butin.","lieux":[["Restaurant universitaire Saint-Martin","2 av. Adolphe Chauvin","Resto U","€","4","Le moins cher : tarif étudiant cité autour de 3,30 €. Midi en semaine. Accès avec la carte Sup de V à vérifier",0],["Poké Bar","29 chaussée Jules César","Poké bowls","€€","8","Option saine. Midi du lundi au vendredi",1],["Le Comptoir Italien","29 chaussée Jules César","Italien","€€","8","Restaurant assis, plutôt pour une occasion",0],["Shake Shake Burger","2 rue des Galeries (Cergy)","Kebab, burgers","€","13","Menu kebab cité à moins de 7 €",0],["Boulangerie","32 place Notre-Dame","Boulangerie","€","14","Ouverte jusqu'à 22h. Fermée le mercredi",0],["Le Constantinople","2 rue Thiers","Turc","€€","15","Ouvert tous les jours",0],["La Marquise des Délices","3 place du Général de Gaulle","Boulangerie","€","15","Fermée le lundi",0],["Miss Kebab","75 rue Pierre Butin","Kebab","€","15","Ouvert tous les jours",0],["Pokawa Cergy","Centre commercial 3 Fontaines, Cergy","Poke bowls","€€","10","Options vegan et végétariennes. Ouvert tous les jours",1],["Hilo Bowls","26 rue des Galeries, Cergy","Bowls, poke, falafel","€€","12","Options vegan. Ouvert tous les jours",1]]}];
-const ct=document.getElementById("campusTabs");
-ct.innerHTML=C.map((c,i)=>`<button class="chip" data-i="${i}">${c.ville}</button>`).join("");
-const maps=(c,p)=>"https://www.google.com/maps/dir/?api=1&travelmode=walking&origin="+encodeURIComponent(c.adresse)+"&destination="+encodeURIComponent(p[0]+", "+p[1]+(/Cergy|Fourqueux|Mareil/.test(p[1])?"":", "+c.ville));
-function renderS(i){
-  const c=C[i];
-  ct.querySelectorAll(".chip").forEach(b=>b.classList.toggle("on",+b.dataset.i===i));
-  document.getElementById("campusInfo").innerHTML=`<b>${c.nom}</b> · ${c.adresse}`+(c.note?`<br>${c.note}`:"")+(c.sain?`<br>Plus sain : ${c.sain}`:"");
-  document.getElementById("spots").innerHTML=[...c.lieux].sort((a,b)=>a[4]-b[4]).map(p=>`<div class="card spot"><div><h4>${p[0]}</h4><p class="muted small">${p[2]} · ${p[3]} · ${p[1]}</p><p class="small" style="margin-top:8px">${p[5]}</p><p style="margin-top:10px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">${p[6]?"<span class=\"tag t-challenge\">Plus sain</span>":""}<a class="link" href="${maps(c,p)}" target="_blank" rel="noopener">Itinéraire</a></p></div><span class="price">🚶 ${p[4]} min</span></div>`).join("");
-}
-ct.addEventListener("click",e=>{const b=e.target.closest(".chip");if(b)renderS(+b.dataset.i)});
-renderS(0);
+  /* onglets (sans toucher à l'URL : le site s'en sert pour changer de page) */
+  function tab(rec){
+    $("cp-t-rec").setAttribute("aria-selected",rec);$("cp-t-adr").setAttribute("aria-selected",!rec);
+    $("cp-p-rec").hidden=!rec;$("cp-p-adr").hidden=rec;
+  }
+  $("cp-t-rec").onclick=function(){tab(true)};
+  $("cp-t-adr").onclick=function(){tab(false)};
+
+  /* recettes */
+  function chips(el,list,key,count){
+    el.innerHTML=list.map(function(c){
+      var n=count?count(c[0]):null;
+      return '<button class="chip" type="button" data-v="'+c[0]+'" aria-pressed="'+(st[key]==c[0])+'">'+esc(c[1])+(n!==null?'<small>'+n+'</small>':'')+'</button>';
+    }).join("");
+    el.onclick=function(e){var b=e.target.closest("button");if(!b)return;st[key]=isNaN(+b.dataset.v)?b.dataset.v:+b.dataset.v;key==="cat"||key==="t"?renderRec():renderPlaces();};
+  }
+  function match(r){
+    if(st.cat!=="all"&&r.cat!==st.cat)return false;
+    if(st.t&&r.min>st.t)return false;
+    if(st.q){var h=norm(r.titre+" "+r.ingr.join(" ")+" "+r.moment);return norm(st.q).split(/\s+/).every(function(w){return h.indexOf(w)>-1})}
+    return true;
+  }
+  function renderRec(){
+    chips($("cp-cats"),CATS,"cat",function(v){return v==="all"?R.length:R.filter(function(r){return r.cat===v}).length});
+    chips($("cp-time"),TIMES,"t");
+    var list=R.filter(match);
+    $("cp-count").textContent=list.length+" recette"+(list.length>1?"s":"")+" · toutes petit budget";
+    $("cp-grid").innerHTML=list.length?list.map(function(r){
+      return '<button class="cp-card" type="button" data-n="'+r.n+'" style="'+vars(r)+'">'+
+        '<div class="cp-card-top"><span class="cp-tag">'+esc(CATLBL[r.cat])+'</span><h3>'+esc(r.titre)+'</h3></div>'+
+        '<div class="cp-card-bot"><span>⏱ <b>'+esc(r.temps)+'</b></span><span>🍽 '+esc(r.portions)+'</span></div></button>';
+    }).join(""):'<p class="cp-empty">Aucune recette ne correspond. Essaie un autre mot, Kilo a peut-être tout mangé.</p>';
+  }
+  $("cp-q").oninput=function(e){st.q=e.target.value.trim();renderRec()};
+  $("cp-grid").onclick=function(e){var b=e.target.closest(".cp-card");if(b)openRec(b.dataset.n)};
+
+  var dlg=$("cp-dlg");
+  function openRec(n){
+    var r=R.filter(function(x){return x.n===n})[0];if(!r)return;
+    dlg.style.cssText=vars(r);
+    dlg.innerHTML='<div class="cp-d-head"><button class="cp-close" type="button" aria-label="Fermer">×</button><span class="cp-tag">'+esc(CATLBL[r.cat])+'</span>'+
+      '<h2 id="cp-dtitle">'+esc(r.titre)+'</h2><div class="cp-pills"><span class="cp-pill">⏱ '+esc(r.temps)+'</span><span class="cp-pill">🍽 '+esc(r.portions)+'</span><span class="cp-pill">💸 petit budget</span></div></div>'+
+      '<div class="cp-d-body"><h4>Il te faut</h4><ul class="cp-ing">'+r.ingr.map(function(i){return '<li><label><input type="checkbox"><span>'+esc(i)+'</span></label></li>'}).join("")+'</ul>'+
+      (r.extra?'<p class="cp-extra">'+esc(r.extra)+'</p>':'')+
+      '<h4>Préparation</h4><ol class="cp-steps">'+r.etapes.map(function(s){return '<li>'+esc(s)+'</li>'}).join("")+'</ol>'+
+      '<div class="cp-quote"><img src="assets/kilo-citation.webp" alt="Kilo" width="58" height="71"><p>'+esc(r.citation)+'</p></div>'+
+      '<div class="cp-actions"><a class="btn btn--primary" href="'+PDF_BASE_URL+pdfName(r)+'" download>Télécharger la recette en PDF</a></div>'+
+      '<p class="cp-d-foot">Parue dans la 12h PULSE n°'+parseInt(r.n,10)+' · '+esc(r.moment.charAt(0)+r.moment.slice(1).toLowerCase())+'</p></div>';
+    dlg.querySelector(".cp-close").onclick=function(){dlg.close()};
+    if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");
+  }
+  dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+
+  /* adresses */
+  var PF=[["all","Toutes les adresses"],["eco","€ Très bon marché"],["sain","🥗 Plus sain"]];
+  function mapsUrl(c,p){
+    var dest=p[0]+", "+p[1];
+    if(!/Cergy|Fourqueux|Mareil/.test(p[1]))dest+=", "+c.ville;
+    return "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin="+encodeURIComponent(c.adresse)+"&destination="+encodeURIComponent(dest);
+  }
+  function renderPlaces(){
+    chips($("cp-campus"),C.map(function(c){return[c.id,c.nom]}),"campus");
+    var c=C.filter(function(x){return x.id===st.campus})[0];
+    $("cp-cname").textContent="Campus "+c.nom;$("cp-caddr").textContent=c.adresse+" · "+c.lieux.length+" adresses à 15 min max";
+    chips($("cp-pf"),PF,"pf");
+    var list=c.lieux.filter(function(p){return st.pf==="all"||(st.pf==="eco"&&p[3]==="€")||(st.pf==="sain"&&p[6])})
+      .sort(function(a,b){return a[4]-b[4]});
+    $("cp-places").innerHTML=list.length?list.map(function(p){
+      var sain=!!p[6];
+      return '<article class="cp-place'+(sain?' is-sain':'')+'"><div class="cp-ptop"><h3>'+esc(p[0])+'</h3><span class="cp-walk'+(p[4]>=15?' is-lim':'')+'">🚶 ~'+p[4]+' min'+(p[4]>=15?' (limite)':'')+'</span></div>'+
+        '<div class="cp-meta"><span class="cp-badge">'+esc(p[3])+'</span>'+(sain?'<span class="cp-badge sain">Plus sain</span>':'')+'<span>'+esc(p[2])+'</span></div>'+
+        '<div class="cp-addr">'+esc(p[1])+'</div><p class="cp-tip">'+esc(p[5])+'</p>'+
+        '<a class="cp-go" href="'+mapsUrl(c,p)+'" target="_blank" rel="noopener">Itinéraire depuis le campus →</a></article>';
+    }).join(""):'<p class="cp-empty">Pas d\'adresse dans cette catégorie pour ce campus.</p>';
+    var notes="";
+    if(c.note)notes+='<div class="cp-note"><strong>À savoir :</strong> '+esc(c.note)+'</div>';
+    if(st.pf==="sain"&&c.sain_note)notes+='<div class="cp-note"><strong>Options plus saines :</strong> '+esc(c.sain_note)+'</div>';
+    $("cp-notes").innerHTML=notes;
+  }
+  renderRec();renderPlaces();
+})();
 
 /* forms */
 function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}document.getElementById(ok).style.display='block';f.reset()})}
