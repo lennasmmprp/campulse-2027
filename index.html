@@ -220,6 +220,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);bo
 .mail .top{background:var(--navy);color:#fff;padding:14px 18px;font-size:13px;display:flex;justify-content:space-between}
 .mail .body{padding:22px}
 .mail .line{height:10px;border-radius:6px;background:var(--border);margin:10px 0}
+.pulse-duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+@media(max-width:900px){.pulse-duo{grid-template-columns:1fr}}
 
 /* faq */
 details{background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);padding:18px 22px;margin-bottom:12px}
@@ -784,35 +786,49 @@ footer .logo{color:#fff}
         </div>
       </div>
       <div>
-        <form class="card" id="nlForm" style="border-top:6px solid var(--blue)" novalidate>
-          <h3>Je m'inscris au 12h PULSE</h3>
-          <p class="muted small" style="margin-top:4px">Gratuit · 1 mail par semaine · désinscription en un clic</p>
-          <label for="p">Prénom</label><input id="p" required placeholder="Ex. Lenna">
-          <label for="m">E-mail</label><input id="m" type="email" required placeholder="prenom.nom@mail.com">
-          <label for="c">Campus</label><select id="c"><option>Paris</option><option>Pontoise</option><option>Enghien-les-Bains</option><option>Rambouillet</option><option>Saint-Germain-en-Laye</option></select>
-          <label class="cb"><input type="checkbox" required> J'accepte de recevoir le 12h PULSE. Je peux me désinscrire à tout moment.</label>
-          <button class="btn btn--primary btn--lg" style="margin-top:20px;width:100%">M'inscrire</button>
-          <div class="alert ok" id="nlOk">C'est fait ! Rendez-vous mercredi à 12h. (démo : rien n'est envoyé)</div>
-        </form>
         <img src="assets/repos.png" alt="Milo et Kilo font un check" style="max-width:280px;margin:20px auto 0">
       </div>
     </div>
   </section>
   <section>
-    <div class="wrap step">
-      <div class="mail">
-        <div class="top"><b>12h PULSE · #04</b><span>mer. 12:00</span></div>
-        <div class="body">
-          <div class="over">Version Kilo</div>
-          <h3 style="margin:6px 0 8px">Tu dors combien d'heures ?</h3>
-          <div class="line" style="width:92%"></div><div class="line" style="width:80%"></div><div class="line" style="width:86%"></div>
-          <div class="win" style="margin-top:16px;padding:14px"><b>Le tip de la semaine</b><div class="line" style="width:70%;background:#d9f2b0"></div></div>
-        </div>
-      </div>
-      <div>
+    <div class="wrap">
+      <div class="head">
         <div class="over">Aperçu</div>
         <h2 style="margin-top:8px">À quoi ça ressemble</h2>
-        <p class="muted" style="margin-top:12px">Deux versions selon ton profil Kilo ou Milo, lisibles en 2 minutes. Les anciens numéros restent dispo ici.</p>
+        <p class="muted" style="margin-top:12px">Deux versions selon ton profil, générées automatiquement à partir de tes réponses au questionnaire</p>
+      </div>
+      <div class="pulse-duo">
+        <div class="mail" style="max-width:none">
+          <div class="top"><b>12h PULSE · #04</b><span>mer. 12:00</span></div>
+          <div class="body">
+            <span class="tag t-bouger">Version Kilo</span>
+            <h3 style="margin:10px 0 8px">Tu dors combien d'heures ?</h3>
+            <div class="line" style="width:92%"></div><div class="line" style="width:80%"></div><div class="line" style="width:86%"></div>
+            <div class="win" style="margin-top:16px;padding:14px"><b>Le tip de la semaine</b><div class="line" style="width:70%;background:#d9f2b0"></div></div>
+          </div>
+        </div>
+        <div class="mail" style="max-width:none">
+          <div class="top"><b>12h PULSE · #04</b><span>mer. 12:00</span></div>
+          <div class="body">
+            <span class="tag t-detendre">Version Milo</span>
+            <h3 style="margin:10px 0 8px">Ton créneau sport de la semaine</h3>
+            <div class="line" style="width:88%"></div><div class="line" style="width:94%"></div><div class="line" style="width:76%"></div>
+            <div class="win" style="margin-top:16px;padding:14px"><b>Le tip de la semaine</b><div class="line" style="width:70%;background:#d9f2b0"></div></div>
+          </div>
+        </div>
+      </div>
+      <form class="card" id="nlForm" style="border-top:6px solid var(--blue);max-width:560px;margin:40px auto 0" novalidate>
+        <h3>Je m'inscris au 12h PULSE</h3>
+        <p class="muted small" style="margin-top:4px">Gratuit · 1 mail par semaine · désinscription en un clic</p>
+        <label for="p">Prénom</label><input id="p" required placeholder="Ex. Lenna">
+        <label for="m">E-mail</label><input id="m" type="email" required placeholder="prenom.nom@mail.com">
+        <label for="c">Campus</label><select id="c"><option>Paris</option><option>Pontoise</option><option>Enghien-les-Bains</option><option>Rambouillet</option><option>Saint-Germain-en-Laye</option></select>
+        <label class="cb"><input type="checkbox" required> J'accepte de recevoir le 12h PULSE. Je peux me désinscrire à tout moment.</label>
+        <button class="btn btn--primary btn--lg" style="margin-top:20px;width:100%">M'inscrire</button>
+        <div class="alert ok" id="nlOk">C'est fait ! Rendez-vous mercredi à 12h. (démo : rien n'est envoyé)</div>
+      </form>
+      <div style="max-width:720px;margin-top:56px">
+        <p class="muted">Deux versions selon ton profil Kilo ou Milo, lisibles en 2 minutes. Les anciens numéros restent dispo ici.</p>
         <div id="nlArchive" style="margin-top:20px"></div>
       </div>
     </div>
