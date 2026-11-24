@@ -150,7 +150,8 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 /* bannière rognée : conteneur réutilisable, réglé page par page via --ratio (rognage), --pied (bande sous l'image) et --fond */
 .banniere{aspect-ratio:var(--ratio,auto);overflow:hidden;box-sizing:content-box;padding-bottom:var(--pied,0px);background:var(--fond,transparent)}
 #v-evenement .banniere{--ratio:2.6/1;--pied:20px;--fond:var(--banniere)}
-#v-bien-manger .banniere{--ratio:10/3}
+#v-bien-manger .banniere{--ratio:20/9}
+#v-bien-manger .banniere .banner{height:100%;object-fit:cover;object-position:bottom}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
@@ -715,7 +716,7 @@ footer .logo{color:#fff}
 <div class="view" id="v-bien-manger">
   <section class="lav" style="padding:0">
     <h1 class="sr-only">Bien manger sans se ruiner</h1>
-    <div class="banniere"><img class="banner" src="assets/CAMPULSE_banniere_bien-manger.png" alt="Bannière Bien manger avec CAMPULSE"></div>
+    <div class="banniere"><img class="banner" src="assets/CAMPULSE_banniere_bien-manger.webp" alt="Bannière Bien manger avec CAMPULSE"></div>
   </section>
   <!-- Recettes de Kilo & où manger le midi : repris de 12h-PULSE-recettes-et-adresses/page-web, au style du site -->
   <div id="cp-cuisine">
@@ -812,10 +813,7 @@ footer .logo{color:#fff}
         <div class="over">Aperçu</div>
         <h2 style="margin-top:8px">À quoi ça ressemble</h2>
         <p class="muted" style="margin-top:12px">Deux versions selon ton profil Kilo ou Milo, lisibles en 2 minutes. Les anciens numéros restent dispo ici.</p>
-        <div class="card" style="margin-top:20px;padding:8px 24px">
-          <div class="info-row"><span>#01 · Tu es Kilo ou Milo ?</span><a class="link" href="#" onclick="note('Archive à brancher');return false">Lire</a></div>
-          <div class="info-row"><span>#02 · À venir</span><span class="muted">mercredi 12h</span></div>
-        </div>
+        <div id="nlArchive" style="margin-top:20px"></div>
       </div>
     </div>
   </section>
@@ -1054,7 +1052,7 @@ function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener(
 bindForm('nlForm','nlOk');bindForm('ctForm','ctOk');
 
 /* jauge réponses */
-const JAUGE_URL='https://script.google.com/macros/s/AKfycbydFbEGARescpT190GBxDdiLn_A3KnngSLNg_CbiEWoK0E43a4BgRAwAJHA6dIFduye/exec';
+const JAUGE_URL='https://script.google.com/macros/s/AKfycbyoVTN2FtEGzsVSSUVicIWMX4eTwlt07uaeLlDKPzQLMInmoREwFDHqMfRkx7HeTRY/exec';
 function jauge(){
   if(!JAUGE_URL) return;
   fetch(JAUGE_URL,{cache:'no-store'}).then(r=>r.json()).then(d=>{
@@ -1065,6 +1063,21 @@ function jauge(){
   }).catch(()=>{});
 }
 jauge();setInterval(jauge,60000);
+
+/* archive 12h PULSE : liste déjà triée par l'API ; en cas d'échec, rien n'est affiché */
+fetch(JAUGE_URL+'?action=newsletters',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  const box=document.getElementById('nlArchive'), list=Array.isArray(d.newsletters)?d.newsletters:[];
+  if(!list.length){const p=document.createElement('p');p.className='muted';p.textContent='Les premières éditions arrivent bientôt';box.append(p);return}
+  list.forEach(n=>{
+    if(!/^(\/|https?:\/\/)/.test(n.lien||'')) return; // pas de lien javascript: ou vide
+    const a=document.createElement('a');
+    a.className='info-row';a.href=n.lien;a.target='_blank';a.rel='noopener';
+    a.style.cssText='text-decoration:none;color:inherit;border-bottom:1px solid var(--border)';
+    const date=document.createElement('span'),titre=document.createElement('span');
+    date.textContent=n.date;titre.textContent=n.titre;titre.style.textAlign='right';
+    a.append(date,titre);box.append(a);
+  });
+}).catch(()=>{});
 
 route();
 </script>
