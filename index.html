@@ -10,7 +10,7 @@
   --blue:#2563EB;--blue-h:#1F54C8;--blue-a:#1A45A4;--blue-l:#E5ECFD;
   --lime:#A3E635;--lime-h:#B8EC66;--lime-t:#4D7C0F;--lime-l:#F4FCE7;
   --orange:#FF6B35;--orange-h:#FF8558;--orange-t:#B24B25;--orange-l:#FFEDE7;
-  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--white:#fff;
+  --navy:#251F63;--navy-h:#3B3680;--lav:#F5F2FE;--beige:#F3ECE0;--white:#fff;
   --muted:#5B5880;--border:#E4E1F2;--input:#C9C6DC;--dis-bg:#ECEAF5;--dis-t:#8A87A8;--err:#DC2626;
   --ft:"Inter",system-ui,sans-serif;--fb:"Poppins",system-ui,sans-serif;
   --r-in:10px;--r-card:16px;--r-pill:999px;--shadow:0 4px 16px rgba(37,31,99,.10);
@@ -134,19 +134,21 @@ header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid 
 .date{font-weight:700;font-size:14px;color:var(--muted)}
 
 /* infos */
+/* bannières pleine largeur */
+.banner{display:block;width:100%;height:auto;object-fit:cover;margin-bottom:40px}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
 .ip{display:grid;grid-template-columns:auto 1fr;gap:72px;align-items:start}
 .ip-date{font:900 clamp(64px,9vw,104px)/.9 var(--ft);letter-spacing:-.04em;margin-top:16px}
-.ip-date span{display:block;font-size:.45em;letter-spacing:-.02em;margin-top:8px;color:#C9C6DC}
-.ip-day{font:700 14px var(--fb);text-transform:uppercase;letter-spacing:.2em;color:var(--lime);margin-top:20px}
+.ip-date span{display:block;font-size:.45em;letter-spacing:-.02em;margin-top:8px;color:var(--muted)}
+.ip-day{font:700 14px var(--fb);text-transform:uppercase;letter-spacing:.2em;color:var(--lime-t);margin-top:20px}
 .ip-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 48px;margin-top:6px}
-.ip-grid dt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:#C9C6DC}
+.ip-grid dt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
 .ip-grid dd{margin-top:10px;font-weight:700;font-size:18px;line-height:1.4}
-.pill{display:inline-block;font:600 13px/1 var(--fb);padding:7px 12px;border-radius:var(--r-pill);background:rgba(255,255,255,.12);color:#fff}
+.pill{display:inline-block;font:600 13px/1 var(--fb);padding:7px 12px;border-radius:var(--r-pill);background:rgba(37,31,99,.08);color:var(--navy)}
 .pill--lime{background:var(--lime);color:var(--navy)}
-.ip-foot{margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,.18);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.ip-foot{margin-top:56px;padding-top:28px;border-top:1px solid rgba(37,31,99,.15);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
 .ip-foot p{max-width:640px}
 @media(max-width:860px){.ip{grid-template-columns:1fr;gap:40px}}
 @media(max-width:520px){.ip-grid{grid-template-columns:1fr}}
@@ -317,7 +319,7 @@ footer .logo{color:#fff}
 <!-- ================= EVENEMENT ================= -->
 <div class="view" id="v-evenement">
   <section class="lav" style="padding-bottom:64px">
-    <div class="wrap"><img src="assets/CAMPULSE_banniere_evenement.png" alt="Bannière L'événement CAMPULSE" style="width:100%;height:auto;border-radius:var(--r-card);margin-bottom:40px"></div>
+    <img class="banner" src="assets/CAMPULSE_banniere_evenement.png" alt="Bannière L'événement CAMPULSE">
   </section>
   <section>
     <div class="wrap">
@@ -329,7 +331,7 @@ footer .logo{color:#fff}
       </div>
     </div>
   </section>
-  <section class="night" style="border-bottom:1px solid var(--navy-h)">
+  <section style="background:var(--beige)">
     <div class="wrap">
       <div class="ip">
         <div>
@@ -347,7 +349,7 @@ footer .logo{color:#fff}
       </div>
       <div class="ip-foot">
         <p class="muted small">Étudiants de Pontoise, Enghien-les-Bains, Rambouillet et Saint-Germain-en-Laye&nbsp;: si vous ne pouvez pas vous déplacer, les résultats complets du Baromètre seront téléchargeables sur cette page le 21 janvier.</p>
-        <a class="btn btn--white" href="#" onclick="note('Ajout à l\'agenda : à brancher');return false">Ajouter à mon agenda</a>
+        <a class="btn btn--primary" href="#" onclick="note('Ajout à l\'agenda : à brancher');return false">Ajouter à mon agenda</a>
       </div>
     </div>
   </section>
@@ -513,7 +515,7 @@ footer .logo{color:#fff}
   </div>
   <div id="partenaires-contenu" hidden>
   <section class="lav" style="padding-bottom:64px">
-    <div class="wrap"><img src="assets/CAMPULSE_banniere_partenaires.png" alt="Bannière Partenaires CAMPULSE" style="width:100%;height:auto;border-radius:var(--r-card);margin-bottom:40px"></div>
+    <img class="banner" src="assets/CAMPULSE_banniere_partenaires.png" alt="Bannière Partenaires CAMPULSE">
     <div class="wrap head" style="margin-bottom:0">
       <div class="over">Partenaires</div>
       <h1 style="margin-top:10px">Ils bougent avec nous</h1>
@@ -548,7 +550,7 @@ footer .logo{color:#fff}
 <!-- ================= BIEN MANGER ================= -->
 <div class="view" id="v-bien-manger">
   <section class="lav" style="padding-bottom:64px">
-    <div class="wrap"><img src="assets/CAMPULSE_banniere_bien-manger.png" alt="Bannière Bien manger avec CAMPULSE" style="width:100%;height:auto;border-radius:var(--r-card);margin-bottom:40px"></div>
+    <img class="banner" src="assets/CAMPULSE_banniere_bien-manger.png" alt="Bannière Bien manger avec CAMPULSE">
     <div class="wrap head" style="margin-bottom:0">
       <div class="over">Bien manger</div>
       <h1 style="margin-top:10px">Bien manger sans se ruiner</h1>
@@ -632,7 +634,7 @@ footer .logo{color:#fff}
 <!-- ================= CONTACT ================= -->
 <div class="view" id="v-contact">
   <section class="lav" style="padding-bottom:64px">
-    <div class="wrap"><img src="assets/CAMPULSE_banniere_contact.png" alt="Bannière Contacter CAMPULSE" style="width:100%;height:auto;border-radius:var(--r-card);margin-bottom:40px"></div>
+    <img class="banner" src="assets/CAMPULSE_banniere_contact.png" alt="Bannière Contacter CAMPULSE">
     <div class="wrap head" style="margin-bottom:0">
       <div class="over">Contact</div>
       <h1 style="margin-top:10px">Une question ? Écris-nous</h1>
