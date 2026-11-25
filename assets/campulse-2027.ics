@@ -6,14 +6,13 @@ METHOD:PUBLISH
 BEGIN:VEVENT
 UID:campulse-2027-jour-j@campulsemmdc.vercel.app
 DTSTAMP:20261125T000000Z
-DTSTART;VALUE=DATE:20270121
-DTEND;VALUE=DATE:20270122
+DTSTART:20270121T130000Z
 SUMMARY:CAMPULSE 2027 - Jour J
-DESCRIPTION:Révélation des résultats du Baromètre du sport des 5 campus Sup
- de V\, échauffement collectif\, marelle géante et Challenge StepUp en dire
- ct. Lieu et horaires à confirmer : https://campulsemmdc.vercel.app/#evene
- ment
-LOCATION:À confirmer
+DESCRIPTION:À partir de 14h. Révélation des résultats du Baromètre du spor
+ t des 5 campus Sup de V\, échauffement collectif\, marelle géante et Chal
+ lenge StepUp en direct. https://campulsemmdc.vercel.app/#evenement
+LOCATION:Sup de V Paris\, 3 rue Armand Moisant\, 75015 Paris
 URL:https://campulsemmdc.vercel.app/#evenement
+SEQUENCE:1
 END:VEVENT
 END:VCALENDAR
