@@ -148,23 +148,13 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .banner{display:block;width:100%;height:auto;object-fit:cover;margin-bottom:40px}
 .banner:last-child{margin-bottom:0}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-/* bannière de page : vrai texte + illustration détourée, couleurs réglées par page via --pb-bg, --pb-title, --pb-text, --pb-tag-bg, --pb-tag-fg, --pb-line */
-.pb-sec{padding:24px 0 0}
-.pb{position:relative;overflow:hidden;border-radius:28px;background:var(--pb-bg);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;min-height:380px;padding:56px 40px 0 56px}
-.pb-txt{position:relative;z-index:2;align-self:start;padding-bottom:56px;max-width:640px}
-.pb-tag{display:inline-block;background:var(--pb-tag-bg);color:var(--pb-tag-fg);font:700 13px/1 var(--fb);letter-spacing:.12em;text-transform:uppercase;padding:10px 16px;border-radius:var(--r-pill)}
-.pb h1{color:var(--pb-title);font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:-.025em;margin:20px 0 16px}
-.pb p{color:var(--pb-text);font-size:clamp(17px,1.6vw,20px);font-weight:700;line-height:1.45;max-width:520px}
-.pb-ill{position:relative;z-index:2;display:block;width:auto;height:340px;max-width:none}
-.pb-pulse{position:absolute;left:0;right:0;top:32px;width:100%;height:80px;z-index:1;pointer-events:none}
-.pb-pulse polyline{fill:none;stroke:var(--pb-line);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
-@media(prefers-reduced-motion:no-preference){.view.on .pb-ill{animation:pb-in .7s cubic-bezier(.2,.8,.2,1) both .1s}}
-@keyframes pb-in{from{opacity:0;transform:translateY(24px)}}
-@media(max-width:900px){.pb-ill{height:260px}}
-@media(max-width:700px){.pb-sec{padding-top:12px}.pb{grid-template-columns:1fr;gap:0;min-height:0;padding:32px 24px 0;border-radius:20px}.pb-txt{padding-bottom:8px}.pb-ill{height:220px;justify-self:end}.pb-pulse{top:8px}}
-#v-evenement .pb{--pb-bg:var(--banniere);--pb-title:#C6F432;--pb-text:#fff;--pb-tag-bg:#C6F432;--pb-tag-fg:var(--navy);--pb-line:rgba(255,255,255,.55)}
-#v-bien-manger .pb{--pb-bg:#C7F433;--pb-title:var(--navy);--pb-text:var(--navy);--pb-tag-bg:var(--navy);--pb-tag-fg:#fff;--pb-line:#71902F}
-#v-contact .pb{--pb-bg:#E7489B;--pb-title:#fff;--pb-text:var(--navy);--pb-tag-bg:var(--navy);--pb-tag-fg:#fff;--pb-line:rgba(255,255,255,.6)}
+/* bannière de page : image dans un bloc arrondi, vide du haut rogné ; sur mobile, cadrée sur le texte (moitié gauche) */
+.bn-sec{padding:24px 0 0}
+.banniere{aspect-ratio:3.2/1;overflow:hidden;border-radius:28px;box-shadow:0 2px 6px rgba(37,31,99,.05),0 18px 48px rgba(37,31,99,.12)}
+.banniere .banner{width:100%;height:100%;object-fit:cover;object-position:center bottom;margin:0}
+@media(prefers-reduced-motion:no-preference){.view.on .banniere{animation:bn-in .6s cubic-bezier(.2,.8,.2,1) both}}
+@keyframes bn-in{from{opacity:0;transform:translateY(16px) scale(.985)}}
+@media(max-width:700px){.bn-sec{padding-top:12px}.banniere{aspect-ratio:1.9/1;border-radius:20px}.banniere .banner{object-position:left bottom}}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
@@ -537,16 +527,8 @@ footer .logo{color:#fff}
 
 <!-- ================= EVENEMENT ================= -->
 <div class="view" id="v-evenement">
-  <section class="pb-sec">
-    <div class="wrap"><div class="pb">
-      <svg class="pb-pulse" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><polyline vector-effect="non-scaling-stroke" points="0,40 740,40 760,8 785,72 805,22 820,40 1200,40"/></svg>
-      <div class="pb-txt">
-        <span class="pb-tag">Jeudi 21 janvier 2027</span>
-        <h1>L'événement</h1>
-        <p>Comprendre la jeunesse, c'est écouter son rythme. Les résultats du Baromètre du sport des 5 campus Sup de V.</p>
-      </div>
-      <img class="pb-ill" src="assets/ill-evenement.webp" alt="" width="715" height="900">
-    </div></div>
+  <section class="bn-sec">
+    <div class="wrap"><div class="banniere"><img class="banner" src="assets/banniere-evenement.webp" alt="Bannière L'événement CAMPULSE"></div></div>
   </section>
   <section>
     <div class="wrap">
@@ -793,16 +775,9 @@ footer .logo{color:#fff}
 
 <!-- ================= BIEN MANGER ================= -->
 <div class="view" id="v-bien-manger">
-  <section class="pb-sec">
-    <div class="wrap"><div class="pb">
-      <svg class="pb-pulse" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><polyline vector-effect="non-scaling-stroke" points="0,40 740,40 760,8 785,72 805,22 820,40 1200,40"/></svg>
-      <div class="pb-txt">
-        <span class="pb-tag">Bien manger</span>
-        <h1>Bien manger sans se ruiner</h1>
-        <p>Des recettes simples à télécharger, et les bonnes adresses autour de ton campus.</p>
-      </div>
-      <img class="pb-ill" src="assets/ill-bien-manger.webp" alt="" width="1014" height="900">
-    </div></div>
+  <section class="bn-sec">
+    <h1 class="sr-only">Bien manger sans se ruiner</h1>
+    <div class="wrap"><div class="banniere"><img class="banner" src="assets/CAMPULSE_banniere_bien-manger.webp" alt="Bannière Bien manger avec CAMPULSE"></div></div>
   </section>
   <!-- Recettes de Kilo & où manger le midi : repris de 12h-PULSE-recettes-et-adresses/page-web, au style du site -->
   <div id="cp-cuisine">
@@ -904,16 +879,9 @@ footer .logo{color:#fff}
 
 <!-- ================= CONTACT ================= -->
 <div class="view" id="v-contact">
-  <section class="pb-sec">
-    <div class="wrap"><div class="pb">
-      <svg class="pb-pulse" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><polyline vector-effect="non-scaling-stroke" points="0,40 740,40 760,8 785,72 805,22 820,40 1200,40"/></svg>
-      <div class="pb-txt">
-        <span class="pb-tag">Contact</span>
-        <h1>Une question ? Écris-nous</h1>
-        <p>Étudiant, partenaire ou média : on te répond vite.</p>
-      </div>
-      <img class="pb-ill" src="assets/ill-contact.webp" alt="" width="877" height="735">
-    </div></div>
+  <section class="bn-sec">
+    <h1 class="sr-only">Une question ? Écris-nous</h1>
+    <div class="wrap"><div class="banniere"><img class="banner" src="assets/CAMPULSE_banniere_contact_2560x1040.webp" alt="Contact CAMPULSE : une question ? Écris-nous. Étudiant, partenaire ou média : on te répond vite."></div></div>
   </section>
   <section class="ct-sec">
     <div class="wrap">
