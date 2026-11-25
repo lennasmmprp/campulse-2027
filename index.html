@@ -214,6 +214,57 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);bo
 .alert.ok{display:block;background:var(--lime-l);color:var(--lime-t);border:1.5px solid var(--lime)}
 .alert.err{display:block;background:#FEF2F2;color:#B91C1C;border:1.5px solid #F87171}
 .alert.err a{color:inherit;text-decoration:underline}
+/* contact : formulaire et FAQ */
+#ctForm input:not([type=checkbox]),#ctForm select,#ctForm textarea{border-color:var(--dis-t)}
+#ctForm [aria-invalid=true]{border-color:var(--err)}
+#ctForm [aria-invalid=true]:focus{box-shadow:0 0 0 4px #FDE2E2}
+#ctForm .req-note{font-size:14px;color:var(--muted)}
+#ctForm .fe{color:var(--err);font-size:14px;font-weight:500;margin-top:6px}
+#ctForm .fe:empty{display:none}
+#ctForm .fe-row{display:flex;justify-content:space-between;gap:12px}
+#ctForm .count{margin:6px 0 0 auto;font-size:13px;color:var(--muted)}
+#ctForm .cb{min-height:44px;padding:10px 0;margin-top:8px;cursor:pointer}
+#ctForm .cb input{box-shadow:none}
+#ctForm .cb input:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+#ctForm .cb .link:focus-visible{outline:2px solid var(--navy);outline-offset:2px;border-radius:2px}
+#ctForm .spin{display:none;width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
+#ctForm [aria-busy=true] .spin{display:inline-block}
+#ctForm [aria-busy=true]{cursor:progress}
+#ctMsg:focus{outline:2px solid var(--navy);outline-offset:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* contact : mise en page */
+.ct-sec{padding:96px 0 120px}
+.ct-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:56px;align-items:start}
+.ct-aside{position:sticky;top:96px}
+.ct-sec h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:8px}
+.ct-faq h2{font-size:clamp(30px,4vw,44px);margin-bottom:32px}
+#ctForm{padding:40px;border-radius:20px;box-shadow:0 2px 6px rgba(37,31,99,.04),0 16px 48px rgba(37,31,99,.10)}
+#ctForm label{font-size:15px;font-weight:600;margin:24px 0 8px}
+#ctForm .cb{margin-top:20px;font-weight:400;font-size:14px}
+#ctForm input:not([type=checkbox]),#ctForm select,#ctForm textarea{min-height:48px;transition:border-color .2s,box-shadow .2s}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.ct-send{width:100%;height:56px;margin-top:28px;font-size:17px}
+.ct-aside h2{margin-bottom:24px}
+.ct-card{display:flex;align-items:center;gap:16px;padding:18px 20px;margin-bottom:12px;background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);text-decoration:none;transition:transform .2s,box-shadow .2s,background-color .2s}
+.ct-card:hover{background:var(--lav);transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,31,99,.14)}
+.ct-card:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
+.ct-card>span:last-child{min-width:0}
+.ct-card small{display:block;font-size:13px;line-height:1.3;color:var(--muted)}
+.ct-card b{display:block;font-weight:600;overflow-wrap:anywhere}
+.ct-ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--lav);color:var(--blue);display:grid;place-items:center}
+.ct-card:hover .ct-ic{background:#fff}
+.ct-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ct-faq{margin-top:120px}
+.ct-faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;align-items:start}
+.ct-faq details{margin:0}
+@media(max-width:1023px){.ct-grid{grid-template-columns:1fr;gap:48px}.ct-aside{position:static}}
+@media(max-width:700px){.ct-sec{padding:64px 0 80px}#ctForm{padding:24px}.ct-faq{margin-top:80px}.ct-faq-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.f-row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.ct-card:hover{transform:none}}
+#v-contact details{padding:0}
+#v-contact summary{min-height:44px;padding:18px 22px;align-items:center;gap:12px;border-radius:var(--r-card)}
+#v-contact summary:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+#v-contact details p{padding:0 22px 18px;margin-top:0}
 .ml h2{font-size:22px;margin:32px 0 10px}.ml h2:first-child{margin-top:0}
 .ml p,.ml ul{margin:0 0 10px;line-height:1.6}.ml ul{padding-left:20px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
@@ -831,28 +882,46 @@ footer .logo{color:#fff}
     <h1 class="sr-only">Une question ? Écris-nous</h1>
     <div class="banniere"><img class="banner" src="assets/CAMPULSE_banniere_contact_2560x1040.webp" alt="Contact CAMPULSE : une question ? Écris-nous. Étudiant, partenaire ou média : on te répond vite."></div>
   </section>
-  <section style="padding-top:64px">
-    <div class="wrap grid g2" style="align-items:start">
+  <section class="ct-sec">
+    <div class="wrap">
+    <div class="ct-grid">
       <form class="card" id="ctForm" novalidate>
-        <label for="n">Nom</label><input id="n" required>
-        <label for="e">E-mail</label><input id="e" type="email" required>
-        <label for="t">Tu es</label><select id="t"><option>Étudiant</option><option>Partenaire</option><option>Média</option><option>Autre</option></select>
-        <label for="msg">Message</label><textarea id="msg" rows="5" required></textarea>
-        <label class="cb"><input type="checkbox" required> <span>J'accepte que mes données soient utilisées pour répondre à ma demande (<a class="link" href="#mentions">mentions légales</a>).</span></label>
-        <div class="hp" aria-hidden="true"><label for="website">Site web</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-        <button class="btn btn--primary" style="margin-top:20px">Envoyer</button>
-        <div class="alert" id="ctMsg" role="status"></div>
-      </form>
-      <div class="grid" style="gap:24px">
-        <div class="card">
-          <h3>Retrouve-nous</h3>
-          <div class="info-row"><span>Instagram</span><a class="link" href="https://www.instagram.com/">Sup2Vie</a></div>
-          <div class="info-row"><span>LinkedIn</span><a class="link" href="https://www.linkedin.com/">Sup de V</a></div>
-          <div class="info-row"><span>Mail du projet</span><a class="link" href="mailto:mmdc2paris@gmail.com">mmdc2paris@gmail.com</a></div>
-          <div class="info-row"><span>Fédération</span><a class="link" href="https://ff-sportvitalite.fr/" target="_blank" rel="noopener">ff-sportvitalite.fr</a></div>
+        <h2>Envoie-nous un message</h2>
+        <p class="req-note">Tous les champs sont obligatoires <span aria-hidden="true">(*)</span>.</p>
+        <div class="f-row">
+          <div>
+            <label for="n">Nom <span class="req" aria-hidden="true">*</span></label>
+            <input id="n" name="name" autocomplete="name" maxlength="100" required aria-describedby="n-err">
+            <p class="fe" id="n-err"></p>
+          </div>
+          <div>
+            <label for="e">E-mail <span class="req" aria-hidden="true">*</span></label>
+            <input id="e" name="email" type="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="200" required aria-describedby="e-err">
+            <p class="fe" id="e-err"></p>
+          </div>
         </div>
-        <div>
-          <h3 style="margin-bottom:14px">Questions fréquentes</h3>
+        <label for="t">Tu es <span class="req" aria-hidden="true">*</span></label>
+        <select id="t" name="statut" required><option>Étudiant</option><option>Partenaire</option><option>Média</option><option>Autre</option></select>
+        <label for="msg">Message <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="msg" name="message" rows="5" maxlength="5000" required aria-describedby="msg-err msg-count"></textarea>
+        <div class="fe-row"><p class="fe" id="msg-err"></p><small class="count" id="msg-count">0 / 5000</small></div>
+        <label class="cb"><input type="checkbox" id="cb" required aria-describedby="cb-err"> <span>J'accepte que mes données soient utilisées pour répondre à ma demande (<a class="link" href="#mentions">mentions légales</a>). <span class="req" aria-hidden="true">*</span></span></label>
+        <p class="fe" id="cb-err"></p>
+        <div class="hp" aria-hidden="true"><label for="website">Site web</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn--primary ct-send"><span class="spin" aria-hidden="true"></span><span class="lbl">Envoyer</span></button>
+        <div aria-live="polite"><div class="alert" id="ctMsg" tabindex="-1"></div></div>
+      </form>
+      <aside class="ct-aside" aria-labelledby="ct-ret">
+        <h2 id="ct-ret">Retrouve-nous</h2>
+        <a class="ct-card" href="https://www.instagram.com/"><span class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></span><span><small>Instagram</small><b>Sup2Vie</b></span></a>
+        <a class="ct-card" href="https://www.linkedin.com/"><span class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></span><span><small>LinkedIn</small><b>Sup de V</b></span></a>
+        <a class="ct-card" href="mailto:mmdc2paris@gmail.com"><span class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span><span><small>Mail du projet</small><b>mmdc2paris@gmail.com</b></span></a>
+        <a class="ct-card" href="https://ff-sportvitalite.fr/" target="_blank" rel="noopener"><span class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m9 14-1.5 7L12 19l4.5 2L15 14"/></svg></span><span><small>Fédération</small><b>ff-sportvitalite.fr</b></span></a>
+      </aside>
+    </div>
+        <div class="ct-faq">
+          <h2>Questions fréquentes</h2>
+          <div class="ct-faq-grid">
           <details><summary>Comment répondre au Baromètre ?</summary><p>Clique sur « Je participe » : c'est un questionnaire anonyme de 5 minutes, ouvert jusqu'au 11 janvier.</p></details>
           <details><summary>Kilo ou Milo, c'est quoi ?</summary><p>Nos deux mascottes. Après le questionnaire, un mail te dit laquelle te ressemble.</p></details>
           <details><summary>Comment participer au Challenge StepUp ?</summary><p>Télécharge l'appli gratuite, rejoins l'équipe de ton campus et marche du 11/01 au 04/02.</p></details>
@@ -1087,13 +1156,43 @@ function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener(
 bindForm('nlForm','nlOk');
 
 /* formulaire de contact -> /api/contact */
-(()=>{const f=document.getElementById('ctForm'),b=f.querySelector('button'),out=document.getElementById('ctMsg'),v=id=>document.getElementById(id).value;
-f.addEventListener('submit',async e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}
-  b.disabled=true;const lbl=b.textContent;b.textContent='Envoi en cours...';out.className='alert';
-  try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nom:v('n'),email:v('e'),statut:v('t'),message:v('msg'),website:v('website')})});
-    if(!r.ok)throw 0;out.className='alert ok';out.textContent='Merci, ton message est bien parti ! On te répond vite.';f.reset()}
-  catch{out.className='alert err';out.innerHTML='Oups, le message n\'a pas pu être envoyé. Écris-nous directement à <a href="mailto:mmdc2paris@gmail.com">mmdc2paris@gmail.com</a>.'}
-  finally{b.disabled=false;b.textContent=lbl}})})();
+function emailErr(v){
+  if(!v) return 'Indique ton adresse e-mail.';
+  if(/\s/.test(v)) return "Ton adresse ne doit pas contenir d'espace.";
+  const p=v.split('@');
+  if(p.length<2) return 'Il manque le @ dans ton adresse.';
+  if(p.length>2) return "Ton adresse contient plusieurs @, il n'en faut qu'un.";
+  if(!p[0]) return 'Il manque le début de ton adresse, avant le @.';
+  if(!p[1]) return 'Il manque le domaine après le @ (ex. : gmail.com).';
+  if(!/\.[^.]+$/.test(p[1])) return "Il manque l'extension à la fin de ton adresse (ex. : .fr, .com).";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'Il manque le nom du domaine avant le point (ex. : gmail.com).';
+  return '';
+}
+(()=>{const $=id=>document.getElementById(id),f=$('ctForm'),b=f.querySelector('button'),lbl=b.querySelector('.lbl'),out=$('ctMsg'),cnt=$('msg-count');
+const rules={n:x=>x.value.trim()?'':'Indique ton nom.',e:x=>emailErr(x.value.trim()),msg:x=>x.value.trim()?'':'Écris ton message.',cb:x=>x.checked?'':"Coche la case pour qu'on puisse te répondre."};
+let tried=false,busy=false,touched={};
+const show=id=>{const m=rules[id]($(id));$(id+'-err').textContent=m;m?$(id).setAttribute('aria-invalid','true'):$(id).removeAttribute('aria-invalid');return m};
+const say=(cls,html)=>{out.className='alert '+cls;out.innerHTML=html;out.focus({preventScroll:true});out.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})};
+const count=()=>cnt.textContent=$('msg').value.length+' / 5000';
+Object.keys(rules).forEach(id=>{const x=$(id);
+  /* erreurs à la sortie du champ (ou après un essai d'envoi), jamais à chaque frappe ; on efface dès que c'est corrigé */
+  x.addEventListener('input',()=>{touched[id]=1;if(x.hasAttribute('aria-invalid')&&!rules[id](x))show(id)});
+  x.addEventListener(id==='cb'?'change':'blur',()=>{if(tried||touched[id])show(id)})});
+$('msg').addEventListener('input',count);
+f.addEventListener('submit',async e=>{e.preventDefault();if(busy)return;
+  tried=true;out.className='alert';
+  const bad=Object.keys(rules).filter(show);
+  if(bad.length){$(bad[0]).focus();return}
+  busy=true;b.setAttribute('aria-busy','true');lbl.textContent='Envoi en cours...';
+  try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nom:$('n').value,email:$('e').value,statut:$('t').value,message:$('msg').value,website:$('website').value})});
+    if(!r.ok)throw 0;
+    f.reset();count();tried=false;touched={};
+    say('ok','Merci, ton message est bien parti ! On te répond sous 48h.')}
+  catch{say('err','Oups, le message n\'a pas pu être envoyé. Écris-nous directement à <a href="mailto:mmdc2paris@gmail.com">mmdc2paris@gmail.com</a>.')}
+  finally{busy=false;b.removeAttribute('aria-busy');lbl.textContent='Envoyer'}});
+/* FAQ : <details> natif (Entrée / Espace), on expose l'état ouvert/fermé */
+document.querySelectorAll('#v-contact details').forEach(d=>{const s=d.querySelector('summary'),u=()=>s.setAttribute('aria-expanded',d.open);u();d.addEventListener('toggle',u)});
+})();
 
 /* jauge réponses */
 const JAUGE_URL='https://script.google.com/macros/s/AKfycbyoVTN2FtEGzsVSSUVicIWMX4eTwlt07uaeLlDKPzQLMInmoREwFDHqMfRkx7HeTRY/exec';
