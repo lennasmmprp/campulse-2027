@@ -148,7 +148,8 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .kpis li:first-child{padding-left:0;border-left:0}
 .kpis b{font:800 clamp(30px,3.4vw,42px)/1.05 var(--ft);color:var(--navy);letter-spacing:-.02em}
 .kpis span{font-size:14px;color:var(--muted)}
-.kpis .kpi-ffsv b{font:700 18px/1.3 var(--fb);color:var(--blue)}
+.kpis .kpi-ffsv{justify-content:center;gap:8px}
+.kpis .kpi-ffsv img{width:100%;max-width:240px;height:auto}
 @media(max-width:760px){.kpis{grid-template-columns:repeat(3,1fr);padding:24px}.kpis .kpi-ffsv{grid-column:1/-1;padding:16px 0 0;border-left:0;border-top:1px solid var(--border)}}
 .ev-sec .head{margin-top:80px}
 .particip .card{display:flex;flex-direction:column;align-items:flex-start;gap:14px;border-top:6px solid var(--blue);padding:28px}
@@ -565,7 +566,7 @@ footer .logo{color:#fff}
         <li><b>5</b><span>campus</span></li>
         <li><b>2 387</b><span>étudiants visés</span></li>
         <li><b>1</b><span>journée</span></li>
-        <li class="kpi-ffsv"><span>avec la</span><b>Fédération Française de Sport Vitalité</b></li>
+        <li class="kpi-ffsv"><span>avec</span><img src="assets/logo-ffsv.webp" alt="la Fédération Française de Sport Vitalité" width="800" height="185"></li>
       </ul>
 
       <div class="head">
