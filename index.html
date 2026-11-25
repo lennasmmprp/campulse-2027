@@ -153,9 +153,11 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .ffsv-link{display:block;border-radius:6px;transition:opacity .2s}.ffsv-link:hover{opacity:.8}.ffsv-link:focus-visible{outline:2px solid var(--navy);outline-offset:4px}
 @media(max-width:760px){.kpis{grid-template-columns:repeat(3,1fr);padding:24px}.kpis .kpi-ffsv{grid-column:1/-1;padding:16px 0 0;border-left:0;border-top:1px solid var(--border)}}
 .ev-sec .head{margin-top:80px}
-.particip .card{display:flex;flex-direction:column;align-items:flex-start;gap:14px;border-top:6px solid var(--blue);padding:28px}
+.particip .card{display:flex;flex-direction:column;align-items:flex-start;gap:16px;border-top:6px solid var(--blue);padding:32px}
 .particip .card.hl{border-top-color:var(--orange)}
-.particip p{flex:1}
+.particip p{line-height:1.7}
+.particip p:last-of-type{flex:1}
+.particip h3{margin-top:4px}
 .pill--orange{background:var(--orange-l);color:var(--orange-t)}
 .partner{margin-top:56px;display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:48px;align-items:center;padding:40px}
 .partner img{width:100%;height:auto}
@@ -163,7 +165,9 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .partner p{margin-bottom:20px;max-width:620px}
 .appel{margin-top:32px;background:var(--navy);color:#fff;border-radius:24px;padding:56px}
 .appel h2{color:#fff;max-width:780px}
-.appel p{color:#C9C6DC;max-width:780px;margin:16px 0 28px;font-size:17px}
+.appel-txt{max-width:720px;margin:24px 0 36px;display:flex;flex-direction:column;gap:14px}
+.appel p{color:#C9C6DC;font-size:17px;line-height:1.7}
+.appel .appel-cta{color:#fff;font-weight:600}
 .appel .btn:focus-visible{outline-color:var(--lime)}
 @media(max-width:700px){.partner{grid-template-columns:1fr;gap:24px;padding:28px}.partner img{max-width:240px}.appel{padding:32px 24px}}
 
@@ -572,24 +576,24 @@ footer .logo{color:#fff}
 
       <div class="head">
         <h2>Comment je participe&nbsp;?</h2>
-        <p class="muted">Trois façons d'entrer dans CAMPULSE, de maintenant jusqu'à bien après le 21 janvier.</p>
+        <p class="muted">Pas besoin d'être sportif pour en être.</p>
       </div>
       <div class="grid g3 particip">
         <article class="card">
           <span class="pill">Jusqu'au 11 janvier</span>
           <h3>Je découvre mon profil</h3>
-          <p class="muted">Réponds au Baromètre du sport : 5 minutes, et tu reçois ton profil — Kilo ou Milo. Plus on est nombreux, plus les résultats disent quelque chose de vrai sur notre génération.</p>
+          <p class="muted">Réponds au Baromètre du sport : 5 minutes, et tu reçois ton profil Kilo ou Milo.</p><p class="muted">Plus on est nombreux, plus les résultats disent quelque chose de vrai sur notre génération.</p>
           <a class="btn btn--primary" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener">Je réponds au Baromètre</a>
         </article>
         <article class="card hl">
           <span class="pill pill--orange">Jeudi 21 janvier 2027</span>
           <h3>Je vis le Jour J</h3>
-          <p class="muted">La révélation des résultats des 5 campus devant des médias du sport, l'échauffement collectif en amphi, la marelle géante, le Challenge StepUp en direct. Une journée pour bouger ensemble, pas pour écouter assis.</p>
+          <p class="muted">La révélation des résultats des 5 campus devant des médias du sport, l'échauffement collectif en amphi, la marelle géante, le Challenge StepUp en direct.</p><p class="muted">Une journée pour bouger ensemble, pas pour écouter assis.</p>
         </article>
         <article class="card">
           <span class="pill">Chaque mercredi, jusqu'en juin</span>
           <h3>Je garde le rythme</h3>
-          <p class="muted">Le 12h PULSE arrive dans ta boîte mail : un conseil santé, sport ou alimentation par semaine. Pas de blabla, du concret.</p>
+          <p class="muted">Le 12h PULSE arrive dans ta boîte mail : un conseil santé, sport ou alimentation par semaine.</p><p class="muted">Pas de blabla, du concret.</p>
           <a class="btn btn--primary" href="#pulse">Je m'inscris</a>
         </article>
       </div>
@@ -606,7 +610,7 @@ footer .logo{color:#fff}
 
       <div class="appel">
         <h2>Vous êtes une marque, une salle, un acteur du sport ou du bien-être&nbsp;?</h2>
-        <p>La Fédération Française de Sport Vitalité nous accompagne déjà. CAMPULSE, c'est une étude inédite sur la pratique sportive des étudiants de 5 campus d'Île-de-France, une journée événement, et une présence toute l'année dans leur boîte mail. Associez votre nom à une génération qu'on écoute vraiment.</p>
+        <div class="appel-txt"><p>La Fédération Française de Sport Vitalité nous accompagne déjà.</p><p>CAMPULSE, c'est une étude inédite sur la pratique sportive des étudiants de 5 campus d'Île-de-France, une journée événement, et une présence toute l'année dans leur boîte mail.</p><p class="appel-cta">Associez votre nom à une génération qu'on écoute vraiment.</p></div>
         <a class="btn btn--reward btn--lg" href="#contact">Devenir partenaire</a>
       </div>
     </div>
@@ -629,7 +633,7 @@ footer .logo{color:#fff}
       </div>
       <div class="ip-foot">
         <p class="muted small">Étudiants de Pontoise, Enghien-les-Bains, Rambouillet et Saint-Germain-en-Laye&nbsp;: si vous ne pouvez pas vous déplacer, les résultats complets du Baromètre seront téléchargeables sur cette page le 21 janvier.</p>
-        <a class="btn btn--primary" href="#" onclick="note('Ajout à l\'agenda : à brancher');return false">Ajouter à mon agenda</a>
+        <a class="btn btn--primary" href="assets/campulse-2027.ics" download="campulse-2027.ics">Ajouter à mon agenda</a>
       </div>
     </div>
   </section>
