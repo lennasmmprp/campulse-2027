@@ -143,16 +143,7 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .tl li{padding:8px 0;font-size:15px}
 .date{font-weight:700;font-size:14px;color:var(--muted)}
 /* événement : chiffres clés, 3 façons de participer, partenaire, appel aux partenaires */
-.kpis{list-style:none;padding:28px 32px;display:grid;grid-template-columns:1fr 1fr 1fr 2fr;gap:24px;background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow)}
-.kpis li{display:flex;flex-direction:column;gap:2px;padding-left:24px;border-left:1px solid var(--border)}
-.kpis li:first-child{padding-left:0;border-left:0}
-.kpis b{font:800 clamp(30px,3.4vw,42px)/1.05 var(--ft);color:var(--navy);letter-spacing:-.02em}
-.kpis span{font-size:14px;color:var(--muted)}
-.kpis .kpi-ffsv{justify-content:center;gap:8px}
-.kpis .kpi-ffsv img{width:100%;max-width:240px;height:auto}
 .ffsv-link{display:block;border-radius:6px;transition:opacity .2s}.ffsv-link:hover{opacity:.8}.ffsv-link:focus-visible{outline:2px solid var(--navy);outline-offset:4px}
-@media(max-width:760px){.kpis{grid-template-columns:repeat(3,1fr);padding:24px}.kpis .kpi-ffsv{grid-column:1/-1;padding:16px 0 0;border-left:0;border-top:1px solid var(--border)}}
-.ev-sec .head{margin-top:80px}
 .particip .card{display:flex;flex-direction:column;align-items:flex-start;gap:16px;border-top:6px solid var(--blue);padding:32px}
 .particip .card.hl{border-top-color:var(--orange)}
 .particip p{line-height:1.7}
@@ -202,10 +193,26 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .ip-grid dd{margin-top:10px;font-weight:700;font-size:18px;line-height:1.4}
 .pill{display:inline-block;font:600 13px/1 var(--fb);padding:7px 12px;border-radius:var(--r-pill);background:rgba(37,31,99,.08);color:var(--navy)}
 .pill--lime{background:var(--lime);color:var(--navy)}
-.ip-foot{margin-top:56px;padding-top:28px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.ip-foot{margin-top:48px;padding-top:28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
 .ip-foot p{max-width:640px}
 @media(max-width:860px){.ip{grid-template-columns:1fr;gap:40px}}
 @media(max-width:520px){.ip-grid{grid-template-columns:1fr}}
+/* infos pratiques : encadré 3D (bascule à l'arrivée, inclinaison + reflet au survol, halos de couleur) */
+.ip-sec .wrap{perspective:1400px}
+.ip-card{position:relative;overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:28px;padding:56px;box-shadow:0 2px 6px rgba(37,31,99,.05),0 24px 60px rgba(37,31,99,.14);transition:transform .25s ease-out,box-shadow .4s ease}
+.ip-card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at 100% 0%,rgba(163,230,53,.22),transparent 70%),radial-gradient(480px circle at 0% 100%,rgba(37,99,235,.10),transparent 70%)}
+.ip-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px circle at var(--mx,50%) var(--my,30%),rgba(37,99,235,.10),transparent 60%);opacity:0;transition:opacity .4s ease}
+.ip-card>*{position:relative}
+.ip-card.is-tilt{box-shadow:0 4px 10px rgba(37,31,99,.06),0 40px 80px rgba(37,31,99,.22)}
+.ip-card.is-tilt::after{opacity:1}
+.ip-date{background:linear-gradient(135deg,var(--navy) 30%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ip-date span{-webkit-text-fill-color:var(--muted)}
+@media(prefers-reduced-motion:no-preference){
+  .ip-card:not(.seen){opacity:0}
+  .ip-card.seen{animation:ip-in .9s cubic-bezier(.2,.8,.2,1) both}
+}
+@keyframes ip-in{from{opacity:0;rotate:x 16deg;translate:0 40px;scale:.96}to{opacity:1;rotate:x 0deg;translate:0 0;scale:1}}
+@media(max-width:700px){.ip-card{padding:28px 24px;border-radius:20px}}
 
 /* animations */
 .univ{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
@@ -349,9 +356,31 @@ footer .logo{color:#fff}
 .baro-band .prog{flex:1;height:6px;margin:0;background:rgba(255,255,255,.15)}
 .baro-band .prog i{background:var(--lime)}
 .baro-prog .pct{font-weight:700;font-size:14px;min-width:3.5em;text-align:right}
-.baro-item{background:var(--lav);border-radius:var(--r-card);padding:28px 24px}
-.baro-item .num{font:900 44px/1 var(--ft);letter-spacing:-.02em;color:var(--input)}
-.baro-item h3{margin:18px 0 6px;font-size:20px}
+/* ce que mesure le Baromètre : 4 cartes, une couleur d'univers chacune (--c fond, --ct texte) */
+.baro-item{position:relative;overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:20px;padding:28px 24px 32px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s}
+.baro-item:nth-child(1){--c:var(--u-bouger);--ct:var(--orange-t);--d:0ms}
+.baro-item:nth-child(2){--c:var(--u-detendre);--ct:var(--blue);--d:120ms}
+.baro-item:nth-child(3){--c:var(--u-challenge);--ct:var(--lime-t);--d:240ms}
+.baro-item:nth-child(4){--c:var(--u-habitudes);--ct:#6D28D9;--d:360ms}
+.baro-item::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.baro-item:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(37,31,99,.14);border-color:transparent}
+.baro-item:hover::after{transform:scaleX(1)}
+.baro-ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,#fff);color:var(--ct);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.baro-item:hover .baro-ic{transform:rotate(-8deg) scale(1.1)}
+.baro-ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.baro-item .num{position:absolute;top:18px;right:22px;font:900 56px/1 var(--ft);letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1.5px var(--input);transition:color .35s,-webkit-text-stroke-color .35s}
+.baro-item:hover .num{color:color-mix(in srgb,var(--c) 22%,#fff);-webkit-text-stroke-color:var(--c)}
+.baro-item h3{margin:22px 0 8px;font-size:20px}
+.baro-item p{line-height:1.6}
+/* arrivée en cascade au défilement + icônes qui se dessinent (classe .seen posée une seule fois par le script) */
+@media(prefers-reduced-motion:no-preference){
+  .baro-item:not(.seen){opacity:0}
+  .baro-item.seen{animation:baro-in .7s cubic-bezier(.2,.8,.2,1) var(--d) both}
+  .baro-item svg *{stroke-dasharray:80;stroke-dashoffset:80}
+  .baro-item.seen svg *{animation:baro-draw 1.1s ease-out calc(var(--d) + 250ms) forwards}
+}
+@keyframes baro-in{from{opacity:0;translate:0 28px}to{opacity:1;translate:0 0}}
+@keyframes baro-draw{to{stroke-dashoffset:0}}
 .baro-cta{text-align:center;max-width:760px}
 .baro-mascot{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:32px;text-align:left}
 .baro-mascot img{width:180px;flex:none}
@@ -565,15 +594,32 @@ footer .logo{color:#fff}
   <section class="bn-sec">
     <div class="wrap"><div class="banniere"><img class="banner" src="assets/banniere-evenement.webp" alt="Bannière L'événement CAMPULSE"></div></div>
   </section>
+  <section class="ip-sec">
+    <div class="wrap">
+      <div class="ip-card">
+      <div class="ip">
+        <div>
+          <div class="over">Infos pratiques</div>
+          <div class="ip-date">21.01<span>2027</span></div>
+          <div class="ip-day">Jeudi</div>
+        </div>
+        <dl class="ip-grid">
+          <div><dt>Lieu</dt><dd><span class="pill">À confirmer</span></dd></div>
+          <div><dt>Horaires</dt><dd><span class="pill">À confirmer</span></dd></div>
+          <div><dt>Programme</dt><dd><span class="pill">À venir</span></dd></div>
+          <div><dt>Accessibilité PMR</dt><dd><span class="pill pill--lime">Oui</span></dd></div>
+          <div><dt>Baromètre</dt><dd>Téléchargeable ici le 21.01</dd></div>
+        </dl>
+      </div>
+      <div class="ip-foot">
+        <p class="muted small">Étudiants de Pontoise, Enghien-les-Bains, Rambouillet et Saint-Germain-en-Laye&nbsp;: si vous ne pouvez pas vous déplacer, les résultats complets du Baromètre seront téléchargeables sur cette page le 21 janvier.</p>
+        <a class="btn btn--primary" href="assets/campulse-2027.ics" download="campulse-2027.ics">Ajouter à mon agenda</a>
+      </div>
+      </div>
+    </div>
+  </section>
   <section class="ev-sec">
     <div class="wrap">
-      <ul class="kpis" aria-label="CAMPULSE en chiffres">
-        <li><b>5</b><span>campus</span></li>
-        <li><b>2 387</b><span>étudiants visés</span></li>
-        <li><b>1</b><span>journée</span></li>
-        <li class="kpi-ffsv"><span>avec</span><a class="ffsv-link" href="https://ff-sportvitalite.fr/" target="_blank" rel="noopener"><img src="assets/logo-ffsv.webp" alt="la Fédération Française de Sport Vitalité (nouvel onglet)" width="800" height="185"></a></li>
-      </ul>
-
       <div class="head">
         <h2>Comment je participe&nbsp;?</h2>
         <p class="muted">Pas besoin d'être sportif pour en être.</p>
@@ -615,28 +661,6 @@ footer .logo{color:#fff}
       </div>
     </div>
   </section>
-  <section style="background:var(--beige)">
-    <div class="wrap">
-      <div class="ip">
-        <div>
-          <div class="over">Infos pratiques</div>
-          <div class="ip-date">21.01<span>2027</span></div>
-          <div class="ip-day">Jeudi</div>
-        </div>
-        <dl class="ip-grid">
-          <div><dt>Lieu</dt><dd><span class="pill">À confirmer</span></dd></div>
-          <div><dt>Horaires</dt><dd><span class="pill">À confirmer</span></dd></div>
-          <div><dt>Programme</dt><dd><span class="pill">À venir</span></dd></div>
-          <div><dt>Accessibilité PMR</dt><dd><span class="pill pill--lime">Oui</span></dd></div>
-          <div><dt>Baromètre</dt><dd>Téléchargeable ici le 21.01</dd></div>
-        </dl>
-      </div>
-      <div class="ip-foot">
-        <p class="muted small">Étudiants de Pontoise, Enghien-les-Bains, Rambouillet et Saint-Germain-en-Laye&nbsp;: si vous ne pouvez pas vous déplacer, les résultats complets du Baromètre seront téléchargeables sur cette page le 21 janvier.</p>
-        <a class="btn btn--primary" href="assets/campulse-2027.ics" download="campulse-2027.ics">Ajouter à mon agenda</a>
-      </div>
-    </div>
-  </section>
 </div>
 
 <!-- ================= BAROMETRE ================= -->
@@ -667,10 +691,10 @@ footer .logo{color:#fff}
       <!-- Bloc 3 : ce que mesure le Baromètre -->
       <div class="head"><h2>Ce que mesure le Baromètre</h2></div>
       <div class="grid g4">
-        <div class="baro-item"><div class="num">01</div><h3>Pratique sportive</h3><p class="muted small">Ce que tu fais, à quelle fréquence et où.</p></div>
-        <div class="baro-item"><div class="num">02</div><h3>Freins et motivations</h3><p class="muted small">Ce qui te retient et ce qui te donnerait envie de bouger.</p></div>
-        <div class="baro-item"><div class="num">03</div><h3>Accessibilité et PMR</h3><p class="muted small">La place des personnes à mobilité réduite dans le sport étudiant.</p></div>
-        <div class="baro-item"><div class="num">04</div><h3>Attentes</h3><p class="muted small">Ce que tu attends de ton campus pour bouger plus.</p></div>
+        <div class="baro-item"><div class="num" aria-hidden="true">01</div><div class="baro-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/></svg></div><h3>Pratique sportive</h3><p class="muted small">Ce que tu fais, à quelle fréquence et où.</p></div>
+        <div class="baro-item"><div class="num" aria-hidden="true">02</div><div class="baro-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg></div><h3>Freins et motivations</h3><p class="muted small">Ce qui te retient et ce qui te donnerait envie de bouger.</p></div>
+        <div class="baro-item"><div class="num" aria-hidden="true">03</div><div class="baro-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="1.8"/><path d="M5 8.5h14M12 8.5v5.5M12 14l-4 7M12 14l4 7"/></svg></div><h3>Accessibilité et PMR</h3><p class="muted small">La place des personnes à mobilité réduite dans le sport étudiant.</p></div>
+        <div class="baro-item"><div class="num" aria-hidden="true">04</div><div class="baro-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Attentes</h3><p class="muted small">Ce que tu attends de ton campus pour bouger plus.</p></div>
       </div>
     </div>
   </section>
@@ -1323,8 +1347,11 @@ route();
   document.querySelectorAll('section h2, section .head').forEach(el=>{if(!el.closest('.head')||el.matches('.head')){el.classList.add('rv');io.observe(el)}});
   document.querySelectorAll('.banner').forEach(el=>{el.classList.add('rv','rv-fade');io.observe(el)});
   document.querySelectorAll('.grid,.univ,.tl').forEach(g=>[...g.children].filter(c=>c.matches('.card:not(form),.u,.win')).forEach((c,k)=>{c.classList.add('rv');c.style.setProperty('--d',k*80+'ms');io.observe(c)}));
+  /* Baromètre : les 4 cartes « ce que mesure » apparaissent en cascade quand elles entrent à l'écran */
+  const baroIo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');baroIo.unobserve(e.target)}}),{threshold:.25});
+  document.querySelectorAll('.baro-item,.ip-card').forEach(el=>baroIo.observe(el));
   /* bannières : inclinaison 3D qui suit la souris (souris uniquement, pas au doigt) */
-  if(matchMedia('(hover:hover) and (pointer:fine)').matches) document.querySelectorAll('.banniere').forEach(b=>{
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches) document.querySelectorAll('.banniere,.ip-card').forEach(b=>{
     b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
       b.style.transform='rotateX('+(-y*7).toFixed(2)+'deg) rotateY('+(x*9).toFixed(2)+'deg)';
       b.style.setProperty('--px',x.toFixed(3));b.style.setProperty('--py',y.toFixed(3));
