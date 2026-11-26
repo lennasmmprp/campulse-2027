@@ -184,20 +184,23 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
-.ip{display:grid;grid-template-columns:auto 1fr;gap:72px;align-items:start}
+.ip{display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:center}
 .ip-date{font:900 clamp(64px,9vw,104px)/.9 var(--ft);letter-spacing:-.04em;margin-top:16px}
 .ip-date span{display:block;font-size:.45em;letter-spacing:-.02em;margin-top:8px;color:var(--muted)}
-.ip-day{font:700 14px var(--fb);text-transform:uppercase;letter-spacing:.2em;color:var(--lime-t);margin-top:20px}
-.ip-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 48px;margin-top:6px}
-.ip-grid dt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
-.ip-grid dd{margin-top:10px;font-weight:700;font-size:18px;line-height:1.4}
+.ip-day{font:700 14px var(--fb);text-transform:uppercase;letter-spacing:.16em;color:var(--lime-t);margin-top:18px}
+.ip-when .btn{margin-top:28px}
+.ip-list{list-style:none;padding:0}
+.ip-list li{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}
+.ip-list li:first-child{padding-top:0}.ip-list li:last-child{border-bottom:0;padding-bottom:0}
+.ip-list li>div{flex:1;min-width:0}
+.ip-list b{display:block;font-size:17px;line-height:1.35}
+.ip-list span:not(.ip-i){display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.ip-i{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--blue-l);color:var(--blue)}
+.ip-i svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .pill{display:inline-block;font:600 13px/1 var(--fb);padding:7px 12px;border-radius:var(--r-pill);background:rgba(37,31,99,.08);color:var(--navy)}
 .pill--lime{background:var(--lime);color:var(--navy)}
-.ip-foot{margin-top:48px;padding-top:28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-.ip-foot p{max-width:640px}
-.ip-map{display:inline-block;margin-top:6px;font-size:14px}
 @media(max-width:860px){.ip{grid-template-columns:1fr;gap:40px}}
-@media(max-width:520px){.ip-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.ip-list li{flex-wrap:wrap}.ip-list li>div{flex-basis:calc(100% - 60px)}.ip-list .btn{margin-left:60px}}
 /* infos pratiques : encadré avec halos de couleur ; arrivée = dévoilement de bas en haut, date qui bascule comme un calendrier, infos en cascade ;
    survol = bordure en dégradé qui tourne autour du cadre (différent des bannières, qui s'inclinent) */
 @property --ip-ang{syntax:"<angle>";inherits:false;initial-value:0deg}
@@ -215,13 +218,13 @@ header{position:sticky;top:0;z-index:50;background:#fff}
   .ip-card:not(.seen){opacity:0}
   .ip-card.seen{animation:ip-reveal .8s cubic-bezier(.65,0,.35,1) both}
   .ip-card.seen:hover{animation:ip-reveal .8s cubic-bezier(.65,0,.35,1) both,ip-spin 3s linear infinite}
-  .ip-card:not(.seen) .ip-date,.ip-card:not(.seen) .ip-day,.ip-card:not(.seen) .over,.ip-card:not(.seen) .ip-grid>div,.ip-card:not(.seen) .ip-foot{opacity:0}
+  .ip-card:not(.seen) .ip-date,.ip-card:not(.seen) .ip-day,.ip-card:not(.seen) .over,.ip-card:not(.seen) .ip-list>li,.ip-card:not(.seen) .ip-when .btn{opacity:0}
   .ip-card.seen .ip-date{animation:ip-flip .9s cubic-bezier(.2,.8,.2,1) .5s both}
-  .ip-card.seen .over,.ip-card.seen .ip-day,.ip-card.seen .ip-grid>div,.ip-card.seen .ip-foot{animation:ip-up .6s cubic-bezier(.2,.8,.2,1) both}
+  .ip-card.seen .over,.ip-card.seen .ip-day,.ip-card.seen .ip-list>li,.ip-card.seen .ip-when .btn{animation:ip-up .6s cubic-bezier(.2,.8,.2,1) both}
   .ip-card.seen .over{animation-delay:.35s}.ip-card.seen .ip-day{animation-delay:.9s}
-  .ip-card.seen .ip-grid>div:nth-child(1){animation-delay:.7s}.ip-card.seen .ip-grid>div:nth-child(2){animation-delay:.8s}
-  .ip-card.seen .ip-grid>div:nth-child(3){animation-delay:.9s}.ip-card.seen .ip-grid>div:nth-child(4){animation-delay:1s}
-  .ip-card.seen .ip-grid>div:nth-child(5){animation-delay:1.1s}.ip-card.seen .ip-foot{animation-delay:1.25s}
+  .ip-card.seen .ip-list>li:nth-child(1){animation-delay:.7s}.ip-card.seen .ip-list>li:nth-child(2){animation-delay:.8s}
+  .ip-card.seen .ip-list>li:nth-child(3){animation-delay:.9s}.ip-card.seen .ip-list>li:nth-child(4){animation-delay:1s}
+  .ip-card.seen .ip-list>li:nth-child(5){animation-delay:1.1s}.ip-card.seen .ip-when .btn{animation-delay:1.25s}
 }
 @keyframes ip-reveal{from{clip-path:inset(100% 0 0 0 round 28px)}to{clip-path:inset(0 0 0 0 round 28px)}}
 @keyframes ip-flip{from{opacity:0;transform:perspective(600px) rotateX(-90deg)}60%{opacity:1;transform:perspective(600px) rotateX(12deg)}to{opacity:1;transform:perspective(600px) rotateX(0)}}
@@ -613,20 +616,21 @@ footer .logo{color:#fff}
     <div class="wrap">
       <div class="ip-card">
       <div class="ip">
-        <div>
+        <div class="ip-when">
           <div class="over">Infos pratiques</div>
           <div class="ip-date">21.01<span>2027</span></div>
-          <div class="ip-day">Jeudi</div>
+          <div class="ip-day">Jeudi · dès 14h</div>
+          <a class="btn btn--primary" href="assets/campulse-2027.ics" download="campulse-2027.ics">Ajouter à mon agenda</a>
         </div>
-        <dl class="ip-grid">
-          <div><dt>Lieu</dt><dd>Sup de V Paris<br><a class="link ip-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=Sup+de+V%2C+3+rue+Armand+Moisant%2C+75015+Paris" target="_blank" rel="noopener">3 rue Armand Moisant, 75015 · Itinéraire →</a></dd></div>
-          <div><dt>Horaires</dt><dd>À partir de 14h</dd></div>
-          <div><dt>Accessibilité PMR</dt><dd><span class="pill pill--lime">Oui</span></dd></div>
-          <div><dt>Baromètre</dt><dd>Téléchargeable ici le 21.01</dd></div>
-        </dl>
-      </div>
-      <div class="ip-foot">
-        <a class="btn btn--primary" href="assets/campulse-2027.ics" download="campulse-2027.ics">Ajouter à mon agenda</a>
+        <ul class="ip-list">
+          <li><span class="ip-i" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+            <div><b>Sup de V Paris</b><span>3 rue Armand Moisant, 75015 Paris</span></div>
+            <a class="btn btn--secondary btn--sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=Sup+de+V%2C+3+rue+Armand+Moisant%2C+75015+Paris" target="_blank" rel="noopener">Itinéraire</a></li>
+          <li><span class="ip-i" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <div><b>À partir de 14h</b><span>Jeudi 21 janvier 2027</span></div></li>
+          <li><span class="ip-i" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+            <div><b>Résultats du Baromètre</b><span>Téléchargeables sur cette page le 21.01</span></div></li>
+        </ul>
       </div>
       </div>
     </div>
