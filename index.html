@@ -181,6 +181,8 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 @media(prefers-reduced-motion:no-preference){.view.on .banniere{animation:bn-in .9s cubic-bezier(.2,.8,.2,1) backwards}}
 @keyframes bn-in{from{opacity:0;transform:rotateX(18deg) translateY(40px) scale(.94)}}
 @media(max-width:700px){.bn-sec{min-height:0;padding:12px 0 0;background:none}.banniere{height:calc(100cqw / 1.9 + 50px);border-radius:20px}.banniere .banner{object-position:left bottom}}
+/* Bien manger : bannière affichée en entier (proportions exactes de l'image), sur ordinateur comme sur mobile */
+#v-bien-manger .banniere{height:calc(100cqw * 2167 / 5334)}
 .info-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-size:15px}
 .info-row:last-child{border-bottom:0}
 .info-row span:first-child{color:var(--muted)}
@@ -189,6 +191,14 @@ header{position:sticky;top:0;z-index:50;background:#fff}
 .ip-date span{display:block;font-size:.45em;letter-spacing:-.02em;margin-top:8px;color:var(--muted)}
 .ip-day{font:700 14px var(--fb);text-transform:uppercase;letter-spacing:.16em;color:var(--lime-t);margin-top:18px}
 .ip-when .btn{margin-top:28px}
+/* menu « Ajouter à mon agenda » : Google, Outlook ou fichier .ics */
+.cal{position:relative;display:inline-block;background:none;box-shadow:none;padding:0;margin:0;border-radius:0}
+.cal summary{list-style:none}.cal summary::-webkit-details-marker{display:none}
+.cal summary::after{content:"";width:8px;height:8px;border:solid currentColor;border-width:0 2px 2px 0;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.cal[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.cal-menu{position:absolute;left:0;bottom:calc(100% + 8px);z-index:5;min-width:260px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 16px 40px rgba(37,31,99,.18);padding:6px}
+.cal-menu a{display:block;padding:12px 14px;border-radius:10px;font-weight:600;font-size:15px;color:var(--navy);text-decoration:none}
+.cal-menu a:hover,.cal-menu a:focus-visible{background:var(--lav);outline:none}
 .ip-list{list-style:none;padding:0}
 .ip-list li{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}
 .ip-list li:first-child{padding-top:0}.ip-list li:last-child{border-bottom:0;padding-bottom:0}
@@ -399,9 +409,25 @@ footer .logo{color:#fff}
 }
 @keyframes baro-in{from{opacity:0;translate:0 28px}to{opacity:1;translate:0 0}}
 @keyframes baro-draw{to{stroke-dashoffset:0}}
-.baro-cta{text-align:center;max-width:760px}
-.baro-mascot{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:32px;text-align:left}
-.baro-mascot img{width:180px;flex:none}
+/* baromètre : carte d'appel à l'action (repères rassurants, bouton, jauge en direct, mascotte avec bulle) */
+.cta-card{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:48px;align-items:center;background:#fff;border-radius:28px;padding:56px;box-shadow:0 2px 6px rgba(37,31,99,.05),0 24px 60px rgba(37,31,99,.12)}
+.cta-txt h2{margin-top:10px}
+.cta-facts{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 28px}
+.cta-facts li{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:var(--r-pill);background:var(--lav);font-size:14px;font-weight:600}
+.cta-facts li::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-5' fill='none' stroke='%23251F63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.cta-go span{transition:transform .2s}.cta-go:hover span{transform:translateX(4px)}
+.cta-prog{display:flex;align-items:center;gap:14px;margin-top:28px;max-width:440px}
+.cta-prog .prog{flex:1;margin:0;height:8px}
+.cta-prog span{font-size:14px;color:var(--muted);white-space:nowrap}.cta-prog b{color:var(--navy)}
+.cta-masc{position:relative;display:flex;flex-direction:column;align-items:center}
+.cta-masc img{width:min(100%,300px)}
+.cta-bubble{position:relative;align-self:stretch;background:var(--navy);color:#C9C6DC;border-radius:18px;padding:18px 20px;font-size:14px;line-height:1.5;margin-bottom:22px}
+.cta-bubble b{display:block;color:#fff;font-size:17px;margin-bottom:4px}
+.cta-bubble::after{content:"";position:absolute;left:50%;bottom:-10px;width:20px;height:20px;background:var(--navy);transform:translateX(-50%) rotate(45deg);border-radius:3px}
+@media(prefers-reduced-motion:no-preference){.cta-masc img{animation:cta-float 4s ease-in-out infinite}}
+@keyframes cta-float{0%,100%{transform:none}50%{transform:translateY(-8px)}}
+@media(max-width:860px){.cta-card{grid-template-columns:1fr;padding:32px 24px;gap:32px}.cta-masc img{width:220px}}
+@media(max-width:520px){.cta-prog{flex-direction:column;align-items:stretch;gap:8px}.cta-prog span{white-space:normal}}
 @media(max-width:700px){
   .baro-head{max-width:none}
   .baro-band{padding:28px 24px}
@@ -409,12 +435,11 @@ footer .logo{color:#fff}
   .baro-cols>div{padding:20px 0;border-left:0;border-top:1px solid rgba(255,255,255,.18)}
   .baro-cols>div:first-child{padding-top:0;border-top:0}
 }
-@media(max-width:560px){.baro-mascot{flex-direction:column;text-align:center}}
 /* recettes & adresses (bloc 12h PULSE), uniquement les variables du site */
 #cp-cuisine{background:var(--lav);padding-bottom:50px}
 #cp-cuisine label{margin:0;font-weight:inherit;font-size:inherit}
 #cp-cuisine .cp-bar{background:#fff}
-#cp-cuisine .cp-intro{font-size:18px;padding-top:32px}
+#cp-cuisine .cp-intro{font:600 clamp(20px,2.3vw,27px)/1.45 var(--fb);color:var(--navy);padding-top:40px;letter-spacing:-.01em}
 #cp-cuisine .cp-tabs{display:flex;gap:6px;padding-top:24px}
 #cp-cuisine .cp-tab{border:0;background:transparent;padding:14px 20px;font:600 15px var(--fb);color:var(--muted);border-radius:12px 12px 0 0;position:relative;cursor:pointer}
 #cp-cuisine .cp-tab[aria-selected="true"]{background:var(--lav);color:var(--navy)}
@@ -620,7 +645,14 @@ footer .logo{color:#fff}
           <div class="over">Infos pratiques</div>
           <div class="ip-date">21.01<span>2027</span></div>
           <div class="ip-day">Jeudi · dès 14h</div>
-          <a class="btn btn--primary" href="assets/campulse-2027.ics" download="campulse-2027.ics">Ajouter à mon agenda</a>
+          <details class="cal">
+            <summary class="btn btn--primary">Ajouter à mon agenda</summary>
+            <div class="cal-menu">
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=CAMPULSE%202027%20-%20Jour%20J&amp;dates=20270121T130000Z/20270121T130000Z&amp;location=Sup%20de%20V%20Paris%2C%203%20rue%20Armand%20Moisant%2C%2075015%20Paris&amp;details=%C3%80%20partir%20de%2014h.%20R%C3%A9v%C3%A9lation%20des%20r%C3%A9sultats%20du%20Barom%C3%A8tre%20du%20sport%20des%205%20campus%20Sup%20de%20V%2C%20%C3%A9chauffement%20collectif%2C%20marelle%20g%C3%A9ante%20et%20Challenge%20StepUp%20en%20direct.%20https%3A%2F%2Fcampulsemmdc.vercel.app%2F%23evenement" target="_blank" rel="noopener">Google Agenda</a>
+              <a href="https://outlook.office.com/calendar/0/action/compose?subject=CAMPULSE%202027%20-%20Jour%20J&amp;startdt=2027-01-21T14:00:00%2B01:00&amp;enddt=2027-01-21T14:00:00%2B01:00&amp;location=Sup%20de%20V%20Paris%2C%203%20rue%20Armand%20Moisant%2C%2075015%20Paris&amp;body=%C3%80%20partir%20de%2014h.%20R%C3%A9v%C3%A9lation%20des%20r%C3%A9sultats%20du%20Barom%C3%A8tre%20du%20sport%20des%205%20campus%20Sup%20de%20V%2C%20%C3%A9chauffement%20collectif%2C%20marelle%20g%C3%A9ante%20et%20Challenge%20StepUp%20en%20direct.%20https%3A%2F%2Fcampulsemmdc.vercel.app%2F%23evenement" target="_blank" rel="noopener">Outlook</a>
+              <a href="assets/campulse-2027.ics" download="campulse-2027.ics">Apple Calendrier / autre (.ics)</a>
+            </div>
+          </details>
         </div>
         <ul class="ip-list">
           <li><span class="ip-i" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
@@ -716,13 +748,23 @@ footer .logo{color:#fff}
     </div>
   </section>
   <section class="lav">
-    <div class="wrap baro-cta">
+    <div class="wrap">
       <!-- Bloc 4 : appel à l'action -->
-      <h2>Ta réponse compte : plus on est nombreux, plus les résultats parlent.</h2>
-      <a class="btn btn--primary btn--lg" style="margin-top:28px" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener">Je réponds au questionnaire</a>
-      <div class="baro-mascot">
-        <img src="assets/repos.png" alt="Milo et Kilo font un check">
-        <p><b>Tu es plutôt Kilo ou Milo&nbsp;?</b><br><span class="muted">Après ta réponse, un mail te révèle ta mascotte.</span></p>
+      <div class="cta-card">
+        <div class="cta-txt">
+          <div class="over">Le questionnaire</div>
+          <h2>Ta réponse compte : plus on est nombreux, plus les résultats parlent.</h2>
+          <ul class="cta-facts"><li>5 minutes</li><li>Anonyme</li><li>Ouvert jusqu'au 11 janvier</li></ul>
+          <a class="btn btn--primary btn--lg cta-go" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener">Je réponds au questionnaire <span aria-hidden="true">→</span></a>
+          <div class="cta-prog">
+            <div class="prog"><i data-w="0"></i></div>
+            <span><b class="cnt">0</b> réponses sur 2 387 visées</span>
+          </div>
+        </div>
+        <div class="cta-masc">
+          <p class="cta-bubble"><b>Tu es plutôt Kilo ou Milo&nbsp;?</b>Après ta réponse, un mail te révèle ta mascotte.</p>
+          <img src="assets/repos.png" alt="Milo et Kilo font un check">
+        </div>
       </div>
     </div>
   </section>
@@ -736,10 +778,9 @@ footer .logo{color:#fff}
           <button class="btn" style="opacity:.5;cursor:not-allowed" aria-disabled="true" disabled>Télécharger le PDF · dispo le 21/01</button>
         </div>
       </div>
-      <div class="card" style="color:var(--navy);text-align:center">
+      <div class="card night" style="background:var(--navy);color:#fff;text-align:center">
         <div class="over">Dévoilement dans</div>
-        <div class="display" style="margin-top:8px"><span id="dDays">--</span> jours</div>
-        <p class="muted small" style="margin-top:6px">Jeudi 21 janvier 2027</p>
+        <div class="display" style="margin-top:8px;color:var(--lime)"><span id="dDays">--</span> jours</div>
       </div>
     </div>
   </section>
@@ -893,12 +934,12 @@ footer .logo{color:#fff}
 <div class="view" id="v-bien-manger">
   <section class="bn-sec">
     <h1 class="sr-only">Bien manger sans se ruiner</h1>
-    <div class="wrap"><div class="banniere"><img class="banner" src="assets/CAMPULSE_banniere_bien-manger.webp" alt="Bannière Bien manger avec CAMPULSE"></div></div>
+    <div class="wrap"><div class="banniere"><img class="banner" src="assets/banniere-bien-manger.webp" alt="Bannière Bien manger avec CAMPULSE"></div></div>
   </section>
   <!-- Recettes de Kilo & où manger le midi : repris de 12h-PULSE-recettes-et-adresses/page-web, au style du site -->
   <div id="cp-cuisine">
     <div class="cp-bar">
-      <p class="wrap muted cp-intro">Les 36 recettes de Kilo parues dans le 12h PULSE, et les bonnes adresses à moins de 15 minutes à pied de ton campus.</p>
+      <p class="wrap cp-intro">Cuisine l'une des 36 recettes de Kilo parues dans le 12h PULSE, ou trouve une bonne adresse à moins de 15 minutes à pied de ton campus.</p>
       <div class="wrap cp-tabs" role="tablist">
         <button class="cp-tab" role="tab" id="cp-t-rec" aria-controls="cp-p-rec" aria-selected="true">🥣 Les recettes de Kilo</button>
         <button class="cp-tab" role="tab" id="cp-t-adr" aria-controls="cp-p-adr" aria-selected="false">📍 Où manger le midi</button>
@@ -1272,6 +1313,10 @@ document.getElementById('partners').innerHTML=Array.from({length:6},(_,i)=>`
 /* forms */
 function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}document.getElementById(ok).style.display='block';f.reset()})}
 bindForm('nlForm','nlOk');
+
+/* menu agenda : se ferme au clic ailleurs, avec Échap, ou après un choix */
+document.addEventListener('click',e=>document.querySelectorAll('details.cal[open]').forEach(d=>{if(!d.contains(e.target)||e.target.closest('.cal-menu a'))d.open=false}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('details.cal[open]').forEach(d=>{d.open=false;d.querySelector('summary').focus()})});
 
 /* formulaire de contact -> /api/contact */
 function emailErr(v){
