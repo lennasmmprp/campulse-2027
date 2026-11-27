@@ -358,11 +358,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);bo
 .pl-form h2{font-size:clamp(24px,2.4vw,30px)}
 .pl-form .muted{margin-top:4px}
 .pl-form .alert:focus{outline:none}
-dialog.qz{margin:auto;border:0;border-radius:var(--r-card);padding:32px 28px 24px;width:calc(100% - 32px);max-width:420px;text-align:center;color:var(--navy);box-shadow:0 24px 60px rgba(37,31,99,.3)}
+dialog.qz{margin:auto;border:0;border-radius:var(--r-card);padding:32px 28px 24px;width:calc(100% - 32px);max-width:460px;text-align:center;color:var(--navy);box-shadow:0 24px 60px rgba(37,31,99,.3)}
 dialog.qz::backdrop{background:rgba(37,31,99,.5)}
 dialog.qz img{display:block;margin:0 auto 8px;max-width:200px;height:auto}
 dialog.qz h2{margin:0 0 8px}
-dialog.qz p{margin:0 0 20px}
+dialog.qz p{margin:0}
+dialog.qz .cta-facts{justify-content:center;gap:8px;margin:16px 0 20px}
+dialog.qz .cta-facts li{padding:6px 12px;font-size:13px}
 .qz-x{position:absolute;top:8px;right:8px;width:44px;height:44px;border:0;background:none;font-size:28px;color:var(--navy);cursor:pointer;border-radius:50%}
 .qz-x:hover{background:var(--lav)}
 .qz-later{display:block;margin:10px auto 0;min-height:44px;padding:0 16px;border:0;background:none;color:var(--navy);text-decoration:underline;cursor:pointer;font:inherit}
@@ -1039,9 +1041,10 @@ footer .logo{color:#fff}
       <dialog class="qz" id="qzPop" aria-labelledby="qzT">
         <button class="qz-x" type="button" aria-label="Fermer" data-close>×</button>
         <img src="assets/repos.png" alt="" width="200">
-        <h2 id="qzT">Et toi, Kilo ou Milo&nbsp;?</h2>
-        <p>Tu n'as pas encore répondu au Baromètre. 5 minutes, anonyme, et un mail te révèle ta mascotte.</p>
-        <a class="btn btn--primary btn--lg" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener" data-close>Je réponds au questionnaire <span aria-hidden="true">→</span></a>
+        <h2 id="qzT">Plus qu'une étape&nbsp;: Kilo ou Milo&nbsp;?</h2>
+        <p>Réponds à quelques questions sur ta forme, ta flemme et tes habitudes. À la fin, un mail te révèle ta mascotte, et le 12h PULSE s'adapte à ton profil.</p>
+        <ul class="cta-facts"><li>5 minutes</li><li>Anonyme</li><li>Résultats le 21/01</li></ul>
+        <a class="btn btn--primary btn--lg" href="https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform" target="_blank" rel="noopener" data-close>Je découvre ma mascotte <span aria-hidden="true">→</span></a>
         <button class="qz-later" type="button" data-close>Plus tard</button>
       </dialog>
     </div>
@@ -1378,7 +1381,7 @@ document.getElementById('partners').innerHTML=Array.from({length:6},(_,i)=>`
     fetch(JAUGE_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).then(r=>r.json()).then(r=>{
       if(!r.ok) throw 0;
       const msg=(r.deja?'Tu es déjà inscrit·e au 12h PULSE.':'C\'est fait, '+d.prenom.trim()+' !')+' Rendez-vous mercredi à 12h.';
-      show('ok',msg);if(!r.questionnaire)setTimeout(()=>pop.showModal(),700);
+      show('ok',msg);if(!r.questionnaire)pop.showModal();
       f.reset()
     }).catch(()=>show('err','Oups, l\'inscription n\'est pas passée. Réessaie dans un instant.')).finally(()=>{b.disabled=false;b.textContent='M\'inscrire'})})})();
 
