@@ -350,6 +350,25 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);bo
 .mail .body{padding:22px}
 .mail .line{height:10px;border-radius:6px;background:var(--border);margin:10px 0}
 .pulse-duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+/* 12h PULSE : promesse + inscription en haut, numéros en cartes */
+.pl-hero{background:var(--lav);padding:40px 0 72px}
+.pl-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:56px;align-items:center}
+.pl-lead{font-size:clamp(18px,1.8vw,21px);line-height:1.55;color:var(--navy);margin-top:18px;max-width:560px}
+.pl-form{padding:30px 32px;border-radius:24px;border-top:6px solid var(--blue);box-shadow:0 2px 6px rgba(37,31,99,.05),0 24px 60px rgba(37,31,99,.14)}
+.pl-form h2{font-size:clamp(24px,2.4vw,30px)}
+.pl-form .muted{margin-top:4px}
+.pl-form .alert:focus{outline:none}
+.nl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.nl-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:var(--navy);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.nl-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(37,31,99,.14)}
+.nl-card:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
+.nl-top{display:flex;justify-content:space-between;align-items:center;background:var(--navy);color:#fff;font-size:13px;font-weight:700;padding:12px 18px}
+.nl-new{background:var(--lime);color:var(--navy);font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:4px 8px;border-radius:var(--r-pill)}
+.nl-card h3{font-size:19px;margin:18px 18px 6px}
+.nl-date{font-size:13px;color:var(--muted);margin:0 18px}
+.nl-go{margin:18px;margin-top:auto;padding-top:14px;font-size:14px;font-weight:700;color:var(--blue)}
+.nl-card.is-new{border-color:var(--lime);box-shadow:0 0 0 2px var(--lime)}
+@media(max-width:860px){.pl-grid{grid-template-columns:1fr;gap:32px}.pl-hero{padding:48px 0 56px}.pl-form{padding:28px 22px}}
 @media(max-width:900px){.pulse-duo{grid-template-columns:1fr}}
 
 /* faq */
@@ -988,48 +1007,68 @@ footer .logo{color:#fff}
 
 <!-- ================= 12h PULSE ================= -->
 <div class="view" id="v-pulse">
-  <h1 class="sr-only">12h PULSE : ta pause qui fait du bien</h1>
+  <!-- 1. promesse + inscription, visibles dès l'arrivée -->
+  <section class="pl-hero">
+    <div class="wrap pl-grid">
+      <div>
+        <div class="over">La newsletter CAMPULSE</div>
+        <h1 style="margin-top:12px">12h PULSE : ta pause qui fait du bien</h1>
+        <p class="pl-lead">Chaque mercredi à 12h, un conseil santé, sport ou alimentation, adapté à ton profil Kilo ou Milo. Lisible en 2 minutes.</p>
+        <ul class="cta-facts"><li>Gratuit</li><li>1 mail par semaine</li><li>Désinscription en un clic</li></ul>
+      </div>
+      <form class="card pl-form" id="nlForm" novalidate>
+        <h2>Je m'inscris</h2>
+        <p class="muted small">Prochain envoi : mercredi, 12h.</p>
+        <label for="p">Prénom</label><input id="p" name="prenom" autocomplete="given-name" required>
+        <label for="m">E-mail</label><input id="m" name="email" type="email" autocomplete="email" autocapitalize="off" spellcheck="false" required>
+        <label for="c">Campus</label><select id="c" name="campus"><option>Paris</option><option>Pontoise</option><option>Enghien-les-Bains</option><option>Rambouillet</option><option>Saint-Germain-en-Laye</option></select>
+        <label class="cb"><input type="checkbox" required> <span>J'accepte de recevoir le 12h PULSE. Je peux me désinscrire à tout moment.</span></label>
+        <button class="btn btn--primary btn--lg" style="margin-top:20px;width:100%">M'inscrire</button>
+        <div class="alert" id="nlOk" role="status">C'est fait ! Rendez-vous mercredi à 12h. (démo : rien n'est envoyé)</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- 2. les vrais numéros (archive) -->
   <section>
     <div class="wrap">
       <div class="head">
-        <div class="over">Aperçu</div>
-        <h2 style="margin-top:8px">À quoi ça ressemble</h2>
-        <p class="muted" style="margin-top:12px">Deux versions selon ton profil, générées automatiquement à partir de tes réponses au questionnaire</p>
+        <div class="over">Les numéros</div>
+        <h2 style="margin-top:8px">Lis les derniers 12h PULSE</h2>
+      </div>
+      <div class="nl-grid" id="nlArchive"></div>
+    </div>
+  </section>
+
+  <!-- 3. deux versions selon le profil, avec le vrai numéro 1 -->
+  <section class="lav">
+    <div class="wrap">
+      <div class="head">
+        <div class="over">Kilo ou Milo</div>
+        <h2 style="margin-top:8px">Un mail qui te ressemble</h2>
+        <p class="muted">Deux versions selon ton profil, choisies automatiquement à partir de tes réponses au Baromètre.</p>
       </div>
       <div class="pulse-duo">
         <div class="mail" style="max-width:none">
-          <div class="top"><b>12h PULSE · #04</b><span>mer. 12:00</span></div>
+          <div class="top"><b>12h PULSE · #1</b><span>mer. 12:00</span></div>
           <div class="body">
             <span class="tag t-bouger">Version Kilo</span>
-            <h3 style="margin:10px 0 8px">Tu dors combien d'heures ?</h3>
-            <div class="line" style="width:92%"></div><div class="line" style="width:80%"></div><div class="line" style="width:86%"></div>
-            <div class="win" style="margin-top:16px;padding:14px"><b>Le tip de la semaine</b><div class="line" style="width:70%;background:#d9f2b0"></div></div>
+            <h3 style="margin:10px 0 8px">Verdict du Baromètre… tu es Kilo 🐮</h3>
+            <p class="muted">Bonne nouvelle : toutes les légendes commencent comme toi.</p>
+            <a class="link" href="nl/12h-pulse-01-kilo.html" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px">Lire la version Kilo →</a>
           </div>
         </div>
         <div class="mail" style="max-width:none">
-          <div class="top"><b>12h PULSE · #04</b><span>mer. 12:00</span></div>
+          <div class="top"><b>12h PULSE · #1</b><span>mer. 12:00</span></div>
           <div class="body">
             <span class="tag t-detendre">Version Milo</span>
-            <h3 style="margin:10px 0 8px">Ton créneau sport de la semaine</h3>
-            <div class="line" style="width:88%"></div><div class="line" style="width:94%"></div><div class="line" style="width:76%"></div>
-            <div class="win" style="margin-top:16px;padding:14px"><b>Le tip de la semaine</b><div class="line" style="width:70%;background:#d9f2b0"></div></div>
+            <h3 style="margin:10px 0 8px">Verdict du Baromètre… tu es Milo 🏛️</h3>
+            <p class="muted">Alors tu as un point commun avec un champion olympique d'il y a 2 500 ans.</p>
+            <a class="link" href="nl/12h-pulse-01-milo.html" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px">Lire la version Milo →</a>
           </div>
         </div>
       </div>
-      <form class="card" id="nlForm" style="border-top:6px solid var(--blue);max-width:560px;margin:40px auto 0" novalidate>
-        <h3>Je m'inscris au 12h PULSE</h3>
-        <p class="muted small" style="margin-top:4px">Gratuit · 1 mail par semaine · désinscription en un clic</p>
-        <label for="p">Prénom</label><input id="p" required placeholder="Ex. Lenna">
-        <label for="m">E-mail</label><input id="m" type="email" required placeholder="prenom.nom@mail.com">
-        <label for="c">Campus</label><select id="c"><option>Paris</option><option>Pontoise</option><option>Enghien-les-Bains</option><option>Rambouillet</option><option>Saint-Germain-en-Laye</option></select>
-        <label class="cb"><input type="checkbox" required> J'accepte de recevoir le 12h PULSE. Je peux me désinscrire à tout moment.</label>
-        <button class="btn btn--primary btn--lg" style="margin-top:20px;width:100%">M'inscrire</button>
-        <div class="alert ok" id="nlOk">C'est fait ! Rendez-vous mercredi à 12h. (démo : rien n'est envoyé)</div>
-      </form>
-      <div style="max-width:720px;margin-top:56px">
-        <p class="muted">Deux versions selon ton profil Kilo ou Milo, lisibles en 2 minutes. Les anciens numéros restent dispo ici.</p>
-        <div id="nlArchive" style="margin-top:20px"></div>
-      </div>
+      <p style="margin-top:32px;text-align:center"><a class="btn btn--primary" href="#pulse" onclick="document.getElementById('p').focus({preventScroll:true});window.scrollTo({top:0,behavior:'smooth'});return false">Je m'inscris au 12h PULSE</a></p>
     </div>
   </section>
 </div>
@@ -1311,7 +1350,7 @@ document.getElementById('partners').innerHTML=Array.from({length:6},(_,i)=>`
 })();
 
 /* forms */
-function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}document.getElementById(ok).style.display='block';f.reset()})}
+function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}const o=document.getElementById(ok);o.classList.add('ok');o.tabIndex=-1;o.focus();f.reset()})}
 bindForm('nlForm','nlOk');
 
 /* menu agenda : se ferme au clic ailleurs, avec Échap, ou après un choix */
@@ -1374,14 +1413,16 @@ jauge();setInterval(jauge,60000);
 fetch(JAUGE_URL+'?action=newsletters',{cache:'no-store'}).then(r=>r.json()).then(d=>{
   const box=document.getElementById('nlArchive'), list=Array.isArray(d.newsletters)?d.newsletters:[];
   if(!list.length){const p=document.createElement('p');p.className='muted';p.textContent='Les premières éditions arrivent bientôt';box.append(p);return}
-  list.forEach(n=>{
+  list.forEach((n,i)=>{
     if(!/^(\/|https?:\/\/)/.test(n.lien||'')) return; // pas de lien javascript: ou vide
-    const a=document.createElement('a');
-    a.className='info-row';a.href=n.lien;a.target='_blank';a.rel='noopener';
-    a.style.cssText='text-decoration:none;color:inherit;border-bottom:1px solid var(--border)';
-    const date=document.createElement('span'),titre=document.createElement('span');
-    date.textContent=n.date;titre.textContent=n.titre;titre.style.textAlign='right';
-    a.append(date,titre);box.append(a);
+    const m=String(n.titre||'').match(/#\s*(\d+)\s*[—–-]\s*(.+)/), num=m?'#'+m[1]:'', titre=m?m[2]:n.titre;
+    const a=document.createElement('a');a.className='nl-card'+(i===0?' is-new':'');a.href=n.lien;a.target='_blank';a.rel='noopener';
+    const top=document.createElement('div');top.className='nl-top';top.textContent='12h PULSE '+num;
+    if(i===0){const nw=document.createElement('span');nw.className='nl-new';nw.textContent='Nouveau';top.append(nw)}
+    const t=document.createElement('h3');t.textContent=titre;
+    const d=document.createElement('p');d.className='nl-date';d.textContent='Envoyé le '+n.date;
+    const go=document.createElement('span');go.className='nl-go';go.textContent='Lire le numéro →';
+    a.append(top,t,d,go);box.append(a);
   });
 }).catch(()=>{});
 
