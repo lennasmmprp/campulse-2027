@@ -1023,8 +1023,9 @@ footer .logo{color:#fff}
         <label for="m">E-mail</label><input id="m" name="email" type="email" autocomplete="email" autocapitalize="off" spellcheck="false" required>
         <label for="c">Campus</label><select id="c" name="campus"><option>Paris</option><option>Pontoise</option><option>Enghien-les-Bains</option><option>Rambouillet</option><option>Saint-Germain-en-Laye</option></select>
         <label class="cb"><input type="checkbox" required> <span>J'accepte de recevoir le 12h PULSE. Je peux me désinscrire à tout moment.</span></label>
+        <div class="hp" aria-hidden="true"><label for="nl-website">Site web</label><input id="nl-website" name="website" tabindex="-1" autocomplete="off"></div>
         <button class="btn btn--primary btn--lg" style="margin-top:20px;width:100%">M'inscrire</button>
-        <div class="alert" id="nlOk" role="status">C'est fait ! Rendez-vous mercredi à 12h. (démo : rien n'est envoyé)</div>
+        <div class="alert" id="nlOk" role="status"></div>
       </form>
     </div>
   </section>
@@ -1152,6 +1153,7 @@ footer .logo{color:#fff}
 
         <h2>5. Données personnelles (RGPD)</h2>
         <p>Les données saisies dans le formulaire de contact (nom, e-mail, statut, message) sont collectées uniquement pour répondre à ta demande. Elles sont transmises par e-mail à <a class="link" href="mailto:mmdc2paris@gmail.com">mmdc2paris@gmail.com</a>, conservées 12 mois maximum, et ne sont jamais revendues ni transmises à des tiers.</p>
+        <p>Les données saisies pour l'inscription au 12h PULSE (prénom, e-mail, campus) sont enregistrées dans un tableur Google Sheets accessible uniquement à l'équipe CAMPULSE, et servent seulement à t'envoyer la newsletter. Ton e-mail est aussi comparé aux réponses du Baromètre pour te proposer le questionnaire si tu n'y as pas encore répondu. Ces données sont conservées jusqu'à ta désinscription, et au plus tard jusqu'en juin 2027, à la fin du projet.</p>
         <p><b>Base légale :</b> ton consentement, donné en cochant la case du formulaire.</p>
         <p>Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés, tu disposes des droits suivants sur tes données :</p>
         <ul>
@@ -1350,8 +1352,16 @@ document.getElementById('partners').innerHTML=Array.from({length:6},(_,i)=>`
 })();
 
 /* forms */
-function bindForm(id,ok){const f=document.getElementById(id);f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}const o=document.getElementById(ok);o.classList.add('ok');o.tabIndex=-1;o.focus();f.reset()})}
-bindForm('nlForm','nlOk');
+(()=>{const f=document.getElementById('nlForm'),b=f.querySelector('button'),o=document.getElementById('nlOk');o.tabIndex=-1;
+  const show=(cls,txt,link)=>{o.className='alert '+cls;o.textContent=txt;if(link){const a=document.createElement('a');a.href=link;a.target='_blank';a.rel='noopener';a.className='link';a.textContent='Je réponds au questionnaire →';o.append(' ',a)}o.focus()};
+  f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return}
+    const d=Object.fromEntries(new FormData(f));b.disabled=true;b.textContent='Inscription…';
+    fetch(JAUGE_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).then(r=>r.json()).then(r=>{
+      if(!r.ok) throw 0;
+      const msg=(r.deja?'Tu es déjà inscrit·e au 12h PULSE.':'C\'est fait, '+d.prenom.trim()+' !')+' Rendez-vous mercredi à 12h.';
+      r.questionnaire?show('ok',msg):show('ok',msg+' Tu n\'as pas encore répondu au Baromètre : 5 minutes pour savoir si tu es Kilo ou Milo.','https://docs.google.com/forms/d/e/1FAIpQLScp3dh0eqIlkzZtM0GwTb3q46BaZyx70lCIgUiNASuy12vLrQ/viewform');
+      f.reset()
+    }).catch(()=>show('err','Oups, l\'inscription n\'est pas passée. Réessaie dans un instant.')).finally(()=>{b.disabled=false;b.textContent='M\'inscrire'})})})();
 
 /* menu agenda : se ferme au clic ailleurs, avec Échap, ou après un choix */
 document.addEventListener('click',e=>document.querySelectorAll('details.cal[open]').forEach(d=>{if(!d.contains(e.target)||e.target.closest('.cal-menu a'))d.open=false}));
